@@ -98,4 +98,4 @@ def test_fleet_evaluation_summary():
     assert fleet["Median_Lead_Time"] == 50.0
     assert pytest.approx(fleet["Premature_Alarm_Share_Pct"], rel=1e-3) == 33.33333
     # 10 false alarm cycles over 300 healthy cycles * 100 = 3.3333...
-    assert pytest.approx(fleet["False_Ala
+    assert pytest.approx(fleet["False_Alarms_Per_100_Healthy"], rel=1e-3) == 3.33333
