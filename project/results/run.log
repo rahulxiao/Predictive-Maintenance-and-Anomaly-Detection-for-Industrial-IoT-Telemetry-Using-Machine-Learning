@@ -1,0 +1,705 @@
+2026-10-07 22:39:06 | INFO     | main | ============================================================
+2026-10-07 22:39:06 | INFO     | main | NASA C-MAPSS Predictive Maintenance Pipeline
+2026-10-07 22:39:06 | INFO     | main | ============================================================
+2026-10-07 22:39:06 | INFO     | main | Python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2026-10-07 22:39:06 | INFO     | main |   numpy==2.4.6
+2026-10-07 22:39:06 | INFO     | main |   pandas==2.2.2
+2026-10-07 22:39:06 | INFO     | main |   sklearn==1.9.0
+2026-10-07 22:39:06 | INFO     | main |   xgboost==3.3.0
+2026-10-07 22:39:06 | INFO     | main |   torch==2.5.1+cu121
+2026-10-07 22:39:12 | INFO     | main |   shap==0.52.0
+2026-10-07 22:39:13 | INFO     | main |   optuna==4.9.0
+2026-10-07 22:39:13 | INFO     | main | CUDA device: NVIDIA GeForce RTX 3060 Laptop GPU
+2026-10-07 22:39:16 | INFO     | main | Data loading & preprocessing took 2.87s
+2026-10-07 22:39:16 | INFO     | main | Train: (17612, 30, 19) | Test: (25, 30, 19) | Features: 19
+2026-10-07 22:39:16 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 22:39:44 | INFO     | main | RF training took 28.06s
+2026-10-07 22:39:44 | INFO     | main | [RF]  RMSE=73.18 | MAE=67.91 | NASA=19970.2
+2026-10-07 22:39:44 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 22:39:50 | INFO     | main | XGB training took 5.28s
+2026-10-07 22:39:50 | INFO     | main | [XGB] RMSE=69.26 | MAE=63.72 | NASA=14877.5
+2026-10-07 22:39:50 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 22:39:59 | INFO     | main |   Epoch   1/5 | train_RMSE=88.085 | val_RMSE=85.355
+2026-10-07 22:40:01 | INFO     | main |   Epoch   5/5 | train_RMSE=73.854 | val_RMSE=72.536
+2026-10-07 22:40:01 | INFO     | main | LSTM training took 11.05s
+2026-10-07 22:40:01 | INFO     | main | [LSTM] RMSE=62.01 | MAE=55.36 | NASA=8110.0
+2026-10-07 22:40:01 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 22:40:02 | INFO     | main |   Epoch   1/5 | train_RMSE=89.604 | val_RMSE=88.482
+2026-10-07 22:40:03 | INFO     | main |   Epoch   5/5 | train_RMSE=77.973 | val_RMSE=75.173
+2026-10-07 22:40:03 | INFO     | main | CNN training took 2.60s
+2026-10-07 22:40:03 | INFO     | main | [CNN]  RMSE=82.44 | MAE=77.56 | NASA=44840.5
+2026-10-07 22:40:45 | INFO     | main | ============================================================
+2026-10-07 22:40:45 | INFO     | main | NASA C-MAPSS Predictive Maintenance Pipeline
+2026-10-07 22:40:45 | INFO     | main | ============================================================
+2026-10-07 22:40:45 | INFO     | main | Python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2026-10-07 22:40:45 | INFO     | main |   numpy==2.4.6
+2026-10-07 22:40:45 | INFO     | main |   pandas==2.2.2
+2026-10-07 22:40:45 | INFO     | main |   sklearn==1.9.0
+2026-10-07 22:40:45 | INFO     | main |   xgboost==3.3.0
+2026-10-07 22:40:45 | INFO     | main |   torch==2.5.1+cu121
+2026-10-07 22:40:45 | INFO     | main |   shap==0.52.0
+2026-10-07 22:40:46 | INFO     | main |   optuna==4.9.0
+2026-10-07 22:40:46 | INFO     | main | CUDA device: NVIDIA GeForce RTX 3060 Laptop GPU
+2026-10-07 22:40:46 | INFO     | main | Data loading & preprocessing took 0.77s
+2026-10-07 22:40:46 | INFO     | main | 
+--------------------  Subset FD001  --------------------
+2026-10-07 22:40:46 | INFO     | main | Train: (17612, 30, 19) | Test: (25, 30, 19) | Features: 19
+2026-10-07 22:40:46 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 22:41:14 | INFO     | main | RF training took 27.84s
+2026-10-07 22:41:14 | INFO     | main | [RF]  RMSE=73.18 | MAE=67.91 | NASA=19970.2
+2026-10-07 22:41:14 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 22:41:19 | INFO     | main | XGB training took 5.27s
+2026-10-07 22:41:19 | INFO     | main | [XGB] RMSE=69.26 | MAE=63.72 | NASA=14877.5
+2026-10-07 22:41:19 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 22:41:22 | INFO     | main |   Epoch   1/5 | train_RMSE=88.085 | val_RMSE=85.355
+2026-10-07 22:41:23 | INFO     | main |   Epoch   5/5 | train_RMSE=73.854 | val_RMSE=72.536
+2026-10-07 22:41:23 | INFO     | main | LSTM training took 3.82s
+2026-10-07 22:41:23 | INFO     | main | [LSTM] RMSE=62.01 | MAE=55.36 | NASA=8110.0
+2026-10-07 22:41:23 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 22:41:24 | INFO     | main |   Epoch   1/5 | train_RMSE=89.604 | val_RMSE=88.482
+2026-10-07 22:41:26 | INFO     | main |   Epoch   5/5 | train_RMSE=77.973 | val_RMSE=75.173
+2026-10-07 22:41:26 | INFO     | main | CNN training took 2.34s
+2026-10-07 22:41:26 | INFO     | main | [CNN]  RMSE=82.44 | MAE=77.56 | NASA=44840.5
+2026-10-07 22:41:26 | INFO     | main | All done! Results in H:\clint-paper\paper_work\project\results
+2026-10-07 22:41:47 | INFO     | main | ============================================================
+2026-10-07 22:41:47 | INFO     | main | NASA C-MAPSS Predictive Maintenance Pipeline
+2026-10-07 22:41:47 | INFO     | main | ============================================================
+2026-10-07 22:41:47 | INFO     | main | Python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2026-10-07 22:41:47 | INFO     | main |   numpy==2.4.6
+2026-10-07 22:41:47 | INFO     | main |   pandas==2.2.2
+2026-10-07 22:41:47 | INFO     | main |   sklearn==1.9.0
+2026-10-07 22:41:47 | INFO     | main |   xgboost==3.3.0
+2026-10-07 22:41:47 | INFO     | main |   torch==2.5.1+cu121
+2026-10-07 22:41:48 | INFO     | main |   shap==0.52.0
+2026-10-07 22:41:48 | INFO     | main |   optuna==4.9.0
+2026-10-07 22:41:48 | INFO     | main | CUDA device: NVIDIA GeForce RTX 3060 Laptop GPU
+2026-10-07 22:41:58 | INFO     | main | Data loading & preprocessing took 10.18s
+2026-10-07 22:41:58 | INFO     | main | 
+--------------------  Subset FD001  --------------------
+2026-10-07 22:41:58 | INFO     | main | Train: (17612, 30, 19) | Test: (25, 30, 19) | Features: 19
+2026-10-07 22:41:58 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 22:43:31 | INFO     | main | RF training took 92.57s
+2026-10-07 22:43:31 | INFO     | main | [RF]  RMSE=73.08 | MAE=67.85 | NASA=19708.2
+2026-10-07 22:43:31 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 22:44:00 | INFO     | main | XGB training took 28.82s
+2026-10-07 22:44:00 | INFO     | main | [XGB] RMSE=76.65 | MAE=71.74 | NASA=27373.8
+2026-10-07 22:44:00 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 22:44:02 | INFO     | main |   Epoch   1/50 | train_RMSE=88.085 | val_RMSE=85.355
+2026-10-07 22:44:04 | INFO     | main |   Epoch   5/50 | train_RMSE=73.854 | val_RMSE=72.536
+2026-10-07 22:44:06 | INFO     | main |   Epoch  10/50 | train_RMSE=59.730 | val_RMSE=58.616
+2026-10-07 22:44:08 | INFO     | main |   Epoch  15/50 | train_RMSE=48.637 | val_RMSE=47.813
+2026-10-07 22:44:10 | INFO     | main |   Epoch  20/50 | train_RMSE=42.957 | val_RMSE=42.480
+2026-10-07 22:44:12 | INFO     | main |   Epoch  25/50 | train_RMSE=42.526 | val_RMSE=42.231
+2026-10-07 22:44:14 | INFO     | main |   Epoch  30/50 | train_RMSE=42.458 | val_RMSE=42.229
+2026-10-07 22:44:16 | INFO     | main |   Epoch  35/50 | train_RMSE=42.594 | val_RMSE=42.231
+2026-10-07 22:44:17 | INFO     | main |   Early stopping at epoch 37.
+2026-10-07 22:44:17 | INFO     | main | LSTM training took 17.37s
+2026-10-07 22:44:17 | INFO     | main | [LSTM] RMSE=28.11 | MAE=24.41 | NASA=680.5
+2026-10-07 22:44:17 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 22:44:18 | INFO     | main |   Epoch   1/50 | train_RMSE=89.454 | val_RMSE=87.985
+2026-10-07 22:44:20 | INFO     | main |   Epoch   5/50 | train_RMSE=77.767 | val_RMSE=74.250
+2026-10-07 22:44:22 | INFO     | main |   Epoch  10/50 | train_RMSE=58.605 | val_RMSE=54.613
+2026-10-07 22:44:24 | INFO     | main |   Epoch  15/50 | train_RMSE=36.983 | val_RMSE=47.209
+2026-10-07 22:44:26 | INFO     | main |   Epoch  20/50 | train_RMSE=24.291 | val_RMSE=23.025
+2026-10-07 22:44:28 | INFO     | main |   Epoch  25/50 | train_RMSE=16.530 | val_RMSE=19.325
+2026-10-07 22:44:29 | INFO     | main |   Early stopping at epoch 28.
+2026-10-07 22:44:29 | INFO     | main | CNN training took 12.16s
+2026-10-07 22:44:29 | INFO     | main | [CNN]  RMSE=76.38 | MAE=71.49 | NASA=26672.5
+2026-10-07 22:44:29 | INFO     | main | 
+--------------------  Subset FD002  --------------------
+2026-10-07 22:44:29 | INFO     | main | Train: (19865, 30, 19) | Test: (30, 30, 19) | Features: 19
+2026-10-07 22:44:29 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 22:46:14 | INFO     | main | RF training took 104.49s
+2026-10-07 22:46:14 | INFO     | main | [RF]  RMSE=63.96 | MAE=57.67 | NASA=19391.8
+2026-10-07 22:46:14 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 22:46:41 | INFO     | main | XGB training took 26.92s
+2026-10-07 22:46:41 | INFO     | main | [XGB] RMSE=67.36 | MAE=61.49 | NASA=26433.5
+2026-10-07 22:46:41 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 22:46:42 | INFO     | main |   Epoch   1/50 | train_RMSE=84.984 | val_RMSE=81.944
+2026-10-07 22:46:44 | INFO     | main |   Epoch   5/50 | train_RMSE=69.506 | val_RMSE=67.922
+2026-10-07 22:46:46 | INFO     | main |   Epoch  10/50 | train_RMSE=54.658 | val_RMSE=53.214
+2026-10-07 22:46:49 | INFO     | main |   Epoch  15/50 | train_RMSE=44.660 | val_RMSE=43.595
+2026-10-07 22:46:51 | INFO     | main |   Epoch  20/50 | train_RMSE=42.386 | val_RMSE=41.762
+2026-10-07 22:46:53 | INFO     | main |   Epoch  25/50 | train_RMSE=42.427 | val_RMSE=41.763
+2026-10-07 22:46:54 | INFO     | main |   Early stopping at epoch 27.
+2026-10-07 22:46:54 | INFO     | main | LSTM training took 13.37s
+2026-10-07 22:46:54 | INFO     | main | [LSTM] RMSE=30.16 | MAE=26.43 | NASA=965.6
+2026-10-07 22:46:54 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 22:46:55 | INFO     | main |   Epoch   1/50 | train_RMSE=86.801 | val_RMSE=85.520
+2026-10-07 22:46:57 | INFO     | main |   Epoch   5/50 | train_RMSE=73.173 | val_RMSE=70.465
+2026-10-07 22:46:59 | INFO     | main |   Epoch  10/50 | train_RMSE=52.130 | val_RMSE=43.917
+2026-10-07 22:47:02 | INFO     | main |   Epoch  15/50 | train_RMSE=33.488 | val_RMSE=36.289
+2026-10-07 22:47:04 | INFO     | main |   Epoch  20/50 | train_RMSE=22.004 | val_RMSE=13.911
+2026-10-07 22:47:06 | INFO     | main |   Epoch  25/50 | train_RMSE=17.176 | val_RMSE=14.978
+2026-10-07 22:47:07 | INFO     | main |   Early stopping at epoch 27.
+2026-10-07 22:47:07 | INFO     | main | CNN training took 13.17s
+2026-10-07 22:47:07 | INFO     | main | [CNN]  RMSE=65.99 | MAE=58.88 | NASA=30407.3
+2026-10-07 22:47:07 | INFO     | main | 
+--------------------  Subset FD003  --------------------
+2026-10-07 22:47:07 | INFO     | main | Train: (24611, 30, 19) | Test: (35, 30, 19) | Features: 19
+2026-10-07 22:47:07 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 22:49:32 | INFO     | main | RF training took 144.80s
+2026-10-07 22:49:32 | INFO     | main | [RF]  RMSE=68.96 | MAE=62.70 | NASA=23388.8
+2026-10-07 22:49:32 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 22:49:59 | INFO     | main | XGB training took 26.81s
+2026-10-07 22:49:59 | INFO     | main | [XGB] RMSE=72.71 | MAE=66.70 | NASA=33643.1
+2026-10-07 22:49:59 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 22:50:00 | INFO     | main |   Epoch   1/50 | train_RMSE=87.014 | val_RMSE=84.059
+2026-10-07 22:50:02 | INFO     | main |   Epoch   5/50 | train_RMSE=68.816 | val_RMSE=67.134
+2026-10-07 22:50:05 | INFO     | main |   Epoch  10/50 | train_RMSE=51.482 | val_RMSE=50.234
+2026-10-07 22:50:08 | INFO     | main |   Epoch  15/50 | train_RMSE=42.813 | val_RMSE=42.497
+2026-10-07 22:50:12 | INFO     | main |   Epoch  20/50 | train_RMSE=42.609 | val_RMSE=42.412
+2026-10-07 22:50:14 | INFO     | main |   Epoch  25/50 | train_RMSE=42.629 | val_RMSE=42.414
+2026-10-07 22:50:17 | INFO     | main |   Epoch  30/50 | train_RMSE=42.531 | val_RMSE=42.181
+2026-10-07 22:50:20 | INFO     | main |   Epoch  35/50 | train_RMSE=38.332 | val_RMSE=35.537
+2026-10-07 22:50:23 | INFO     | main |   Epoch  40/50 | train_RMSE=29.585 | val_RMSE=29.118
+2026-10-07 22:50:27 | INFO     | main |   Epoch  45/50 | train_RMSE=28.525 | val_RMSE=28.244
+2026-10-07 22:50:30 | INFO     | main |   Epoch  50/50 | train_RMSE=27.563 | val_RMSE=27.295
+2026-10-07 22:50:30 | INFO     | main | LSTM training took 30.40s
+2026-10-07 22:50:30 | INFO     | main | [LSTM] RMSE=72.26 | MAE=66.54 | NASA=32856.9
+2026-10-07 22:50:30 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 22:50:30 | INFO     | main |   Epoch   1/50 | train_RMSE=89.001 | val_RMSE=87.990
+2026-10-07 22:50:33 | INFO     | main |   Epoch   5/50 | train_RMSE=72.037 | val_RMSE=63.579
+2026-10-07 22:50:35 | INFO     | main |   Epoch  10/50 | train_RMSE=45.417 | val_RMSE=56.468
+2026-10-07 22:50:38 | INFO     | main |   Epoch  15/50 | train_RMSE=25.859 | val_RMSE=42.054
+2026-10-07 22:50:41 | INFO     | main |   Epoch  20/50 | train_RMSE=16.944 | val_RMSE=16.642
+2026-10-07 22:50:45 | INFO     | main |   Epoch  25/50 | train_RMSE=14.833 | val_RMSE=20.301
+2026-10-07 22:50:45 | INFO     | main |   Early stopping at epoch 25.
+2026-10-07 22:50:45 | INFO     | main | CNN training took 15.01s
+2026-10-07 22:50:45 | INFO     | main | [CNN]  RMSE=75.28 | MAE=69.72 | NASA=40307.1
+2026-10-07 22:50:45 | INFO     | main | 
+--------------------  Subset FD004  --------------------
+2026-10-07 22:50:45 | INFO     | main | Train: (27563, 30, 19) | Test: (40, 30, 19) | Features: 19
+2026-10-07 22:50:45 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 22:53:25 | INFO     | main | RF training took 160.20s
+2026-10-07 22:53:25 | INFO     | main | [RF]  RMSE=75.86 | MAE=69.81 | NASA=45452.4
+2026-10-07 22:53:25 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 22:53:53 | INFO     | main | XGB training took 27.85s
+2026-10-07 22:53:53 | INFO     | main | [XGB] RMSE=79.94 | MAE=74.01 | NASA=68532.0
+2026-10-07 22:53:53 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 22:53:54 | INFO     | main |   Epoch   1/50 | train_RMSE=86.051 | val_RMSE=80.672
+2026-10-07 22:53:57 | INFO     | main |   Epoch   5/50 | train_RMSE=66.069 | val_RMSE=62.250
+2026-10-07 22:54:00 | INFO     | main |   Epoch  10/50 | train_RMSE=47.891 | val_RMSE=45.727
+2026-10-07 22:54:04 | INFO     | main |   Epoch  15/50 | train_RMSE=42.452 | val_RMSE=42.397
+2026-10-07 22:54:07 | INFO     | main |   Epoch  20/50 | train_RMSE=42.414 | val_RMSE=42.413
+2026-10-07 22:54:07 | INFO     | main |   Early stopping at epoch 20.
+2026-10-07 22:54:07 | INFO     | main | LSTM training took 14.37s
+2026-10-07 22:54:07 | INFO     | main | [LSTM] RMSE=29.60 | MAE=25.46 | NASA=1233.8
+2026-10-07 22:54:07 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 22:54:08 | INFO     | main |   Epoch   1/50 | train_RMSE=88.405 | val_RMSE=84.632
+2026-10-07 22:54:10 | INFO     | main |   Epoch   5/50 | train_RMSE=68.486 | val_RMSE=56.764
+2026-10-07 22:54:14 | INFO     | main |   Epoch  10/50 | train_RMSE=37.908 | val_RMSE=50.536
+2026-10-07 22:54:17 | INFO     | main |   Epoch  15/50 | train_RMSE=22.640 | val_RMSE=26.650
+2026-10-07 22:54:20 | INFO     | main |   Epoch  20/50 | train_RMSE=15.819 | val_RMSE=34.870
+2026-10-07 22:54:24 | INFO     | main |   Epoch  25/50 | train_RMSE=14.727 | val_RMSE=18.403
+2026-10-07 22:54:24 | INFO     | main |   Early stopping at epoch 26.
+2026-10-07 22:54:24 | INFO     | main | CNN training took 17.41s
+2026-10-07 22:54:24 | INFO     | main | [CNN]  RMSE=81.64 | MAE=75.96 | NASA=83651.0
+2026-10-07 22:54:24 | INFO     | main | All done! Results in H:\clint-paper\paper_work\project\results
+2026-10-07 23:02:58 | INFO     | main | ============================================================
+2026-10-07 23:02:58 | INFO     | main | NASA C-MAPSS Predictive Maintenance Pipeline
+2026-10-07 23:02:58 | INFO     | main | ============================================================
+2026-10-07 23:02:58 | INFO     | main | Python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2026-10-07 23:02:58 | INFO     | main |   numpy==2.4.6
+2026-10-07 23:02:58 | INFO     | main |   pandas==2.2.2
+2026-10-07 23:02:58 | INFO     | main |   sklearn==1.9.0
+2026-10-07 23:02:58 | INFO     | main |   xgboost==3.3.0
+2026-10-07 23:02:58 | INFO     | main |   torch==2.5.1+cu121
+2026-10-07 23:02:59 | INFO     | main |   shap==0.52.0
+2026-10-07 23:02:59 | INFO     | main |   optuna==4.9.0
+2026-10-07 23:02:59 | INFO     | main | CUDA device: NVIDIA GeForce RTX 3060 Laptop GPU
+2026-10-07 23:03:00 | INFO     | main | Data loading & preprocessing took 1.29s
+2026-10-07 23:03:00 | INFO     | main | 
+--- Subset FD001 ---
+2026-10-07 23:03:00 | INFO     | main | Train: (17731, 30, 14) | Test: (100, 30, 14) | Features: 14
+2026-10-07 23:03:00 | INFO     | main | [BASELINE] constant_clip(125): RMSE=64.62 | MAE=51.62 | NASA=1502475.4
+2026-10-07 23:03:00 | INFO     | main | [BASELINE] constant_mean(80.6): RMSE=41.87 | MAE=36.16 | NASA=18807.9
+2026-10-07 23:03:00 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:03:57 | INFO     | main | RF training took 56.40s
+2026-10-07 23:03:57 | INFO     | main | [RF]  RMSE=17.65 | RMSE_clip=16.52 | MAE=13.24 | NASA=755.5
+2026-10-07 23:03:57 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:04:15 | INFO     | main | XGB training took 17.71s
+2026-10-07 23:04:15 | INFO     | main | [XGB] RMSE=14.42 | RMSE_clip=13.13 | MAE=11.34 | NASA=306.9
+2026-10-07 23:04:15 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:04:17 | INFO     | main |   Epoch   1/60 | train_RMSE= 40.61 | val_RMSE= 22.93 | lr=1.00e-03
+2026-10-07 23:04:19 | INFO     | main |   Epoch   5/60 | train_RMSE= 16.75 | val_RMSE= 15.18 | lr=1.00e-03
+2026-10-07 23:04:22 | INFO     | main |   Epoch  10/60 | train_RMSE= 14.76 | val_RMSE= 14.53 | lr=1.00e-03
+2026-10-07 23:04:24 | INFO     | main |   Epoch  15/60 | train_RMSE= 14.35 | val_RMSE= 14.32 | lr=1.00e-03
+2026-10-07 23:04:27 | INFO     | main |   Epoch  20/60 | train_RMSE= 13.90 | val_RMSE= 13.40 | lr=1.00e-03
+2026-10-07 23:04:30 | INFO     | main |   Epoch  25/60 | train_RMSE= 13.41 | val_RMSE= 13.41 | lr=5.00e-04
+2026-10-07 23:04:33 | INFO     | main |   Epoch  30/60 | train_RMSE= 13.38 | val_RMSE= 13.30 | lr=5.00e-04
+2026-10-07 23:04:35 | INFO     | main |   Epoch  35/60 | train_RMSE= 13.34 | val_RMSE= 13.03 | lr=2.50e-04
+2026-10-07 23:04:38 | INFO     | main |   Epoch  40/60 | train_RMSE= 13.04 | val_RMSE= 12.88 | lr=2.50e-04
+2026-10-07 23:04:41 | INFO     | main |   Epoch  45/60 | train_RMSE= 12.99 | val_RMSE= 12.78 | lr=1.25e-04
+2026-10-07 23:04:43 | INFO     | main |   Epoch  50/60 | train_RMSE= 12.98 | val_RMSE= 12.78 | lr=1.25e-04
+2026-10-07 23:04:46 | INFO     | main |   Epoch  55/60 | train_RMSE= 12.80 | val_RMSE= 12.75 | lr=6.25e-05
+2026-10-07 23:04:49 | INFO     | main |   Epoch  60/60 | train_RMSE= 12.78 | val_RMSE= 12.67 | lr=6.25e-05
+2026-10-07 23:04:49 | INFO     | main | LSTM training took 34.30s
+2026-10-07 23:04:49 | INFO     | main | [LSTM] RMSE=14.81 | RMSE_clip=13.48 | MAE=11.12 | NASA=362.7
+2026-10-07 23:04:49 | INFO     | main | [LSTM] Final train_RMSE=12.78 | val_RMSE=12.67
+2026-10-07 23:04:49 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:04:50 | INFO     | main |   Epoch   1/60 | train_RMSE= 79.68 | val_RMSE= 44.67 | lr=1.00e-03
+2026-10-07 23:04:51 | INFO     | main |   Epoch   5/60 | train_RMSE= 17.90 | val_RMSE= 15.58 | lr=1.00e-03
+2026-10-07 23:04:54 | INFO     | main |   Epoch  10/60 | train_RMSE= 14.87 | val_RMSE= 14.26 | lr=1.00e-03
+2026-10-07 23:04:56 | INFO     | main |   Epoch  15/60 | train_RMSE= 13.22 | val_RMSE= 11.92 | lr=1.00e-03
+2026-10-07 23:04:59 | INFO     | main |   Epoch  20/60 | train_RMSE= 12.47 | val_RMSE= 12.49 | lr=1.00e-03
+2026-10-07 23:05:01 | INFO     | main |   Epoch  25/60 | train_RMSE= 11.75 | val_RMSE=  9.97 | lr=1.00e-03
+2026-10-07 23:05:04 | INFO     | main |   Epoch  30/60 | train_RMSE= 11.25 | val_RMSE=  8.78 | lr=1.00e-03
+2026-10-07 23:05:06 | INFO     | main |   Epoch  35/60 | train_RMSE= 10.82 | val_RMSE=  7.97 | lr=1.00e-03
+2026-10-07 23:05:08 | INFO     | main |   Epoch  40/60 | train_RMSE= 10.65 | val_RMSE=  7.85 | lr=1.00e-03
+2026-10-07 23:05:11 | INFO     | main |   Epoch  45/60 | train_RMSE= 10.07 | val_RMSE=  7.06 | lr=5.00e-04
+2026-10-07 23:05:13 | INFO     | main |   Epoch  50/60 | train_RMSE=  9.80 | val_RMSE=  7.48 | lr=5.00e-04
+2026-10-07 23:05:15 | INFO     | main |   Epoch  55/60 | train_RMSE=  9.54 | val_RMSE=  6.75 | lr=2.50e-04
+2026-10-07 23:05:18 | INFO     | main |   Epoch  60/60 | train_RMSE=  9.49 | val_RMSE=  6.46 | lr=2.50e-04
+2026-10-07 23:05:18 | INFO     | main | CNN training took 28.57s
+2026-10-07 23:05:18 | INFO     | main | [CNN]  RMSE=19.02 | RMSE_clip=17.66 | MAE=14.82 | NASA=780.0
+2026-10-07 23:05:18 | INFO     | main | [CNN]  Final train_RMSE=9.49 | val_RMSE=6.46
+2026-10-07 23:05:18 | INFO     | main | All done. Results in H:\clint-paper\paper_work\project\results
+2026-10-07 23:05:43 | INFO     | main | ============================================================
+2026-10-07 23:05:43 | INFO     | main | NASA C-MAPSS Predictive Maintenance Pipeline
+2026-10-07 23:05:43 | INFO     | main | ============================================================
+2026-10-07 23:05:43 | INFO     | main | Python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2026-10-07 23:05:43 | INFO     | main |   numpy==2.4.6
+2026-10-07 23:05:43 | INFO     | main |   pandas==2.2.2
+2026-10-07 23:05:43 | INFO     | main |   sklearn==1.9.0
+2026-10-07 23:05:43 | INFO     | main |   xgboost==3.3.0
+2026-10-07 23:05:43 | INFO     | main |   torch==2.5.1+cu121
+2026-10-07 23:05:44 | INFO     | main |   shap==0.52.0
+2026-10-07 23:05:44 | INFO     | main |   optuna==4.9.0
+2026-10-07 23:05:44 | INFO     | main | CUDA device: NVIDIA GeForce RTX 3060 Laptop GPU
+2026-10-07 23:05:54 | INFO     | main | Data loading & preprocessing took 10.09s
+2026-10-07 23:05:54 | INFO     | main | 
+--- Subset FD001 ---
+2026-10-07 23:05:54 | INFO     | main | Train: (17731, 30, 14) | Test: (100, 30, 14) | Features: 14
+2026-10-07 23:05:54 | INFO     | main | [BASELINE] constant_clip(125): RMSE=64.62 | MAE=51.62 | NASA=1502475.4
+2026-10-07 23:05:54 | INFO     | main | [BASELINE] constant_mean(80.6): RMSE=41.87 | MAE=36.16 | NASA=18807.9
+2026-10-07 23:05:54 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:06:49 | INFO     | main | RF training took 54.58s
+2026-10-07 23:06:49 | INFO     | main | [RF]  RMSE=17.65 | RMSE_clip=16.52 | MAE=13.24 | NASA=755.5
+2026-10-07 23:06:49 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:07:02 | INFO     | main | XGB training took 13.06s
+2026-10-07 23:07:02 | INFO     | main | [XGB] RMSE=14.42 | RMSE_clip=13.13 | MAE=11.34 | NASA=306.9
+2026-10-07 23:07:02 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:07:04 | INFO     | main |   Epoch   1/60 | train_RMSE= 40.61 | val_RMSE= 22.93 | lr=1.00e-03
+2026-10-07 23:07:06 | INFO     | main |   Epoch   5/60 | train_RMSE= 16.75 | val_RMSE= 15.18 | lr=1.00e-03
+2026-10-07 23:07:09 | INFO     | main |   Epoch  10/60 | train_RMSE= 14.76 | val_RMSE= 14.53 | lr=1.00e-03
+2026-10-07 23:07:11 | INFO     | main |   Epoch  15/60 | train_RMSE= 14.35 | val_RMSE= 14.32 | lr=1.00e-03
+2026-10-07 23:07:14 | INFO     | main |   Epoch  20/60 | train_RMSE= 13.90 | val_RMSE= 13.40 | lr=1.00e-03
+2026-10-07 23:07:17 | INFO     | main |   Epoch  25/60 | train_RMSE= 13.41 | val_RMSE= 13.41 | lr=5.00e-04
+2026-10-07 23:07:19 | INFO     | main |   Epoch  30/60 | train_RMSE= 13.38 | val_RMSE= 13.30 | lr=5.00e-04
+2026-10-07 23:07:22 | INFO     | main |   Epoch  35/60 | train_RMSE= 13.34 | val_RMSE= 13.03 | lr=2.50e-04
+2026-10-07 23:07:25 | INFO     | main |   Epoch  40/60 | train_RMSE= 13.04 | val_RMSE= 12.88 | lr=2.50e-04
+2026-10-07 23:07:28 | INFO     | main |   Epoch  45/60 | train_RMSE= 12.99 | val_RMSE= 12.78 | lr=1.25e-04
+2026-10-07 23:07:30 | INFO     | main |   Epoch  50/60 | train_RMSE= 12.98 | val_RMSE= 12.78 | lr=1.25e-04
+2026-10-07 23:07:33 | INFO     | main |   Epoch  55/60 | train_RMSE= 12.80 | val_RMSE= 12.75 | lr=6.25e-05
+2026-10-07 23:07:36 | INFO     | main |   Epoch  60/60 | train_RMSE= 12.78 | val_RMSE= 12.67 | lr=6.25e-05
+2026-10-07 23:07:36 | INFO     | main | LSTM training took 33.99s
+2026-10-07 23:07:36 | INFO     | main | [LSTM] RMSE=14.81 | RMSE_clip=13.48 | MAE=11.12 | NASA=362.7
+2026-10-07 23:07:36 | INFO     | main | [LSTM] Final train_RMSE=12.78 | val_RMSE=12.67
+2026-10-07 23:07:36 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:07:37 | INFO     | main |   Epoch   1/60 | train_RMSE= 79.68 | val_RMSE= 44.67 | lr=1.00e-03
+2026-10-07 23:07:39 | INFO     | main |   Epoch   5/60 | train_RMSE= 17.90 | val_RMSE= 15.58 | lr=1.00e-03
+2026-10-07 23:07:41 | INFO     | main |   Epoch  10/60 | train_RMSE= 14.87 | val_RMSE= 14.26 | lr=1.00e-03
+2026-10-07 23:07:44 | INFO     | main |   Epoch  15/60 | train_RMSE= 13.22 | val_RMSE= 11.92 | lr=1.00e-03
+2026-10-07 23:07:46 | INFO     | main |   Epoch  20/60 | train_RMSE= 12.47 | val_RMSE= 12.49 | lr=1.00e-03
+2026-10-07 23:07:49 | INFO     | main |   Epoch  25/60 | train_RMSE= 11.75 | val_RMSE=  9.97 | lr=1.00e-03
+2026-10-07 23:07:51 | INFO     | main |   Epoch  30/60 | train_RMSE= 11.25 | val_RMSE=  8.78 | lr=1.00e-03
+2026-10-07 23:07:53 | INFO     | main |   Epoch  35/60 | train_RMSE= 10.82 | val_RMSE=  7.97 | lr=1.00e-03
+2026-10-07 23:07:56 | INFO     | main |   Epoch  40/60 | train_RMSE= 10.65 | val_RMSE=  7.85 | lr=1.00e-03
+2026-10-07 23:07:58 | INFO     | main |   Epoch  45/60 | train_RMSE= 10.07 | val_RMSE=  7.06 | lr=5.00e-04
+2026-10-07 23:08:00 | INFO     | main |   Epoch  50/60 | train_RMSE=  9.80 | val_RMSE=  7.48 | lr=5.00e-04
+2026-10-07 23:08:03 | INFO     | main |   Epoch  55/60 | train_RMSE=  9.54 | val_RMSE=  6.75 | lr=2.50e-04
+2026-10-07 23:08:05 | INFO     | main |   Epoch  60/60 | train_RMSE=  9.49 | val_RMSE=  6.46 | lr=2.50e-04
+2026-10-07 23:08:05 | INFO     | main | CNN training took 28.94s
+2026-10-07 23:08:05 | INFO     | main | [CNN]  RMSE=19.02 | RMSE_clip=17.66 | MAE=14.82 | NASA=780.0
+2026-10-07 23:08:05 | INFO     | main | [CNN]  Final train_RMSE=9.49 | val_RMSE=6.46
+2026-10-07 23:08:05 | INFO     | main | 
+--- Subset FD002 ---
+2026-10-07 23:08:05 | INFO     | main | Train: (46219, 30, 20) | Test: (259, 30, 20) | Features: 20
+2026-10-07 23:08:05 | INFO     | main | [BASELINE] constant_clip(125): RMSE=69.37 | MAE=58.80 | NASA=5163062.8
+2026-10-07 23:08:05 | INFO     | main | [BASELINE] constant_mean(80.7): RMSE=53.78 | MAE=45.28 | NASA=124247.0
+2026-10-07 23:08:05 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:11:50 | INFO     | main | RF training took 225.43s
+2026-10-07 23:11:51 | INFO     | main | [RF]  RMSE=30.84 | RMSE_clip=17.92 | MAE=21.85 | NASA=14398.0
+2026-10-07 23:11:51 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:12:17 | INFO     | main | XGB training took 26.32s
+2026-10-07 23:12:17 | INFO     | main | [XGB] RMSE=29.76 | RMSE_clip=16.65 | MAE=20.50 | NASA=14059.5
+2026-10-07 23:12:17 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:12:19 | INFO     | main |   Epoch   1/60 | train_RMSE= 44.73 | val_RMSE= 39.41 | lr=1.00e-03
+2026-10-07 23:12:24 | INFO     | main |   Epoch   5/60 | train_RMSE= 28.22 | val_RMSE= 27.54 | lr=1.00e-03
+2026-10-07 23:12:31 | INFO     | main |   Epoch  10/60 | train_RMSE= 28.22 | val_RMSE= 24.98 | lr=1.00e-03
+2026-10-07 23:12:38 | INFO     | main |   Epoch  15/60 | train_RMSE= 21.60 | val_RMSE= 24.48 | lr=1.00e-03
+2026-10-07 23:12:46 | INFO     | main |   Epoch  20/60 | train_RMSE= 20.35 | val_RMSE= 24.78 | lr=5.00e-04
+2026-10-07 23:12:54 | INFO     | main |   Epoch  25/60 | train_RMSE= 18.15 | val_RMSE= 17.69 | lr=5.00e-04
+2026-10-07 23:13:03 | INFO     | main |   Epoch  30/60 | train_RMSE= 18.05 | val_RMSE= 17.18 | lr=5.00e-04
+2026-10-07 23:13:11 | INFO     | main |   Epoch  35/60 | train_RMSE= 17.39 | val_RMSE= 17.21 | lr=2.50e-04
+2026-10-07 23:13:19 | INFO     | main |   Epoch  40/60 | train_RMSE= 17.16 | val_RMSE= 16.78 | lr=2.50e-04
+2026-10-07 23:13:28 | INFO     | main |   Epoch  45/60 | train_RMSE= 16.80 | val_RMSE= 16.38 | lr=1.25e-04
+2026-10-07 23:13:37 | INFO     | main |   Epoch  50/60 | train_RMSE= 16.67 | val_RMSE= 16.22 | lr=1.25e-04
+2026-10-07 23:13:46 | INFO     | main |   Epoch  55/60 | train_RMSE= 16.59 | val_RMSE= 16.26 | lr=1.25e-04
+2026-10-07 23:13:54 | INFO     | main |   Epoch  60/60 | train_RMSE= 16.37 | val_RMSE= 16.06 | lr=6.25e-05
+2026-10-07 23:13:54 | INFO     | main | LSTM training took 97.53s
+2026-10-07 23:13:54 | INFO     | main | [LSTM] RMSE=27.47 | RMSE_clip=14.78 | MAE=18.03 | NASA=10461.6
+2026-10-07 23:13:54 | INFO     | main | [LSTM] Final train_RMSE=16.37 | val_RMSE=16.06
+2026-10-07 23:13:54 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:13:56 | INFO     | main |   Epoch   1/60 | train_RMSE= 49.79 | val_RMSE= 22.47 | lr=1.00e-03
+2026-10-07 23:14:02 | INFO     | main |   Epoch   5/60 | train_RMSE= 22.29 | val_RMSE= 40.66 | lr=5.00e-04
+2026-10-07 23:14:10 | INFO     | main |   Epoch  10/60 | train_RMSE= 21.12 | val_RMSE= 20.66 | lr=5.00e-04
+2026-10-07 23:14:18 | INFO     | main |   Epoch  15/60 | train_RMSE= 20.42 | val_RMSE= 19.20 | lr=5.00e-04
+2026-10-07 23:14:25 | INFO     | main |   Epoch  20/60 | train_RMSE= 19.86 | val_RMSE= 25.35 | lr=5.00e-04
+2026-10-07 23:14:32 | INFO     | main |   Epoch  25/60 | train_RMSE= 19.21 | val_RMSE= 17.89 | lr=2.50e-04
+2026-10-07 23:14:40 | INFO     | main |   Epoch  30/60 | train_RMSE= 18.97 | val_RMSE= 17.16 | lr=2.50e-04
+2026-10-07 23:14:47 | INFO     | main |   Epoch  35/60 | train_RMSE= 18.63 | val_RMSE= 22.46 | lr=2.50e-04
+2026-10-07 23:14:55 | INFO     | main |   Epoch  40/60 | train_RMSE= 18.40 | val_RMSE= 21.53 | lr=2.50e-04
+2026-10-07 23:15:02 | INFO     | main |   Epoch  45/60 | train_RMSE= 17.98 | val_RMSE= 16.38 | lr=1.25e-04
+2026-10-07 23:15:09 | INFO     | main |   Epoch  50/60 | train_RMSE= 17.79 | val_RMSE= 16.28 | lr=6.25e-05
+2026-10-07 23:15:17 | INFO     | main |   Epoch  55/60 | train_RMSE= 17.70 | val_RMSE= 16.84 | lr=6.25e-05
+2026-10-07 23:15:25 | INFO     | main |   Epoch  60/60 | train_RMSE= 17.52 | val_RMSE= 15.72 | lr=3.13e-05
+2026-10-07 23:15:25 | INFO     | main | CNN training took 90.54s
+2026-10-07 23:15:25 | INFO     | main | [CNN]  RMSE=33.20 | RMSE_clip=22.00 | MAE=24.42 | NASA=28132.6
+2026-10-07 23:15:25 | INFO     | main | [CNN]  Final train_RMSE=17.52 | val_RMSE=15.72
+2026-10-07 23:15:25 | INFO     | main | 
+--- Subset FD003 ---
+2026-10-07 23:15:25 | INFO     | main | Train: (21820, 30, 14) | Test: (100, 30, 14) | Features: 14
+2026-10-07 23:15:25 | INFO     | main | [BASELINE] constant_clip(125): RMSE=64.67 | MAE=52.80 | NASA=1390904.8
+2026-10-07 23:15:25 | INFO     | main | [BASELINE] constant_mean(88.9): RMSE=43.57 | MAE=36.88 | NASA=38318.7
+2026-10-07 23:15:25 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:16:48 | INFO     | main | RF training took 82.86s
+2026-10-07 23:16:48 | INFO     | main | [RF]  RMSE=19.03 | RMSE_clip=17.69 | MAE=14.20 | NASA=1511.5
+2026-10-07 23:16:48 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:17:06 | INFO     | main | XGB training took 18.13s
+2026-10-07 23:17:06 | INFO     | main | [XGB] RMSE=16.97 | RMSE_clip=15.58 | MAE=12.71 | NASA=750.4
+2026-10-07 23:17:06 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:17:07 | INFO     | main |   Epoch   1/60 | train_RMSE= 42.18 | val_RMSE= 20.24 | lr=1.00e-03
+2026-10-07 23:17:10 | INFO     | main |   Epoch   5/60 | train_RMSE= 17.89 | val_RMSE= 16.97 | lr=1.00e-03
+2026-10-07 23:17:13 | INFO     | main |   Epoch  10/60 | train_RMSE= 14.89 | val_RMSE= 14.23 | lr=1.00e-03
+2026-10-07 23:17:16 | INFO     | main |   Epoch  15/60 | train_RMSE= 13.68 | val_RMSE= 12.72 | lr=1.00e-03
+2026-10-07 23:17:19 | INFO     | main |   Epoch  20/60 | train_RMSE= 13.12 | val_RMSE= 11.83 | lr=1.00e-03
+2026-10-07 23:17:23 | INFO     | main |   Epoch  25/60 | train_RMSE= 12.52 | val_RMSE= 11.50 | lr=1.00e-03
+2026-10-07 23:17:26 | INFO     | main |   Epoch  30/60 | train_RMSE= 12.28 | val_RMSE= 11.71 | lr=1.00e-03
+2026-10-07 23:17:29 | INFO     | main |   Epoch  35/60 | train_RMSE= 11.80 | val_RMSE= 11.59 | lr=5.00e-04
+2026-10-07 23:17:33 | INFO     | main |   Epoch  40/60 | train_RMSE= 11.88 | val_RMSE= 10.97 | lr=5.00e-04
+2026-10-07 23:17:36 | INFO     | main |   Epoch  45/60 | train_RMSE= 11.78 | val_RMSE= 11.04 | lr=5.00e-04
+2026-10-07 23:17:39 | INFO     | main |   Epoch  50/60 | train_RMSE= 11.43 | val_RMSE= 10.63 | lr=2.50e-04
+2026-10-07 23:17:43 | INFO     | main |   Epoch  55/60 | train_RMSE= 11.21 | val_RMSE= 10.49 | lr=1.25e-04
+2026-10-07 23:17:47 | INFO     | main |   Epoch  60/60 | train_RMSE= 11.25 | val_RMSE= 10.47 | lr=6.25e-05
+2026-10-07 23:17:47 | INFO     | main | LSTM training took 40.61s
+2026-10-07 23:17:47 | INFO     | main | [LSTM] RMSE=13.49 | RMSE_clip=11.96 | MAE=9.57 | NASA=303.7
+2026-10-07 23:17:47 | INFO     | main | [LSTM] Final train_RMSE=11.25 | val_RMSE=10.47
+2026-10-07 23:17:47 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:17:47 | INFO     | main |   Epoch   1/60 | train_RMSE= 79.91 | val_RMSE= 42.11 | lr=1.00e-03
+2026-10-07 23:17:50 | INFO     | main |   Epoch   5/60 | train_RMSE= 17.58 | val_RMSE= 16.08 | lr=1.00e-03
+2026-10-07 23:17:53 | INFO     | main |   Epoch  10/60 | train_RMSE= 15.68 | val_RMSE= 13.43 | lr=1.00e-03
+2026-10-07 23:17:56 | INFO     | main |   Epoch  15/60 | train_RMSE= 14.28 | val_RMSE= 13.07 | lr=1.00e-03
+2026-10-07 23:17:59 | INFO     | main |   Epoch  20/60 | train_RMSE= 13.26 | val_RMSE= 13.98 | lr=1.00e-03
+2026-10-07 23:18:02 | INFO     | main |   Epoch  25/60 | train_RMSE= 12.88 | val_RMSE= 21.57 | lr=5.00e-04
+2026-10-07 23:18:05 | INFO     | main |   Epoch  30/60 | train_RMSE= 11.99 | val_RMSE= 10.51 | lr=5.00e-04
+2026-10-07 23:18:08 | INFO     | main |   Epoch  35/60 | train_RMSE= 11.56 | val_RMSE=  9.08 | lr=2.50e-04
+2026-10-07 23:18:11 | INFO     | main |   Epoch  40/60 | train_RMSE= 11.66 | val_RMSE=  8.73 | lr=2.50e-04
+2026-10-07 23:18:14 | INFO     | main |   Epoch  45/60 | train_RMSE= 11.19 | val_RMSE=  8.40 | lr=2.50e-04
+2026-10-07 23:18:17 | INFO     | main |   Epoch  50/60 | train_RMSE= 10.88 | val_RMSE=  8.11 | lr=1.25e-04
+2026-10-07 23:18:20 | INFO     | main |   Epoch  55/60 | train_RMSE= 11.00 | val_RMSE=  8.58 | lr=1.25e-04
+2026-10-07 23:18:23 | INFO     | main |   Epoch  60/60 | train_RMSE= 10.94 | val_RMSE=  7.73 | lr=1.25e-04
+2026-10-07 23:18:23 | INFO     | main | CNN training took 36.39s
+2026-10-07 23:18:23 | INFO     | main | [CNN]  RMSE=19.83 | RMSE_clip=18.33 | MAE=14.87 | NASA=1468.5
+2026-10-07 23:18:23 | INFO     | main | [CNN]  Final train_RMSE=10.94 | val_RMSE=7.73
+2026-10-07 23:18:23 | INFO     | main | 
+--- Subset FD004 ---
+2026-10-07 23:18:23 | INFO     | main | Train: (54028, 30, 20) | Test: (248, 30, 20) | Features: 20
+2026-10-07 23:18:23 | INFO     | main | [BASELINE] constant_clip(125): RMSE=66.72 | MAE=55.83 | NASA=4030492.7
+2026-10-07 23:18:23 | INFO     | main | [BASELINE] constant_mean(88.7): RMSE=54.57 | MAE=46.47 | NASA=142909.2
+2026-10-07 23:18:23 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:23:35 | INFO     | main | RF training took 312.11s
+2026-10-07 23:23:35 | INFO     | main | [RF]  RMSE=31.89 | RMSE_clip=20.58 | MAE=24.53 | NASA=9166.5
+2026-10-07 23:23:35 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:24:17 | INFO     | main | XGB training took 41.23s
+2026-10-07 23:24:17 | INFO     | main | [XGB] RMSE=29.43 | RMSE_clip=17.78 | MAE=21.85 | NASA=6677.5
+2026-10-07 23:24:17 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:24:20 | INFO     | main |   Epoch   1/60 | train_RMSE= 43.87 | val_RMSE= 32.61 | lr=1.00e-03
+2026-10-07 23:24:27 | INFO     | main |   Epoch   5/60 | train_RMSE= 28.74 | val_RMSE= 28.17 | lr=1.00e-03
+2026-10-07 23:24:36 | INFO     | main |   Epoch  10/60 | train_RMSE= 23.22 | val_RMSE= 22.08 | lr=5.00e-04
+2026-10-07 23:24:46 | INFO     | main |   Epoch  15/60 | train_RMSE= 20.83 | val_RMSE= 19.41 | lr=5.00e-04
+2026-10-07 23:24:57 | INFO     | main |   Epoch  20/60 | train_RMSE= 20.56 | val_RMSE= 25.93 | lr=5.00e-04
+2026-10-07 23:25:07 | INFO     | main |   Epoch  25/60 | train_RMSE= 19.96 | val_RMSE= 21.01 | lr=5.00e-04
+2026-10-07 23:25:19 | INFO     | main |   Epoch  30/60 | train_RMSE= 18.73 | val_RMSE= 18.54 | lr=2.50e-04
+2026-10-07 23:25:29 | INFO     | main |   Epoch  35/60 | train_RMSE= 18.01 | val_RMSE= 17.66 | lr=1.25e-04
+2026-10-07 23:25:41 | INFO     | main |   Epoch  40/60 | train_RMSE= 17.65 | val_RMSE= 17.17 | lr=6.25e-05
+2026-10-07 23:25:52 | INFO     | main |   Epoch  45/60 | train_RMSE= 17.52 | val_RMSE= 17.08 | lr=6.25e-05
+2026-10-07 23:26:03 | INFO     | main |   Epoch  50/60 | train_RMSE= 17.49 | val_RMSE= 17.00 | lr=6.25e-05
+2026-10-07 23:26:14 | INFO     | main |   Epoch  55/60 | train_RMSE= 17.43 | val_RMSE= 17.53 | lr=6.25e-05
+2026-10-07 23:26:24 | INFO     | main |   Epoch  60/60 | train_RMSE= 17.30 | val_RMSE= 16.86 | lr=6.25e-05
+2026-10-07 23:26:24 | INFO     | main | LSTM training took 127.77s
+2026-10-07 23:26:24 | INFO     | main | [LSTM] RMSE=30.00 | RMSE_clip=18.54 | MAE=22.36 | NASA=7976.1
+2026-10-07 23:26:24 | INFO     | main | [LSTM] Final train_RMSE=17.30 | val_RMSE=16.86
+2026-10-07 23:26:24 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:26:26 | INFO     | main |   Epoch   1/60 | train_RMSE= 48.25 | val_RMSE= 28.10 | lr=1.00e-03
+2026-10-07 23:26:34 | INFO     | main |   Epoch   5/60 | train_RMSE= 22.57 | val_RMSE= 28.86 | lr=1.00e-03
+2026-10-07 23:26:44 | INFO     | main |   Epoch  10/60 | train_RMSE= 21.24 | val_RMSE= 20.14 | lr=1.00e-03
+2026-10-07 23:26:55 | INFO     | main |   Epoch  15/60 | train_RMSE= 20.12 | val_RMSE= 19.57 | lr=1.00e-03
+2026-10-07 23:27:05 | INFO     | main |   Epoch  20/60 | train_RMSE= 19.03 | val_RMSE= 24.74 | lr=5.00e-04
+2026-10-07 23:27:16 | INFO     | main |   Epoch  25/60 | train_RMSE= 18.41 | val_RMSE= 17.55 | lr=2.50e-04
+2026-10-07 23:27:27 | INFO     | main |   Epoch  30/60 | train_RMSE= 17.94 | val_RMSE= 16.43 | lr=1.25e-04
+2026-10-07 23:27:38 | INFO     | main |   Epoch  35/60 | train_RMSE= 17.70 | val_RMSE= 16.80 | lr=1.25e-04
+2026-10-07 23:27:50 | INFO     | main |   Epoch  40/60 | train_RMSE= 17.49 | val_RMSE= 16.25 | lr=6.25e-05
+2026-10-07 23:27:59 | INFO     | main |   Epoch  45/60 | train_RMSE= 17.42 | val_RMSE= 17.47 | lr=3.13e-05
+2026-10-07 23:28:09 | INFO     | main |   Epoch  50/60 | train_RMSE= 17.39 | val_RMSE= 15.84 | lr=1.56e-05
+2026-10-07 23:28:18 | INFO     | main |   Epoch  55/60 | train_RMSE= 17.31 | val_RMSE= 16.22 | lr=1.56e-05
+2026-10-07 23:28:28 | INFO     | main |   Epoch  60/60 | train_RMSE= 17.38 | val_RMSE= 16.08 | lr=7.81e-06
+2026-10-07 23:28:28 | INFO     | main | CNN training took 124.02s
+2026-10-07 23:28:28 | INFO     | main | [CNN]  RMSE=33.74 | RMSE_clip=23.02 | MAE=26.62 | NASA=12654.1
+2026-10-07 23:28:28 | INFO     | main | [CNN]  Final train_RMSE=17.38 | val_RMSE=16.08
+2026-10-07 23:28:28 | INFO     | main | All done. Results in H:\clint-paper\paper_work\project\results
+2026-10-07 23:31:05 | INFO     | main | ============================================================
+2026-10-07 23:31:05 | INFO     | main | NASA C-MAPSS Predictive Maintenance Pipeline
+2026-10-07 23:31:05 | INFO     | main | ============================================================
+2026-10-07 23:31:05 | INFO     | main | Python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2026-10-07 23:31:05 | INFO     | main |   numpy==2.4.6
+2026-10-07 23:31:05 | INFO     | main |   pandas==2.2.2
+2026-10-07 23:31:05 | INFO     | main |   sklearn==1.9.0
+2026-10-07 23:31:05 | INFO     | main |   xgboost==3.3.0
+2026-10-07 23:31:05 | INFO     | main |   torch==2.5.1+cu121
+2026-10-07 23:31:06 | INFO     | main |   shap==0.52.0
+2026-10-07 23:31:06 | INFO     | main |   optuna==4.9.0
+2026-10-07 23:31:06 | INFO     | main | CUDA device: NVIDIA GeForce RTX 3060 Laptop GPU
+2026-10-07 23:31:18 | INFO     | main | Data loading & preprocessing took 12.03s
+2026-10-07 23:31:18 | INFO     | main | 
+--- Subset FD001 ---
+2026-10-07 23:31:18 | INFO     | main | Train: (17731, 30, 14) | Test: (100, 30, 14) | Features: 14
+2026-10-07 23:31:18 | INFO     | main | [BASELINE] constant_clip(125): RMSE=64.62 | MAE=51.62 | NASA=1502475.4
+2026-10-07 23:31:18 | INFO     | main | [BASELINE] constant_mean(80.6): RMSE=41.87 | MAE=36.16 | NASA=18807.9
+2026-10-07 23:31:18 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:32:13 | INFO     | main | RF training took 54.49s
+2026-10-07 23:32:13 | INFO     | main | [RF]  RMSE=17.65 | RMSE_clip=16.52 | MAE=13.24 | NASA=755.5
+2026-10-07 23:32:13 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:32:28 | INFO     | main | XGB training took 15.29s
+2026-10-07 23:32:28 | INFO     | main | [XGB] RMSE=14.42 | RMSE_clip=13.13 | MAE=11.34 | NASA=306.9
+2026-10-07 23:32:28 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:32:31 | INFO     | main |   Epoch   1/60 | train_RMSE= 40.61 | val_RMSE= 22.93 | lr=1.00e-03
+2026-10-07 23:32:33 | INFO     | main |   Epoch   5/60 | train_RMSE= 16.75 | val_RMSE= 15.18 | lr=1.00e-03
+2026-10-07 23:32:36 | INFO     | main |   Epoch  10/60 | train_RMSE= 14.76 | val_RMSE= 14.53 | lr=1.00e-03
+2026-10-07 23:32:39 | INFO     | main |   Epoch  15/60 | train_RMSE= 14.35 | val_RMSE= 14.32 | lr=1.00e-03
+2026-10-07 23:32:42 | INFO     | main |   Epoch  20/60 | train_RMSE= 13.90 | val_RMSE= 13.40 | lr=1.00e-03
+2026-10-07 23:32:44 | INFO     | main |   Epoch  25/60 | train_RMSE= 13.41 | val_RMSE= 13.41 | lr=5.00e-04
+2026-10-07 23:32:47 | INFO     | main |   Epoch  30/60 | train_RMSE= 13.38 | val_RMSE= 13.30 | lr=5.00e-04
+2026-10-07 23:32:50 | INFO     | main |   Epoch  35/60 | train_RMSE= 13.34 | val_RMSE= 13.03 | lr=2.50e-04
+2026-10-07 23:32:53 | INFO     | main |   Epoch  40/60 | train_RMSE= 13.04 | val_RMSE= 12.88 | lr=2.50e-04
+2026-10-07 23:32:56 | INFO     | main |   Epoch  45/60 | train_RMSE= 12.99 | val_RMSE= 12.78 | lr=1.25e-04
+2026-10-07 23:32:59 | INFO     | main |   Epoch  50/60 | train_RMSE= 12.98 | val_RMSE= 12.78 | lr=1.25e-04
+2026-10-07 23:33:02 | INFO     | main |   Epoch  55/60 | train_RMSE= 12.80 | val_RMSE= 12.75 | lr=6.25e-05
+2026-10-07 23:33:05 | INFO     | main |   Epoch  60/60 | train_RMSE= 12.78 | val_RMSE= 12.67 | lr=6.25e-05
+2026-10-07 23:33:05 | INFO     | main | LSTM training took 37.47s
+2026-10-07 23:33:05 | INFO     | main | [LSTM] RMSE=14.81 | RMSE_clip=13.48 | MAE=11.12 | NASA=362.7
+2026-10-07 23:33:05 | INFO     | main | [LSTM] Final train_RMSE=12.78 | val_RMSE=12.67
+2026-10-07 23:33:05 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:33:06 | INFO     | main |   Epoch   1/60 | train_RMSE= 79.68 | val_RMSE= 44.67 | lr=1.00e-03
+2026-10-07 23:33:09 | INFO     | main |   Epoch   5/60 | train_RMSE= 17.90 | val_RMSE= 15.58 | lr=1.00e-03
+2026-10-07 23:33:12 | INFO     | main |   Epoch  10/60 | train_RMSE= 14.87 | val_RMSE= 14.26 | lr=1.00e-03
+2026-10-07 23:33:15 | INFO     | main |   Epoch  15/60 | train_RMSE= 13.22 | val_RMSE= 11.92 | lr=1.00e-03
+2026-10-07 23:33:18 | INFO     | main |   Epoch  20/60 | train_RMSE= 12.47 | val_RMSE= 12.49 | lr=1.00e-03
+2026-10-07 23:33:20 | INFO     | main |   Epoch  25/60 | train_RMSE= 11.75 | val_RMSE=  9.97 | lr=1.00e-03
+2026-10-07 23:33:23 | INFO     | main |   Epoch  30/60 | train_RMSE= 11.25 | val_RMSE=  8.78 | lr=1.00e-03
+2026-10-07 23:33:26 | INFO     | main |   Epoch  35/60 | train_RMSE= 10.82 | val_RMSE=  7.97 | lr=1.00e-03
+2026-10-07 23:33:29 | INFO     | main |   Epoch  40/60 | train_RMSE= 10.65 | val_RMSE=  7.85 | lr=1.00e-03
+2026-10-07 23:33:32 | INFO     | main |   Epoch  45/60 | train_RMSE= 10.07 | val_RMSE=  7.06 | lr=5.00e-04
+2026-10-07 23:33:35 | INFO     | main |   Epoch  50/60 | train_RMSE=  9.80 | val_RMSE=  7.48 | lr=5.00e-04
+2026-10-07 23:33:37 | INFO     | main |   Epoch  55/60 | train_RMSE=  9.54 | val_RMSE=  6.75 | lr=2.50e-04
+2026-10-07 23:33:40 | INFO     | main |   Epoch  60/60 | train_RMSE=  9.49 | val_RMSE=  6.46 | lr=2.50e-04
+2026-10-07 23:33:40 | INFO     | main | CNN training took 34.55s
+2026-10-07 23:33:40 | INFO     | main | [CNN]  RMSE=19.02 | RMSE_clip=17.66 | MAE=14.82 | NASA=780.0
+2026-10-07 23:33:40 | INFO     | main | [CNN]  Final train_RMSE=9.49 | val_RMSE=6.46
+2026-10-07 23:33:40 | INFO     | main | 
+--- Subset FD002 ---
+2026-10-07 23:33:40 | INFO     | main | Train: (46219, 30, 20) | Test: (259, 30, 20) | Features: 20
+2026-10-07 23:33:40 | INFO     | main | [BASELINE] constant_clip(125): RMSE=69.37 | MAE=58.80 | NASA=5163062.8
+2026-10-07 23:33:40 | INFO     | main | [BASELINE] constant_mean(80.7): RMSE=53.78 | MAE=45.28 | NASA=124247.0
+2026-10-07 23:33:40 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:37:27 | INFO     | main | RF training took 226.62s
+2026-10-07 23:37:27 | INFO     | main | [RF]  RMSE=30.84 | RMSE_clip=17.92 | MAE=21.85 | NASA=14398.0
+2026-10-07 23:37:27 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:37:57 | INFO     | main | XGB training took 30.80s
+2026-10-07 23:37:57 | INFO     | main | [XGB] RMSE=29.76 | RMSE_clip=16.65 | MAE=20.50 | NASA=14059.5
+2026-10-07 23:37:57 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:37:59 | INFO     | main |   Epoch   1/60 | train_RMSE= 44.73 | val_RMSE= 39.41 | lr=1.00e-03
+2026-10-07 23:38:05 | INFO     | main |   Epoch   5/60 | train_RMSE= 28.22 | val_RMSE= 27.54 | lr=1.00e-03
+2026-10-07 23:38:12 | INFO     | main |   Epoch  10/60 | train_RMSE= 28.22 | val_RMSE= 24.98 | lr=1.00e-03
+2026-10-07 23:38:20 | INFO     | main |   Epoch  15/60 | train_RMSE= 21.60 | val_RMSE= 24.48 | lr=1.00e-03
+2026-10-07 23:38:28 | INFO     | main |   Epoch  20/60 | train_RMSE= 20.35 | val_RMSE= 24.78 | lr=5.00e-04
+2026-10-07 23:38:36 | INFO     | main |   Epoch  25/60 | train_RMSE= 18.15 | val_RMSE= 17.69 | lr=5.00e-04
+2026-10-07 23:38:44 | INFO     | main |   Epoch  30/60 | train_RMSE= 18.05 | val_RMSE= 17.18 | lr=5.00e-04
+2026-10-07 23:38:52 | INFO     | main |   Epoch  35/60 | train_RMSE= 17.39 | val_RMSE= 17.21 | lr=2.50e-04
+2026-10-07 23:39:00 | INFO     | main |   Epoch  40/60 | train_RMSE= 17.16 | val_RMSE= 16.78 | lr=2.50e-04
+2026-10-07 23:39:09 | INFO     | main |   Epoch  45/60 | train_RMSE= 16.80 | val_RMSE= 16.38 | lr=1.25e-04
+2026-10-07 23:39:17 | INFO     | main |   Epoch  50/60 | train_RMSE= 16.67 | val_RMSE= 16.22 | lr=1.25e-04
+2026-10-07 23:39:26 | INFO     | main |   Epoch  55/60 | train_RMSE= 16.59 | val_RMSE= 16.26 | lr=1.25e-04
+2026-10-07 23:39:35 | INFO     | main |   Epoch  60/60 | train_RMSE= 16.37 | val_RMSE= 16.06 | lr=6.25e-05
+2026-10-07 23:39:35 | INFO     | main | LSTM training took 97.42s
+2026-10-07 23:39:35 | INFO     | main | [LSTM] RMSE=27.47 | RMSE_clip=14.78 | MAE=18.03 | NASA=10461.6
+2026-10-07 23:39:35 | INFO     | main | [LSTM] Final train_RMSE=16.37 | val_RMSE=16.06
+2026-10-07 23:39:35 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:39:36 | INFO     | main |   Epoch   1/60 | train_RMSE= 49.79 | val_RMSE= 22.47 | lr=1.00e-03
+2026-10-07 23:39:43 | INFO     | main |   Epoch   5/60 | train_RMSE= 22.29 | val_RMSE= 40.66 | lr=5.00e-04
+2026-10-07 23:39:51 | INFO     | main |   Epoch  10/60 | train_RMSE= 21.12 | val_RMSE= 20.66 | lr=5.00e-04
+2026-10-07 23:39:59 | INFO     | main |   Epoch  15/60 | train_RMSE= 20.42 | val_RMSE= 19.20 | lr=5.00e-04
+2026-10-07 23:40:06 | INFO     | main |   Epoch  20/60 | train_RMSE= 19.86 | val_RMSE= 25.35 | lr=5.00e-04
+2026-10-07 23:40:14 | INFO     | main |   Epoch  25/60 | train_RMSE= 19.21 | val_RMSE= 17.89 | lr=2.50e-04
+2026-10-07 23:40:21 | INFO     | main |   Epoch  30/60 | train_RMSE= 18.97 | val_RMSE= 17.16 | lr=2.50e-04
+2026-10-07 23:40:29 | INFO     | main |   Epoch  35/60 | train_RMSE= 18.63 | val_RMSE= 22.46 | lr=2.50e-04
+2026-10-07 23:40:36 | INFO     | main |   Epoch  40/60 | train_RMSE= 18.40 | val_RMSE= 21.53 | lr=2.50e-04
+2026-10-07 23:40:43 | INFO     | main |   Epoch  45/60 | train_RMSE= 17.98 | val_RMSE= 16.38 | lr=1.25e-04
+2026-10-07 23:40:51 | INFO     | main |   Epoch  50/60 | train_RMSE= 17.79 | val_RMSE= 16.28 | lr=6.25e-05
+2026-10-07 23:40:58 | INFO     | main |   Epoch  55/60 | train_RMSE= 17.70 | val_RMSE= 16.84 | lr=6.25e-05
+2026-10-07 23:41:05 | INFO     | main |   Epoch  60/60 | train_RMSE= 17.52 | val_RMSE= 15.72 | lr=3.13e-05
+2026-10-07 23:41:05 | INFO     | main | CNN training took 90.04s
+2026-10-07 23:41:05 | INFO     | main | [CNN]  RMSE=33.20 | RMSE_clip=22.00 | MAE=24.42 | NASA=28132.6
+2026-10-07 23:41:05 | INFO     | main | [CNN]  Final train_RMSE=17.52 | val_RMSE=15.72
+2026-10-07 23:41:05 | INFO     | main | 
+--- Subset FD003 ---
+2026-10-07 23:41:05 | INFO     | main | Train: (21820, 30, 14) | Test: (100, 30, 14) | Features: 14
+2026-10-07 23:41:05 | INFO     | main | [BASELINE] constant_clip(125): RMSE=64.67 | MAE=52.80 | NASA=1390904.8
+2026-10-07 23:41:05 | INFO     | main | [BASELINE] constant_mean(88.9): RMSE=43.57 | MAE=36.88 | NASA=38318.7
+2026-10-07 23:41:05 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:42:18 | INFO     | main | RF training took 72.70s
+2026-10-07 23:42:18 | INFO     | main | [RF]  RMSE=19.03 | RMSE_clip=17.69 | MAE=14.20 | NASA=1511.5
+2026-10-07 23:42:18 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:42:32 | INFO     | main | XGB training took 14.70s
+2026-10-07 23:42:32 | INFO     | main | [XGB] RMSE=16.97 | RMSE_clip=15.58 | MAE=12.71 | NASA=750.4
+2026-10-07 23:42:32 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:42:33 | INFO     | main |   Epoch   1/60 | train_RMSE= 42.18 | val_RMSE= 20.24 | lr=1.00e-03
+2026-10-07 23:42:36 | INFO     | main |   Epoch   5/60 | train_RMSE= 17.89 | val_RMSE= 16.97 | lr=1.00e-03
+2026-10-07 23:42:39 | INFO     | main |   Epoch  10/60 | train_RMSE= 14.89 | val_RMSE= 14.23 | lr=1.00e-03
+2026-10-07 23:42:43 | INFO     | main |   Epoch  15/60 | train_RMSE= 13.68 | val_RMSE= 12.72 | lr=1.00e-03
+2026-10-07 23:42:46 | INFO     | main |   Epoch  20/60 | train_RMSE= 13.12 | val_RMSE= 11.83 | lr=1.00e-03
+2026-10-07 23:42:50 | INFO     | main |   Epoch  25/60 | train_RMSE= 12.52 | val_RMSE= 11.50 | lr=1.00e-03
+2026-10-07 23:42:53 | INFO     | main |   Epoch  30/60 | train_RMSE= 12.28 | val_RMSE= 11.71 | lr=1.00e-03
+2026-10-07 23:42:57 | INFO     | main |   Epoch  35/60 | train_RMSE= 11.80 | val_RMSE= 11.59 | lr=5.00e-04
+2026-10-07 23:43:01 | INFO     | main |   Epoch  40/60 | train_RMSE= 11.88 | val_RMSE= 10.97 | lr=5.00e-04
+2026-10-07 23:43:04 | INFO     | main |   Epoch  45/60 | train_RMSE= 11.78 | val_RMSE= 11.04 | lr=5.00e-04
+2026-10-07 23:43:08 | INFO     | main |   Epoch  50/60 | train_RMSE= 11.43 | val_RMSE= 10.63 | lr=2.50e-04
+2026-10-07 23:43:13 | INFO     | main |   Epoch  55/60 | train_RMSE= 11.21 | val_RMSE= 10.49 | lr=1.25e-04
+2026-10-07 23:43:18 | INFO     | main |   Epoch  60/60 | train_RMSE= 11.25 | val_RMSE= 10.47 | lr=6.25e-05
+2026-10-07 23:43:18 | INFO     | main | LSTM training took 45.28s
+2026-10-07 23:43:18 | INFO     | main | [LSTM] RMSE=13.49 | RMSE_clip=11.96 | MAE=9.57 | NASA=303.7
+2026-10-07 23:43:18 | INFO     | main | [LSTM] Final train_RMSE=11.25 | val_RMSE=10.47
+2026-10-07 23:43:18 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:43:19 | INFO     | main |   Epoch   1/60 | train_RMSE= 79.91 | val_RMSE= 42.11 | lr=1.00e-03
+2026-10-07 23:43:22 | INFO     | main |   Epoch   5/60 | train_RMSE= 17.58 | val_RMSE= 16.08 | lr=1.00e-03
+2026-10-07 23:43:26 | INFO     | main |   Epoch  10/60 | train_RMSE= 15.68 | val_RMSE= 13.43 | lr=1.00e-03
+2026-10-07 23:43:30 | INFO     | main |   Epoch  15/60 | train_RMSE= 14.28 | val_RMSE= 13.07 | lr=1.00e-03
+2026-10-07 23:43:33 | INFO     | main |   Epoch  20/60 | train_RMSE= 13.26 | val_RMSE= 13.98 | lr=1.00e-03
+2026-10-07 23:43:37 | INFO     | main |   Epoch  25/60 | train_RMSE= 12.88 | val_RMSE= 21.57 | lr=5.00e-04
+2026-10-07 23:43:40 | INFO     | main |   Epoch  30/60 | train_RMSE= 11.99 | val_RMSE= 10.51 | lr=5.00e-04
+2026-10-07 23:43:44 | INFO     | main |   Epoch  35/60 | train_RMSE= 11.56 | val_RMSE=  9.08 | lr=2.50e-04
+2026-10-07 23:43:48 | INFO     | main |   Epoch  40/60 | train_RMSE= 11.66 | val_RMSE=  8.73 | lr=2.50e-04
+2026-10-07 23:43:51 | INFO     | main |   Epoch  45/60 | train_RMSE= 11.19 | val_RMSE=  8.40 | lr=2.50e-04
+2026-10-07 23:43:55 | INFO     | main |   Epoch  50/60 | train_RMSE= 10.88 | val_RMSE=  8.11 | lr=1.25e-04
+2026-10-07 23:43:58 | INFO     | main |   Epoch  55/60 | train_RMSE= 11.00 | val_RMSE=  8.58 | lr=1.25e-04
+2026-10-07 23:44:02 | INFO     | main |   Epoch  60/60 | train_RMSE= 10.94 | val_RMSE=  7.73 | lr=1.25e-04
+2026-10-07 23:44:02 | INFO     | main | CNN training took 44.02s
+2026-10-07 23:44:02 | INFO     | main | [CNN]  RMSE=19.83 | RMSE_clip=18.33 | MAE=14.87 | NASA=1468.5
+2026-10-07 23:44:02 | INFO     | main | [CNN]  Final train_RMSE=10.94 | val_RMSE=7.73
+2026-10-07 23:44:02 | INFO     | main | 
+--- Subset FD004 ---
+2026-10-07 23:44:02 | INFO     | main | Train: (54028, 30, 20) | Test: (248, 30, 20) | Features: 20
+2026-10-07 23:44:02 | INFO     | main | [BASELINE] constant_clip(125): RMSE=66.72 | MAE=55.83 | NASA=4030492.7
+2026-10-07 23:44:02 | INFO     | main | [BASELINE] constant_mean(88.7): RMSE=54.57 | MAE=46.47 | NASA=142909.2
+2026-10-07 23:44:02 | INFO     | main | 
+[RF] Training Random Forest...
+2026-10-07 23:49:19 | INFO     | main | RF training took 316.95s
+2026-10-07 23:49:19 | INFO     | main | [RF]  RMSE=31.89 | RMSE_clip=20.58 | MAE=24.53 | NASA=9166.5
+2026-10-07 23:49:19 | INFO     | main | 
+[XGB] Training XGBoost...
+2026-10-07 23:49:56 | INFO     | main | XGB training took 37.23s
+2026-10-07 23:49:56 | INFO     | main | [XGB] RMSE=29.43 | RMSE_clip=17.78 | MAE=21.85 | NASA=6677.5
+2026-10-07 23:49:56 | INFO     | main | 
+[LSTM] Training LSTM...
+2026-10-07 23:49:58 | INFO     | main |   Epoch   1/60 | train_RMSE= 43.87 | val_RMSE= 32.61 | lr=1.00e-03
+2026-10-07 23:50:07 | INFO     | main |   Epoch   5/60 | train_RMSE= 28.74 | val_RMSE= 28.17 | lr=1.00e-03
+2026-10-07 23:50:17 | INFO     | main |   Epoch  10/60 | train_RMSE= 23.22 | val_RMSE= 22.08 | lr=5.00e-04
+2026-10-07 23:50:28 | INFO     | main |   Epoch  15/60 | train_RMSE= 20.83 | val_RMSE= 19.41 | lr=5.00e-04
+2026-10-07 23:50:38 | INFO     | main |   Epoch  20/60 | train_RMSE= 20.56 | val_RMSE= 25.93 | lr=5.00e-04
+2026-10-07 23:50:49 | INFO     | main |   Epoch  25/60 | train_RMSE= 19.96 | val_RMSE= 21.01 | lr=5.00e-04
+2026-10-07 23:51:01 | INFO     | main |   Epoch  30/60 | train_RMSE= 18.73 | val_RMSE= 18.54 | lr=2.50e-04
+2026-10-07 23:51:11 | INFO     | main |   Epoch  35/60 | train_RMSE= 18.01 | val_RMSE= 17.66 | lr=1.25e-04
+2026-10-07 23:51:23 | INFO     | main |   Epoch  40/60 | train_RMSE= 17.65 | val_RMSE= 17.17 | lr=6.25e-05
+2026-10-07 23:51:34 | INFO     | main |   Epoch  45/60 | train_RMSE= 17.52 | val_RMSE= 17.08 | lr=6.25e-05
+2026-10-07 23:51:45 | INFO     | main |   Epoch  50/60 | train_RMSE= 17.49 | val_RMSE= 17.00 | lr=6.25e-05
+2026-10-07 23:51:57 | INFO     | main |   Epoch  55/60 | train_RMSE= 17.43 | val_RMSE= 17.53 | lr=6.25e-05
+2026-10-07 23:52:08 | INFO     | main |   Epoch  60/60 | train_RMSE= 17.30 | val_RMSE= 16.86 | lr=6.25e-05
+2026-10-07 23:52:09 | INFO     | main | LSTM training took 132.51s
+2026-10-07 23:52:09 | INFO     | main | [LSTM] RMSE=30.00 | RMSE_clip=18.54 | MAE=22.36 | NASA=7976.1
+2026-10-07 23:52:09 | INFO     | main | [LSTM] Final train_RMSE=17.30 | val_RMSE=16.86
+2026-10-07 23:52:09 | INFO     | main | 
+[CNN] Training 1D-CNN...
+2026-10-07 23:52:10 | INFO     | main |   Epoch   1/60 | train_RMSE= 48.25 | val_RMSE= 28.10 | lr=1.00e-03
+2026-10-07 23:52:19 | INFO     | main |   Epoch   5/60 | train_RMSE= 22.57 | val_RMSE= 28.86 | lr=1.00e-03
+2026-10-07 23:52:29 | INFO     | main |   Epoch  10/60 | train_RMSE= 21.24 | val_RMSE= 20.14 | lr=1.00e-03
+2026-10-07 23:52:38 | INFO     | main |   Epoch  15/60 | train_RMSE= 20.12 | val_RMSE= 19.57 | lr=1.00e-03
+2026-10-07 23:52:47 | INFO     | main |   Epoch  20/60 | train_RMSE= 19.03 | val_RMSE= 24.74 | lr=5.00e-04
+2026-10-07 23:52:57 | INFO     | main |   Epoch  25/60 | train_RMSE= 18.41 | val_RMSE= 17.55 | lr=2.50e-04
+2026-10-07 23:53:06 | INFO     | main |   Epoch  30/60 | train_RMSE= 17.94 | val_RMSE= 16.43 | lr=1.25e-04
+2026-10-07 23:53:15 | INFO     | main |   Epoch  35/60 | train_RMSE= 17.70 | val_RMSE= 16.80 | lr=1.25e-04
+2026-10-07 23:53:24 | INFO     | main |   Epoch  40/60 | train_RMSE= 17.49 | val_RMSE= 16.25 | lr=6.25e-05
+2026-10-07 23:53:33 | INFO     | main |   Epoch  45/60 | train_RMSE= 17.42 | val_RMSE= 17.47 | lr=3.13e-05
+2026-10-07 23:53:42 | INFO     | main |   Epoch  50/60 | train_RMSE= 17.39 | val_RMSE= 15.84 | lr=1.56e-05
+2026-10-07 23:53:52 | INFO     | main |   Epoch  55/60 | train_RMSE= 17.31 | val_RMSE= 16.22 | lr=1.56e-05
+2026-10-07 23:54:02 | INFO     | main |   Epoch  60/60 | train_RMSE= 17.38 | val_RMSE= 16.08 | lr=7.81e-06
+2026-10-07 23:54:02 | INFO     | main | CNN training took 113.06s
+2026-10-07 23:54:02 | INFO     | main | [CNN]  RMSE=33.74 | RMSE_clip=23.02 | MAE=26.62 | NASA=12654.1
+2026-10-07 23:54:02 | INFO     | main | [CNN]  Final train_RMSE=17.38 | val_RMSE=16.08
+2026-10-07 23:54:02 | INFO     | main | All done. Results in H:\clint-paper\paper_work\project\results
