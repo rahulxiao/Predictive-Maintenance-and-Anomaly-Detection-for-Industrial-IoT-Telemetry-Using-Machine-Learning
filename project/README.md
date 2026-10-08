@@ -349,11 +349,16 @@ pdflatex -interaction=nonstopmode main.tex
 
 ## License & Citation
 This work is released under the MIT License for research and academic benchmarking.
-```bibtex
-@article{xiao2026predictive,
-  author  = {Xiao, Rahul},
-  title   = {Predictive Maintenance and Anomaly Detection for Industrial IoT Telemetry Using Machine Learning: A Rigorous Empirical Study on NASA C-MAPSS under Leakage-Free Protocols},
-  journal = {Research Monograph and Benchmark Suite},
-  year    = {2026}
-}
-```
+
+# 1. Fast smoke test (subset 1, seed 0 only):
+python src/run_all.py --quick
+
+# 2. Only regenerate publication plots, tables, and IEEE PDF from existing CSV results:
+python src/run_all.py --only-artifacts
+
+# 3. Run full models and experiments without compiling LaTeX PDF:
+python src/run_all.py --skip-latex
+
+# 4. Skip tests and use existing Stage 1 results:
+python src/run_all.py --skip-tests --skip-stage1
+
