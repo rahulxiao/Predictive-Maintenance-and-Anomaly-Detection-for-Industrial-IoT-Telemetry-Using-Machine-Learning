@@ -1,0 +1,32 @@
+\section{Limitations and Threats to Validity}
+\label{sec:limitations}
+
+\subsection{Methodological and Empirical Limitations}
+In adhering to strict scientific integrity, several inherent limitations of this investigation must be stated explicitly:
+
+\subsubsection{Simulated Benchmark Physics}
+The experimental conclusions of this investigation are derived from the NASA C-MAPSS simulation environment \cite{saxena2008damage}. Although C-MAPSS models realistic aerothermal degradation across rotating turbomachinery components, it remains a synthetic simulation. Real-world industrial IoT environments feature non-stationary ambient disturbances, unmeasured maintenance interventions, sensor drift and dropout, and non-Gaussian shock anomalies that are absent from simulated run-to-failure telemetry.
+
+\subsubsection{Arbitrary Binary Health Labeling}
+Discretizing continuous physical component degradation into a binary degradation state ($y = \mathbf{1}\{RUL \le N\}$) is inherently artificial. Degradation in high-temperature turbomachinery is a continuous physical wear process governed by crack propagation, thermal fatigue, and blade erosion. As proven in Section~\ref{sec:experiments}, binary cutoff thresholds introduce unavoidable lead-time circularity into supervised evaluations.
+
+\subsubsection{Truncated Official Test Engines}
+The official NASA C-MAPSS test engines are artificially truncated at arbitrary operating cycles prior to failure. While this design tests prognostic RUL accuracy, it prevents end-of-life warning lead-time and false alarm rate validation on the official test engines. Consequently, lead-time operating curve sweeps and fleet lead-time evaluations had to be conducted on out-of-fold training trajectories.
+
+\subsubsection{Single Benchmark Family}
+All four datasets evaluated (FD001--FD004) represent simulated variations of a single commercial turbofan engine family. Consequently, findings regarding specific sensor sensitivities (such as the dominant role of HPC outlet static pressure \texttt{s11}) and optimal regime clustering parameters may reflect turbofan gas path dynamics rather than universal industrial degradation principles.
+
+\subsubsection{Baseline Optimistic Tuning Bias}
+As documented in the methodology, the parameters of the statistical baselines ($k$-sigma threshold $k$, EWMA smoothing factor $\lambda$, control limit multiplier $L$) were tuned using 5-fold cross-validation on the same out-of-fold trajectories upon which they were evaluated. While this granted the baselines an optimistic parameter selection advantage, the fact that machine learning models still vastly outperformed them in classification confirms the robustness of the ML diagnostic advantage.
+
+\subsubsection{Fleet Scale Constraints}
+With only 100 engines in FD001 and FD003, and approximately 250--260 engines in FD002 and FD004, the fleet sizes available for cross-validation and calibration are relatively modest. In particular, extreme quantile estimation for conformal calibration ($90\%$ and $95\%$ bounds) is subject to small-sample sampling variance.
+
+\subsection{Future Research Directions}
+Building upon the empirical findings and methodological frameworks established in this work, several promising research avenues emerge:
+\begin{enumerate}
+    \item \textbf{Continuous Semi-Supervised Prognostics}: Eliminating binary cutoffs $N$ entirely in favor of continuous survival analysis, hazard rate modeling, and semi-supervised diffusion trajectories.
+    \item \textbf{Online Dynamic Conformal Prediction}: Developing adaptive, online conformal prediction algorithms that dynamically update prediction interval widths as new telemetry streams arrive, compensating for operational drift in real time.
+    \item \textbf{Validation on Real-World Industrial Telemetry}: Transitioning the standardized evaluation pipeline and regime normalization techniques to physical industrial datasets, such as wind turbine vibration streams, marine diesel engines, and power plant pump telemetry.
+    \item \textbf{Domain Adaptation under Unknown Operational Envelopes}: Investigating unsupervised domain adaptation architectures capable of aligning telemetry distributions across unknown and unlabelled flight regimes without requiring explicit operating setting sensors.
+\end{enumerate}

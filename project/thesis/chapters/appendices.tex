@@ -1,0 +1,107 @@
+\section{Hyperparameter Specifications}
+\label{sec:hyperparameters}
+
+Table~\ref{tab:hyperparameters} lists the standardized hyperparameter configurations utilized across all models and baseline detectors.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Model Hyperparameter Configurations}
+\label{tab:hyperparameters}
+\begin{tabular}{llp{9.5cm}}
+\toprule
+\textbf{Model} & \textbf{Parameter} & \textbf{Selected Value / Configuration} \\
+\midrule
+\textbf{XGBoost Regressor} & \texttt{n\_estimators} & 300 \\
+& \texttt{max\_depth} & 6 \\
+& \texttt{learning\_rate} & 0.05 \\
+& \texttt{subsample} & 0.8 \\
+& \texttt{colsample\_bytree} & 0.8 \\
+& \texttt{tree\_method} & \texttt{hist} \\
+\midrule
+\textbf{Random Forest Regressor} & \texttt{n\_estimators} & 200 \\
+& \texttt{max\_depth} & 10 \\
+& \texttt{min\_samples\_leaf} & 5 \\
+& \texttt{max\_samples} & 0.8 \\
+\midrule
+\textbf{PyTorch LSTM} & Hidden Dimension & 128 \\
+& Recurrent Layers & 2 \\
+& Dropout & 0.20 \\
+& Batch Size & 256 \\
+& Learning Rate & 0.001 (Adam with cosine decay) \\
+& Early Stopping & Patience = 10 epochs (Validation Loss) \\
+\midrule
+\textbf{PyTorch 1D-CNN} & Convolutional Filters & [32, 64] \\
+& Kernel Size & 3 \\
+& Dropout & 0.20 \\
+& Batch Size & 256 \\
+& Learning Rate & 0.001 (Adam) \\
+\midrule
+\textbf{Static Threshold Baseline} & $k$ Grid & [1.5, 2.0, 2.5, 3.0, 3.5, 4.0] \\
+& Sensor Vote Fraction & 0.30 (at least 30\% sensors violate $k\sigma$) \\
+& Persistence Filter & $P=3$ consecutive cycles \\
+\midrule
+\textbf{EWMA Control Limits} & $\lambda$ Smoothing & [0.1, 0.2, 0.3] \\
+& $L$ Multiplier Grid & [1.5, 2.0, 2.5, 3.0, 3.5] \\
+& Sensor Vote Fraction & 0.30 \\
+& Persistence Filter & $P=3$ consecutive cycles \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\section{Reproducibility Environment and Hardware Platform}
+\label{sec:reproducibility}
+
+All experiments were executed in a fully reproducible hardware and software environment:
+\begin{itemize}
+    \item \textbf{Operating System}: Microsoft Windows 11 Enterprise (x86\_64).
+    \item \textbf{Compute Hardware}: NVIDIA GeForce RTX 3060 Laptop GPU (6 GB VRAM, CUDA Driver 12.1).
+    \item \textbf{Python Runtime}: Python 3.12.10 (64-bit AMD64).
+    \item \textbf{Key Software Libraries}:
+    \begin{itemize}
+        \item \texttt{torch} == 2.5.1+cu121
+        \item \texttt{xgboost} == 3.3.0
+        \item \texttt{scikit-learn} == 1.9.0
+        \item \texttt{shap} == 0.52.0
+        \item \texttt{optuna} == 4.9.0
+        \item \texttt{numpy} == 2.4.6
+        \item \texttt{pandas} == 2.2.2
+        \item \texttt{scipy} == 1.15.1
+        \item \texttt{pytest} == 9.1.1
+    \end{itemize}
+\end{itemize}
+
+\section{Pipeline Execution and CLI Commands}
+\label{sec:commands}
+
+The experimental results reported in this paper can be reproduced via the following commands:
+\begin{itemize}
+    \item \textbf{Unit Tests}: \texttt{python -m pytest tests/ -v}
+    \item \textbf{Stage 1 Pipeline}: \texttt{python src/run\_anomaly.py}
+    \item \textbf{Stage 2 Novelty}: \texttt{python src/run\_stage2.py}
+    \item \textbf{Stage 3 Artifacts}: \texttt{python src/generate\_stage3\_figures.py}
+\end{itemize}
+
+\section{Results Manifest Traceability}
+\label{sec:manifest_traceability}
+
+All 151 individual experimental values presented in this paper are indexed in \texttt{results/manifest.csv}. Table~\ref{tab:manifest_sample} provides an illustrative sample of the manifest structure.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Illustrative Sample of Results Manifest Mapping (\texttt{results/manifest.csv})}
+\label{tab:manifest_sample}
+\begin{tabular}{llllp{6.5cm}}
+\toprule
+\textbf{Category} & \textbf{Subset} & \textbf{Model} & \textbf{Metric Name} & \textbf{Source File} \\
+\midrule
+Anomaly\_OOF & FD001 & XGBoost & PR\_AUC & \texttt{results/anomaly\_metrics\_summary.csv} \\
+Anomaly\_OOF & FD001 & XGBoost & F1\_Score & \texttt{results/anomaly\_metrics\_summary.csv} \\
+Lead\_Time\_FA & FD001 & Static\_Threshold & Lead\_Time\_at\_FA\_0.5 & \texttt{results/lead\_time\_at\_fa\_budgets.csv} \\
+Cross\_Condition & FD001 $\to$ FD002 & XGBoost & RUL\_RMSE\_Mean & \texttt{results/cross\_condition\_transfer.csv} \\
+Conformal\_90 & FD001 & XGBoost & Empirical\_Coverage & \texttt{results/conformal\_prediction\_results.csv} \\
+Ablation\_Study & FD001 & PCA95 & RUL\_RMSE\_Mean & \texttt{results/ablations\_summary.csv} \\
+\bottomrule
+\end{tabular}
+\end{table*}

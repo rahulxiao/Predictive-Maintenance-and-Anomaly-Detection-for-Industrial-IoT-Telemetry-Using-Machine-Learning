@@ -1,0 +1,80 @@
+\documentclass[11pt,a4paper,oneside]{report}
+
+% Essential Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{setspace}
+\usepackage{hyperref}
+
+% Graphics path
+\graphicspath{{../results/figures/}{results/figures/}}
+
+% Hyperref Setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=green!50!black,
+    urlcolor=blue!80!black,
+    pdftitle={Predictive Maintenance and Anomaly Detection for Industrial IoT Telemetry Using Machine Learning},
+    pdfauthor={Master's Thesis},
+}
+
+\onehalfspacing
+
+\title{
+    \vspace{-1.5cm}
+    \textbf{\Large Predictive Maintenance and Anomaly Detection for Industrial IoT Telemetry Using Machine Learning}\\[0.5cm]
+    \large A Rigorous Empirical Study on NASA C-MAPSS Telemetry under Leakage-Free Protocols
+}
+
+\author{
+    \textbf{Master of Science Thesis}
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% Abstract
+\input{chapters/abstract}
+
+% Front Matter
+\tableofcontents
+\listoffigures
+\listoftables
+
+\clearpage
+
+% Main Chapters
+\include{chapters/ch01_introduction}
+\include{chapters/ch02_related_work}
+\include{chapters/ch03_dataset}
+\include{chapters/ch04_methodology}
+\include{chapters/ch05_experiments}
+\include{chapters/ch06_discussion}
+\include{chapters/ch07_limitations}
+\include{chapters/ch08_conclusion}
+
+% Appendices
+\include{chapters/appendices}
+
+% Bibliography
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

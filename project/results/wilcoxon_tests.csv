@@ -1,0 +1,9 @@
+Subset,Metric,Comparison,Median_Diff,Mean_Diff,CI_95,Raw_p_value,Total_Tests,Holm_p_value,Bonferroni_p_value,Significant_after_Holm
+FD001,False_Alarms,XGBoost vs Static_Threshold,0.0,0.0,"[+0.00, +0.00]",1.0,8,1.0,1.0,False
+FD001,Lead_Time,XGBoost vs Static_Threshold,2.0,1.4,"[-1.00, +5.00]",0.061423445124025686,8,0.3685406707441541,0.4913875609922055,False
+FD002,False_Alarms,XGBoost vs Static_Threshold,0.0,0.0,"[+0.00, +0.00]",1.0,8,1.0,1.0,False
+FD002,Lead_Time,XGBoost vs Static_Threshold,-1.5,-1.5961538461538463,"[-2.00, +0.00]",0.13954493318144615,8,0.6977246659072307,1.0,False
+FD003,False_Alarms,XGBoost vs Static_Threshold,0.0,-0.12,"[+0.00, +0.00]",0.17971249487899976,8,0.718849979515999,1.0,False
+FD003,Lead_Time,XGBoost vs Static_Threshold,-3.0,-6.0,"[-8.00, -0.49]",0.0032985676334747523,8,0.02638854106779802,0.02638854106779802,True
+FD004,False_Alarms,LSTM vs Static_Threshold,0.0,-0.20883534136546184,"[+0.00, +0.00]",0.043114446783075355,8,0.3018011274815275,0.34491557426460284,False
+FD004,Lead_Time,LSTM vs Static_Threshold,1.0,-0.20883534136546184,"[-2.00, +4.00]",0.986005232838392,8,1.0,1.0,False

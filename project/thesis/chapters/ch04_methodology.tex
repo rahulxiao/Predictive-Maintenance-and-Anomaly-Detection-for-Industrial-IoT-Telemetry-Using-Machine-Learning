@@ -1,0 +1,121 @@
+\section{Methodology and Evaluation Protocol}
+\label{sec:methodology}
+
+\subsection{Anomaly Label Formulation and Health Indices}
+
+\subsubsection{Supervised Degradation Ground-Truth Labels}
+In industrial predictive maintenance, systems operate under nominal conditions for the majority of their operational life, transitioning into accelerated wear only during final operational phases. Following established literature \cite{ramasso2014performance}, continuous RUL is mapped into a binary degradation state:
+\begin{equation}
+y_t = \begin{cases} 
+1 & \text{if } RUL_t \le N, \\ 
+0 & \text{if } RUL_t > N, 
+\end{cases}
+\label{eq:anomaly_label}
+\end{equation}
+where $N$ denotes the critical prognostic horizon cutoff (nominally set to $N=30$ cycles). In Section~\ref{sec:experiments}, we systematically evaluate sensitivity across $N \in \{20, 30, 50, 75, 100\}$.
+
+\subsubsection{Unsupervised Health Indices (HI)}
+To provide label-free degradation tracking without arbitrary cutoffs $N$, we construct two continuous Health Indices calibrated on the early healthy phase ($\mathcal{T}_{\text{healthy}}$):
+\begin{enumerate}
+    \item \textbf{PCA First Principal Component (PCA-PC1)}: Fitted on healthy early cycles; the projection of sensor readings onto the first principal component is min-max normalized to $[0, 1]$, where $1.0$ represents pristine health and $0.0$ represents failure.
+    \item \textbf{Mahalanobis Distance Health Index (MD-HI)}: Computes the multivariate statistical distance from the healthy baseline distribution:
+    \begin{equation}
+    D_M(x_t) = \sqrt{(x_t - \mu_0)^T \Sigma_0^{-1} (x_t - \mu_0)},
+    \label{eq:mahalanobis}
+    \end{equation}
+    where $\mu_0$ and $\Sigma_0$ are the empirical mean vector and covariance matrix of healthy early-life telemetry. The health index is defined as $HI_t = \exp(-D_M(x_t) / \gamma)$, monotonically decreasing toward 0 as degradation accumulates.
+\end{enumerate}
+
+\subsection{Statistical Baseline Detectors}
+
+\subsubsection{Parametric Static Threshold ($k$-Sigma)}
+For each sensor $s$, standardized deviations $|z_{t, s}|$ are compared against a parameter threshold $k \in [1.5, 4.0]$. A unit-level alarm vote triggers if at least $30\%$ of sensors simultaneously exceed $k\sigma$:
+\begin{equation}
+a_t^{\text{raw}} = \mathbf{1}\left\{ \frac{1}{|\mathcal{S}|} \sum_{s \in \mathcal{S}} \mathbf{1}\{|z_{t, s}| > k\} \ge 0.30 \right\}.
+\end{equation}
+
+\subsubsection{Parametric EWMA Control Limits}
+To incorporate temporal memory into statistical process control, sensor readings are smoothed via Exponentially Weighted Moving Averages \cite{montgomery2009introduction}:
+\begin{equation}
+\tilde{x}_{t, s} = \lambda x_{t, s} + (1 - \lambda) \tilde{x}_{t-1, s}, \quad \lambda \in \{0.1, 0.2, 0.3\}.
+\end{equation}
+Control limits are established as:
+\begin{align}
+\text{UCL}_{t, s} &= \mu_{0, s} + L \sigma_{0, s} \sqrt{\frac{\lambda}{2 - \lambda}}, \\
+\text{LCL}_{t, s} &= \mu_{0, s} - L \sigma_{0, s} \sqrt{\frac{\lambda}{2 - \lambda}},
+\end{align}
+where $L \in [1.5, 3.5]$. An engine alarm vote triggers if $30\%$ of sensors violate control limits.
+
+\subsubsection{Sustained Alarm Persistence Filter}
+To prevent isolated transient spikes from generating false alarms, all detectors apply a sustained alarm persistence filter: an alarm is latched if and only if raw alarms trigger for $P=3$ consecutive cycles:
+\begin{equation}
+a_t^{\text{sustained}} = \mathbf{1}\left\{ \sum_{i=0}^{P-1} a_{t-i}^{\text{raw}} = P \right\}.
+\label{eq:sustained_alarm}
+\end{equation}
+Once latched, the alarm remains active for the remainder of the engine trajectory.
+
+\subsection{Machine Learning Architectures}
+
+\subsubsection{Window Feature Extraction for Tree Models}
+Tree-based models operate on 4 summary statistics extracted over each sliding window $X \in \mathbb{R}^{W \times D}$ ($W=30$):
+\begin{enumerate}
+    \item \textbf{Temporal Mean}: $\bar{x}_s = \frac{1}{W} \sum_{i=1}^W x_{i, s}$.
+    \item \textbf{Standard Deviation}: $\sigma_s = \sqrt{\frac{1}{W} \sum_{i=1}^W (x_{i, s} - \bar{x}_s)^2}$.
+    \item \textbf{Linear Trend Slope}: Least-squares regression slope $\beta_s$ over time indices $t = 1, \dots, W$.
+    \item \textbf{Last Value}: The final cycle reading $x_{W, s}$.
+\end{enumerate}
+Yielding a feature dimension of $4 \times D$ (56 features for 14 sensors; 80 for 20 sensors).
+
+\subsubsection{Supervised Detectors}
+\begin{itemize}
+    \item \textbf{Isolation Forest}: Unsupervised ensemble of 100 isolation trees trained strictly on healthy early-life training windows ($\mathcal{T}_{\text{healthy}}$).
+    \item \textbf{Random Forest Classifier}: 100 estimators, \texttt{max\_depth=8}, \texttt{max\_samples=0.8}, weighted inversely by class frequencies.
+    \item \textbf{XGBoost Classifier}: 100 estimators, \texttt{max\_depth=5}, learning rate $\eta=0.08$, \texttt{subsample=0.8}, \texttt{colsample\_bytree=0.8}, loss weighted by \texttt{scale\_pos\_weight} $= N_{\text{neg}} / N_{\text{pos}}$.
+    \item \textbf{PyTorch LSTM Classifier}: 2-layer LSTM (hidden size 128, dropout 0.2) mapped to a fully connected linear layer, trained with weighted binary cross-entropy loss and early stopping.
+\end{itemize}
+
+\subsubsection{RUL Regression Models}
+For continuous prognostic forecasting, models are trained on clipped piecewise targets $RUL \le 125$:
+\begin{itemize}
+    \item \textbf{XGBoost Regressor}: 300 estimators, \texttt{max\_depth=6}, $\eta=0.05$, histogram tree method.
+    \item \textbf{Random Forest Regressor}: 200 trees, \texttt{max\_depth=10}, \texttt{min\_samples\_leaf=5}.
+    \item \textbf{PyTorch LSTM Regressor}: 2-layer LSTM (hidden size 128) predicting scalar RUL.
+    \item \textbf{PyTorch 1D-CNN Regressor}: 2 temporal convolutional layers (channels 32, 64; kernel size 3) with max pooling and dense projection.
+\end{itemize}
+
+\subsection{Warning Lead-Time and False-Alarm Metrics}
+Following industrial reliability protocols, evaluation is conducted over full engine trajectories under a standardized evaluation horizon $H=100$ cycles before failure:
+\begin{itemize}
+    \item \textbf{Healthy Operational Phase}: Cycles where true $RUL > 100$. Any alarm triggered during this phase is counted as a \textbf{Premature False Alarm}.
+    \item \textbf{Valid Warning Phase}: Cycles where $0 \le RUL \le 100$. The first cycle $T_{\text{alarm}}$ where a sustained alarm triggers defines the \textbf{Warning Lead Time}:
+    \begin{equation}
+    \text{Lead Time} = T_{\text{fail}} - T_{\text{alarm}}.
+    \end{equation}
+    \item \textbf{Missed Detection}: If an engine fails without triggering a sustained alarm within the horizon $H$, it is classified as a missed detection with $\text{Lead Time} = 0$.
+    \item \textbf{False Alarms per 100 Healthy Cycles}: Standardized false alarm rate:
+    \begin{equation}
+    \text{FA Rate} = \frac{N_{\text{FA}}}{N_{\text{healthy cycles}}} \times 100,
+    \end{equation}
+    where $N_{\text{FA}}$ is the total number of false alarm cycles occurring in the healthy phase ($RUL > 100$) across the fleet.
+\end{itemize}
+
+\subsection{Cross-Validation and Conformal Calibration Protocol}
+
+\subsubsection{Unit-Grouped Shuffled Cross-Validation}
+To guarantee zero data leakage between time steps of the same engine, all training folds are split by engine unit using 5-fold \texttt{GroupKFold}. Across 5 random seeds (0--4), fold assignments are shuffled such that each seed evaluates a distinct partition of validation engines. Official test engines are strictly quarantined until final inference.
+
+\subsubsection{Split Conformal Prediction}
+To quantify RUL prediction uncertainty with finite-sample coverage guarantees, we implement split conformal prediction \cite{angelopoulos2021gentle}:
+\begin{enumerate}
+    \item Training engine units $\mathcal{U}_{\text{train}}$ are partitioned into proper training units $\mathcal{U}_{\text{prop}}$ ($80\%$) and calibration units $\mathcal{U}_{\text{cal}}$ ($20\%$).
+    \item Model $\hat{f}$ is fit on $\mathcal{U}_{\text{prop}}$.
+    \item On held-out calibration units, non-conformity residuals are computed:
+    $$s_i = |y_i - \hat{f}(x_i)|, \quad \forall i \in \mathcal{D}_{\text{cal}}.$$
+    \item For target coverage $1 - \alpha = 0.90$, the conformal quantile is computed:
+    $$q = \text{Quantile}\left(\{s_i\}, \frac{\lceil (n_{\text{cal}} + 1)(1 - \alpha) \rceil}{n_{\text{cal}}}\right).$$
+    \item On official test engines, prediction intervals are constructed as $[\hat{f}(x_{\text{test}}) - q, \hat{f}(x_{\text{test}}) + q]$.
+\end{enumerate}
+
+\subsection{Statistical Significance Testing}
+To test for statistically significant performance differences between the best machine learning detector and the best statistical baseline, we conduct paired Wilcoxon signed-rank tests across $M=8$ planned comparisons (False Alarms and Lead Time across FD001--FD004). 
+Family-Wise Error Rate (FWER) is controlled using the Holm-Bonferroni step-down correction \cite{holm1979simple}. Effect sizes are quantified using the median paired difference accompanied by non-parametric $95\%$ confidence intervals derived from 2,000 bootstrap resamples.

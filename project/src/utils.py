@@ -1,4 +1,4 @@
-﻿"""
+"""
 utils.py - Shared utilities: config loading, seeding, logging, timing.
 """
 from __future__ import annotations
@@ -38,6 +38,44 @@ def set_seed(seed: int = 42) -> None:
         torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
+
+
+def get_shuffled_group_kfold(
+    groups: np.ndarray,
+    n_splits: int = 5,
+    seed: int = 42,
+) -> list[tuple[np.ndarray, np.ndarray]]:
+    """
+    Shuffles unique group IDs using a specific random seed, then distributes groups
+    into n_splits balanced folds so that:
+      1. Zero unit/group overlap exists between train and validation within any fold.
+      2. Group assignments to folds differ across different seeds.
+    """
+    unique_groups = np.unique(groups)
+    rng = np.random.default_rng(seed)
+    shuffled_groups = rng.permutation(unique_groups)
+
+    # Group counts to balance fold sizes
+    group_sizes = {g: int(np.sum(groups == g)) for g in unique_groups}
+
+    # Assign groups to folds greedily by current fold size
+    folds: list[list[int]] = [[] for _ in range(n_splits)]
+    fold_sizes = [0] * n_splits
+
+    for g in shuffled_groups:
+        min_fold = int(np.argmin(fold_sizes))
+        folds[min_fold].append(int(g))
+        fold_sizes[min_fold] += group_sizes[g]
+
+    splits = []
+    for f in range(n_splits):
+        val_units = set(folds[f])
+        val_mask = np.isin(groups, list(val_units))
+        train_mask = ~val_mask
+        splits.append((np.where(train_mask)[0], np.where(val_mask)[0]))
+
+    return splits
+
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,28 @@
+\section{Related Work}
+\label{sec:related_work}
+
+\subsection{Predictive Maintenance and the C-MAPSS Benchmark}
+Predictive maintenance has evolved from statistical reliability analysis toward data-driven prognostic modeling leveraging deep learning and ensemble trees \cite{saxena2008damage}. The NASA Commercial Modular Aero-Propulsion System Simulation (C-MAPSS) turbofan benchmark was introduced by Saxena et al. \cite{saxena2008damage} to simulate realistic damage propagation in gas turbine engines. C-MAPSS couples aerothermal physics with stochastic degradation modeling, capturing component wear across fan, low-pressure compressor (LPC), high-pressure compressor (HPC), high-pressure turbine (HPT), and low-pressure turbine (LPT) assemblies.
+
+In the inaugural 2008 IEEE PHM Data Challenge using C-MAPSS, Heimes \cite{heimes2008recurrent} demonstrated the efficacy of recurrent neural networks (RNNs) for RUL regression, winning the competitive challenge by training backpropagation networks directly on flight trajectories. Later, Ramasso and Saxena \cite{ramasso2014performance} conducted an exhaustive benchmarking analysis across prognostic methodologies on C-MAPSS, establishing standardized piecewise linear degradation assumptions (capping nominal RUL at an upper threshold, typically 125 cycles) and identifying the pronounced performance discrepancies between single-regime datasets (FD001, FD003) and multi-regime datasets (FD002, FD004).
+
+\subsection{Deep Learning for Remaining Useful Life Estimation}
+With the resurgence of deep representation learning, time-series neural networks have become dominant in C-MAPSS literature:
+\begin{itemize}
+    \item \textbf{Recurrent Architectures}: Zheng et al. \cite{zheng2017long} introduced Long Short-Term Memory (LSTM) networks for C-MAPSS RUL regression. By propagating hidden states across sliding windows, LSTMs naturally capture long-term temporal dependencies in sensor degradation trajectories without requiring manual feature engineering.
+    \item \textbf{Convolutional Architectures}: Babu et al. \cite{babu2016deep} established the application of deep 2D/1D Convolutional Neural Networks (CNNs) for prognostic regression on C-MAPSS, applying temporal filter kernels across sensor dimensions. Li et al. \cite{li2018remaining} extended this approach using deep 1D-CNNs with time-windowing, demonstrating that convolutional feature maps extract localized sensor degradation patterns while maintaining computational throughput superior to recurrent networks.
+\end{itemize}
+
+\subsection{Tree Ensembles and Industrial Practice}
+In real-world IIoT deployments, gradient-boosted decision trees, particularly XGBoost \cite{chen2016xgboost}, remain widely utilized due to their computational efficiency, robustness against hyperparameter sensitivity, and natural handling of tabular statistical features. When paired with windowed summary feature extraction (e.g., temporal means, standard deviations, and trend slopes), tree ensembles achieve prognostic accuracy rivaling deep neural networks while executing in a fraction of the training time \cite{chen2016xgboost}.
+
+\subsection{Statistical Process Control and Baselines}
+Despite widespread adoption of deep neural networks, classical Statistical Process Control (SPC) charts remain the foundational standard in industrial operational monitoring \cite{montgomery2009introduction}. Shewhart static $k$-sigma control charts and Exponentially Weighted Moving Average (EWMA) control limits filter sensor telemetry to detect shifts in mean operating levels. While conventional C-MAPSS papers frequently omit statistical baselines or benchmark against un-tuned, un-normalized threshold detectors, condition-aware baselines paired with persistence filtering (requiring consecutive out-of-control cycles) provide strong benchmarks for anomaly warning \cite{montgomery2009introduction}.
+
+\subsection{Uncertainty Quantification and Conformal Prediction}
+A fundamental limitation of deterministic RUL regression models is the absence of rigorous uncertainty quantification. In safety-critical aerospace operations, a point estimate $\hat{y}$ is insufficient for decision-making without reliable confidence bounds. Conformal prediction, formalized by Angelopoulos and Bates \cite{angelopoulos2021gentle}, provides distribution-free, finite-sample prediction intervals with mathematically guaranteed marginal coverage. By calibrating non-conformity scores on held-out calibration units, split conformal prediction generates prediction intervals $[\hat{y} - q, \hat{y} + q]$ without requiring distributional assumptions or Bayesian approximations.
+
+\subsection{Explainability and Multiple Hypothesis Testing}
+To transition black-box machine learning models into operational aerospace certification, feature attribution methods such as SHAP (SHapley Additive exPlanations) \cite{lundberg2017unified} have gained widespread adoption. Rooted in cooperative game theory, TreeSHAP computes exact Shapley values for tree ensembles, quantifying each sensor's contribution to degradation estimates.
+
+Finally, when evaluating diagnostic models across multiple subsets and metrics, conducting multiple statistical comparisons inflates Type I error. To preserve statistical integrity, Holm \cite{holm1979simple} established the sequentially rejective step-down Bonferroni-Holm procedure, which controls the Family-Wise Error Rate (FWER) across $M$ hypothesis tests without the extreme conservatism of standard Bonferroni adjustments.

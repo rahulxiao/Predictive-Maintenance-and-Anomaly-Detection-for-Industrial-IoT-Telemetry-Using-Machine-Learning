@@ -1,0 +1,11 @@
+\begin{abstract}
+Predictive maintenance (PdM) of critical cyber-physical systems relies on detecting incipient degradation and forecasting Remaining Useful Life (RUL) from multi-sensor telemetry. On the canonical NASA Commercial Modular Aero-Propulsion System Simulation (C-MAPSS) turbofan benchmark (FD001--FD004), modern machine learning (ML) architectures consistently achieve high diagnostic accuracy. However, standard evaluation protocols suffer from critical methodological vulnerabilities, including evaluation-fold tuning optimism, cross-condition normalization leakage, and circular lead-time definitions where warnings trivially track supervised classification cutoffs ($RUL \le N$).
+
+This paper presents a rigorous empirical investigation into anomaly detection and prognostic forecasting under strictly leakage-free conditions. Using 5-fold shuffled \texttt{GroupKFold} unit splits over 5 random seeds, we benchmark Random Forests, XGBoost, Deep 1D-CNNs, and LSTMs against condition-aware statistical baselines ($k$-sigma static thresholds and EWMA control limits) and unsupervised health indices. On official test engines, supervised ML achieves dominant window-level classification ($F_1 = 0.753$--$0.858$, PR-AUC $= 0.826$--$0.938$) and accurate RUL prediction (LSTM RMSE $13.98 \pm 0.22$ on FD003; XGBoost RMSE $29.60 \pm 0.15$ on FD004). 
+
+Crucially, operating characteristic sweeps demonstrate that the tuned static threshold warns earlier than ML detectors under zero or minimal false alarms on multi-fault/multi-regime subsets (median difference $-3.0$ cycles on FD003, Holm-corrected $p = 0.0264$). Furthermore, sensitivity sweeps over $N \in \{20, 30, 50, 75, 100\}$ prove that supervised lead times are strictly circular, tracking $N$ rather than physical degradation onset. Split conformal prediction intervals achieve $73.7\%$--$84.0\%$ empirical test coverage at $90\%$ target coverage, and TreeSHAP confirms $60\%$--$80\%$ feature attribution consensus with physical control charts.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Predictive maintenance, remaining useful life (RUL), anomaly detection, industrial IoT, turbofan telemetry, NASA C-MAPSS, conformal prediction, domain adaptation, TreeSHAP.
+\end{IEEEkeywords}

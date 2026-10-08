@@ -1,0 +1,16 @@
+\section{Conclusion and Future Directions}
+\label{sec:conclusion}
+
+\subsection{Summary of Research Findings}
+This paper presented a rigorous, leakage-free empirical investigation into predictive maintenance and anomaly detection on the canonical NASA C-MAPSS benchmark suite (FD001--FD004). By implementing 5-fold shuffled \texttt{GroupKFold} engine splits over 5 random seeds with quarantined test fleets, we eliminated persistent evaluation flaws identified in published literature, including seed invariance, optimistic cross-domain normalization leakage, and circular lead-time reporting.
+
+Across 11 comprehensive experimental configurations and 4 novelty investigations, our findings resolve the core research questions as follows:
+\begin{enumerate}
+    \item \textbf{RQ1 (Prognostic \& Diagnostic Accuracy)}: Machine learning models achieve dominant window-level classification accuracy on official test engines ($F_1 = 0.753$--$0.858$, PR-AUC $= 0.826$--$0.938$) and precise RUL prognostic regression (LSTM RMSE $13.98 \pm 0.22$ on FD003; XGBoost RMSE $29.60 \pm 0.15$ on FD004), vastly outperforming baseline control charts.
+    \item \textbf{RQ2 (Machine Learning vs. Statistical Baselines)}: While ML dominates classification fidelity, a condition-aware static threshold baseline warns earlier than ML detectors under zero or minimal false alarms on multi-fault and multi-regime fleets (median lead-time advantage of $-3.0$ cycles on FD003, Holm-corrected $p = 0.0264$), driven by cumulative multi-sensor physical drift that avoids supervised point-wise cross-entropy loss penalties.
+    \item \textbf{RQ3 (Achievable Lead Time and Circularity)}: Supervised warning lead times are fundamentally circular, strictly tracking the arbitrarily selected label threshold $N$ across $N \in \{20, 30, 50, 75, 100\}$. Reliable early warning is capped at approximately $40$--$50$ cycles before failure; attempting to enforce earlier warnings ($N \ge 75$) causes false alarms to escalate to $25.7$ per 100 cycles and premature false alarms to surge past $50\%$.
+    \item \textbf{RQ4 (Preprocessing and Dimensionality Reduction)}: Dimensionality reduction is critical: raw flattened windows perform worst ($\text{RMSE} = 15.67 \pm 0.30$). PCA (95\% variance) achieves the lowest RUL prediction error ($13.30 \pm 0.09$), while extracting 4 summary statistics (mean, std, slope, last) yields near-identical accuracy ($13.38 \pm 0.20$), superior anomaly PR-AUC ($0.935$ vs $0.929$), and native physical interpretability.
+\end{enumerate}
+
+\subsection{Closing Remarks}
+Predictive maintenance in industrial cyber-physical fleets cannot rely solely on black-box diagnostic scores or unverified early warning claims. By combining condition-aware statistical baselines for ultra-sensitive early screening with supervised gradient-boosted trees and deep recurrent networks for high-precision diagnostic confirmation and conformal uncertainty quantification, modern IIoT architectures can achieve robust, interpretable, and operationally reliable predictive maintenance.

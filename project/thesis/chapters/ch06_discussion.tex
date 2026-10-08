@@ -1,0 +1,54 @@
+\section{Discussion and Key Findings}
+\label{sec:discussion}
+
+\subsection{What Worked and What Failed in Industrial Predictive Telemetry}
+
+\subsubsection{Architectures and Methodologies that Succeeded}
+\begin{enumerate}
+    \item \textbf{High-Fidelity Window-Level Classification}: Supervised gradient boosting (XGBoost) and recurrent networks (LSTM) demonstrated exceptional diagnostic precision on official test engines, achieving $F_1$ scores between $0.753$ and $0.858$ and PR-AUC scores between $0.826$ and $0.938$, vastly outperforming baseline control charts.
+    \item \textbf{Competitive Parity of Tree Ensembles with Deep Learning}: XGBoost trained on 4 engineered window statistics (mean, std, trend slope, last value) achieved prognostic RUL RMSE within $0.09$ cycles of LSTM on FD001 ($14.78$ vs $14.69$) and outperformed deep architectures on the most complex multi-regime multi-fault subset FD004 ($29.60$ vs $30.78$), while executing in a fraction of the computational training time and offering native TreeSHAP interpretability.
+    \item \textbf{Condition-Aware Operating Regime Normalization}: Unsupervised clustering ($k$-means, $K=6$) coupled with early healthy-life baseline calibration successfully stripped operating setting noise from sensor telemetry, reducing multi-regime RUL RMSE from over $54$ cycles down to $26.63$ on FD002 and $27.11$ on FD004.
+    \item \textbf{Mahalanobis Distance for Continuous Health Tracking}: The Mahalanobis Distance Health Index consistently outperformed PCA-PC1 in monotonic rank correlation with true RUL across all four subsets ($\rho = 0.714, 0.690, 0.661, 0.690$), providing a reliable continuous degradation metric without requiring arbitrary label cutoffs.
+\end{enumerate}
+
+\subsubsection{Approaches that Failed}
+\begin{enumerate}
+    \item \textbf{Unsupervised Anomaly Ensembles (Isolation Forest)}: Unsupervised Isolation Forests failed completely across all four subsets, producing $F_1$ scores below $0.160$ and PR-AUC below $0.210$. Due to the multi-modal distribution of complex sensor telemetry, Isolation Forest could not achieve low false alarm rates ($\text{FA} > 6.4$ per 100 healthy cycles across all subsets).
+    \item \textbf{Direct Cross-Condition Transfer without Regime Awareness}: Deploying models trained under single operating conditions (FD001, FD003) to multi-regime environments (FD002, FD004) resulted in catastrophic failure ($\Delta\text{RMSE} > +27.4$ cycles; $F_1$ collapsing from $\approx 0.80$ to $<0.10$). Operational environment variations entirely mask degradation signatures when operating regimes are not explicitly standardized.
+\end{enumerate}
+
+\subsection{The Baseline Warning Lead-Time Paradox}
+A central, counter-intuitive finding of this study is that \textbf{while machine learning models vastly outperform statistical baselines in classification fidelity, the tuned regime-normalized static threshold warns earlier than ML models at minimal false alarms on multi-fault/multi-regime fleets}.
+
+Specifically, on FD003, the Static Threshold detector achieved an out-of-fold lead time of $35.8$ cycles compared to $28.1 \pm 1.0$ cycles for XGBoost, with Wilcoxon signed-rank testing confirming statistical significance (median paired difference $-3.0$ cycles, Holm-corrected $p = 0.0264$).
+
+\subsubsection{Theoretical and Loss-Function Rationale}
+This paradox arises from fundamental structural differences between supervised machine learning loss functions and statistical process control mechanisms:
+\begin{itemize}
+    \item \textbf{Supervised Classification Truncation}: Supervised binary classifiers optimize point-wise cross-entropy loss against ground-truth labels defined as $y = \mathbf{1}\{RUL \le 30\}$. If a neural network or boosted tree flags an alarm at $RUL = 40$ or $50$, the training loss penalizes this prediction as a false positive. Consequently, supervised models learn to sharply attenuate anomaly probabilities prior to cycle 30.
+    \item \textbf{Trajectory-Level Z-Score Accumulation}: The static threshold baseline operates on individual sensor z-scores accumulated across a multi-sensor voting rule ($30\%$ of sensors exceeding $k\sigma$). In slow-developing degradation, multiple sensors show mild physical drift prior to $RUL = 30$. Because the baseline is not constrained by a point-wise classification loss, this gradual multi-sensor departure from nominal baseline statistics triggers the sustained persistence threshold earlier in the degradation lifecycle.
+\end{itemize}
+
+\subsection{Label Dependence and Circularity of Warning Lead Time}
+Our systematic sensitivity sweep across $N \in \{20, 30, 50, 75, 100\}$ demonstrates that in supervised predictive maintenance, \textbf{warning lead time is fundamentally circular}:
+\begin{itemize}
+    \item For $N=20$, empirical lead time lands at $17.8$--$19.0$ cycles.
+    \item For $N=30$, empirical lead time lands at $27.1$--$30.3$ cycles.
+    \item For $N=50$, empirical lead time lands at $48.6$--$50.2$ cycles.
+    \item For $N=75$, empirical lead time lands at $70.2$--$72.8$ cycles.
+    \item For $N=100$, empirical lead time lands at $80.9$--$86.9$ cycles.
+\end{itemize}
+
+Achieved warning lead time does not measure an algorithm's ability to detect physical damage earlier; rather, it tracks the human-selected labeling cutoff $N$. 
+Moreover, attempting to achieve earlier warnings by expanding $N$ past 50 breaks alarm reliability: at $N=100$, false alarms surge to $13.56$--$25.67$ per 100 healthy cycles, and premature alarms account for $52.0\%$--$55.0\%$ of all fleet warnings.
+
+\subsection{Practical Implications for Fleet Maintenance Systems}
+These findings lead directly to practical design recommendations for industrial predictive maintenance architectures:
+\begin{enumerate}
+    \item \textbf{Two-Stage Tiered Architecture}: Rather than relying exclusively on an end-to-end deep learning classifier, industrial monitoring systems should employ a two-stage hybrid architecture:
+    \begin{itemize}
+        \item \emph{Tier 1 (Early Warning Trigger)}: A condition-aware statistical control chart (static $k$-sigma or EWMA) provides ultra-sensitive, computationally trivial early warning detection.
+        \item \emph{Tier 2 (High-Precision Diagnostic \& Prognostic Forecasting)}: Once Tier 1 flags potential degradation, a high-capacity machine learning model (XGBoost or LSTM) is activated to confirm the anomaly, eliminate false alarms, and generate calibrated RUL conformal prediction intervals.
+    \end{itemize}
+    \item \textbf{Explicit Regime Calibration}: Cross-condition transfer without target-domain operating regime calibration is non-viable. Field deployments must record operating condition clusters during commissioning and standardize sensor streams prior to model inference.
+\end{enumerate}

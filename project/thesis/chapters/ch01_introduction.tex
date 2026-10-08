@@ -1,0 +1,46 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Motivation}
+In modern industrial cyber-physical infrastructure---ranging from civil aviation propulsion systems to renewable power generation fleets---unexpected component failures incur catastrophic economic losses, unplanned operational downtime, and severe safety hazards. The proliferation of Industrial Internet of Things (IIoT) architectures has facilitated continuous, high-frequency telemetry acquisition across fleets of rotating machinery. Consequently, Predictive Maintenance (PdM) and Prognostics and Health Management (PHM) have shifted from retrospective breakdown repairs and calendar-based preventative servicing toward continuous condition-based prognostics \cite{saxena2008damage, ramasso2014performance}.
+
+The core operational objective of predictive maintenance is twofold:
+\begin{enumerate}
+    \item \textbf{Early Anomaly Warning}: Detecting the earliest physical transition from nominal, healthy operation to an anomalous, degrading state, providing maintenance operators with sufficient warning lead time while constraining false alarm rates.
+    \item \textbf{Prognostic Horizon Forecasting}: Accurately estimating the Remaining Useful Life (RUL) of the asset, defined as the number of operational cycles or operating hours remaining before component failure.
+\end{enumerate}
+
+The canonical benchmark for evaluating data-driven PdM methodologies is the NASA Commercial Modular Aero-Propulsion System Simulation (C-MAPSS) dataset suite \cite{saxena2008damage}. C-MAPSS provides high-dimensional run-to-failure telemetry across four subsets (FD001 through FD004), encompassing single and multi-regime operating conditions as well as single and dual fault modes.
+
+\subsection{Problem Statement and Evaluation Vulnerabilities}
+Despite a decade of literature applying deep neural networks, ensemble tree methods, and recurrent architectures to C-MAPSS, published evaluations suffer from pervasive methodological vulnerabilities that threaten real-world validity:
+\begin{enumerate}
+    \item \textbf{Circular Warning Lead Times}: In supervised classification studies, anomaly labels are commonly assigned by designating cycles where $RUL \le N$ (typically $N=30$) as ``anomalous''. When an evaluation claims an early warning lead time of 28 cycles before failure, this metric is fundamentally circular: it reflects the arbitrary choice of $N=30$ rather than the physical onset of degradation.
+    \item \textbf{Optimistic Baseline Evaluation}: Many comparative studies benchmark complex deep architectures against uncalibrated or improperly tuned statistical baselines, failing to condition control charts on operating regimes or evaluating baselines under mismatched false alarm rates.
+    \item \textbf{Cross-Condition Telemetry Leakage}: In multi-condition datasets (FD002, FD004), operating regimes dramatically distort sensor telemetry. In literature, normalization statistics are frequently fit across the entire dataset or fit on the target domain during cross-condition transfer, masking catastrophic domain shift.
+    \item \textbf{Lack of Rigorous Statistical Correction}: Multiple comparative hypothesis tests are frequently published without Family-Wise Error Rate (FWER) corrections, leading to spurious claims of algorithmic superiority.
+\end{enumerate}
+
+\subsection{Research Questions}
+To address these fundamental challenges, this paper investigates four central research questions:
+\begin{description}
+    \item[\textbf{RQ1}] \textbf{Prognostic and Diagnostic Accuracy}: How accurately can machine learning architectures identify anomalies and forecast degradation (RUL) across single-condition and multi-condition industrial telemetry fleets?
+    \item[\textbf{RQ2}] \textbf{Machine Learning vs. Statistical Baselines}: How do machine learning models perform relative to condition-aware moving-average (EWMA) and static-threshold ($k$-sigma) baselines when evaluated at strictly equal false alarm rates across full trajectories?
+    \item[\textbf{RQ3}] \textbf{Achievable Early Warning Lead Time}: What maximum warning lead time is reliably achievable in industrial telemetry fleets, at what false alarm rate, and how does supervised label definition ($N$) constrain achievable lead times?
+    \item[\textbf{RQ4}] \textbf{Optimal Preprocessing and Dimensionality Reduction}: Which signal preprocessing techniques (temporal smoothing) and feature representations (raw flattened windows vs. PCA dimensionality reduction vs. summary statistics engineering) yield superior prognostic and diagnostic performance?
+\end{description}
+
+\subsection{Contributions}
+The key contributions of this work are as follows:
+\begin{itemize}
+    \item \textbf{Leakage-Free Standardized Benchmark Pipeline}: A fully reproducible evaluation architecture implementing 5-fold shuffled \texttt{GroupKFold} by engine unit across 5 random seeds (0--4), guaranteeing zero test engine data leakage and seed-varying fold splits.
+    \item \textbf{Unconstrained Lead-Time Operating Curves}: Sweep-based evaluation of warning lead time vs. false alarms per 100 healthy cycles across 7 methods (Static Threshold, EWMA, Mahalanobis Health Index, Isolation Forest, Random Forest, XGBoost, and LSTM), establishing reliable lead times at controlled industrial false alarm budgets ($\text{FA} \in \{0.1, 0.5, 1.0\}$).
+    \item \textbf{Empirical Proof of Supervised Circularity}: A systematic label sensitivity sweep across $N \in \{20, 30, 50, 75, 100\}$ demonstrating that supervised alarm lead time tracks $N$ rather than physical damage, while proving that expanding $N \ge 75$ causes false alarm rates to escalate to $25.7$ per 100 cycles.
+    \item \textbf{Identification of the Baseline Warning Lead-Time Paradox}: Discovery that while ML models vastly outperform statistical baselines in window-level classification ($F_1 = 0.753$--$0.858$ vs. $0.336$--$0.671$), a tuned regime-normalized static threshold warns earlier than ML models on multi-fault/multi-regime fleets under minimal false alarms ($p = 0.0264$ on FD003).
+    \item \textbf{Cross-Condition Generalization Quantification}: Rigorous evaluation of cross-condition transfer (FD001 $\to$ FD002/FD004, FD003 $\to$ FD004) with normalizers fit strictly on the training domain, revealing a $103\%$ increase in RUL RMSE and a collapse of $F_1$ from $0.797$ down to $0.099$.
+    \item \textbf{Distribution-Free Uncertainty Quantification}: Implementation of split conformal prediction intervals calibrated on whole held-out train engines at $90\%$ target coverage, reporting empirical test coverage and interval widths.
+    \item \textbf{Physical Explainability}: TreeSHAP feature attributions on XGBoost demonstrating $60\%$--$80\%$ consensus with the sensors driving statistical control charts, identifying High-Pressure Compressor (HPC) outlet static pressure (\texttt{s11}) as the primary wear indicator.
+\end{itemize}
+
+\subsection{Paper Organization}
+The remainder of this paper is organized as follows: Section~\ref{sec:related_work} reviews related literature in prognostic modeling and baseline benchmarking. Section~\ref{sec:dataset} presents the NASA C-MAPSS dataset suite and condition-aware regime normalization. Section~\ref{sec:methodology} formalizes the predictive architectures, evaluation protocols, and conformal calibration. Section~\ref{sec:experiments} presents comprehensive empirical findings across all experimental phases. Section~\ref{sec:discussion} analyzes the baseline paradox, lead-time circularity, and operational implications. Section~\ref{sec:limitations} evaluates methodological limitations, and Section~\ref{sec:conclusion} concludes.

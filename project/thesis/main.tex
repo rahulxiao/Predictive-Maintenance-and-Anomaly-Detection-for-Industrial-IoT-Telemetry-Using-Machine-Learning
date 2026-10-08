@@ -1,0 +1,51 @@
+\documentclass[journal,10pt,twocolumn]{IEEEtran}
+
+% Essential Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage[hyphens]{url}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage[hidelinks]{hyperref}
+
+% Compatibility macros for citations
+\providecommand{\citep}[1]{\cite{#1}}
+\providecommand{\citet}[1]{\cite{#1}}
+
+% Graphics path
+\graphicspath{{../results/figures/}{results/figures/}}
+
+\title{Predictive Maintenance and Anomaly Detection for Industrial IoT Telemetry Using Machine Learning: A Rigorous Empirical Study on NASA C-MAPSS under Leakage-Free Protocols}
+
+\author{Rahul~Xiao%
+\thanks{Manuscript received October 8, 2026. This research was conducted under the project ``Predictive Maintenance and Anomaly Detection for Industrial IoT Telemetry Using Machine Learning''.}%
+\thanks{The author is with the Department of Computer Science and Engineering (e-mail: rahul.xiao@example.org). Code, datasets, and verification manifests are available at \url{https://github.com/rahulxiao/Predictive-Maintenance-IoT-Telemetry}.}%
+}
+
+\begin{document}
+
+\maketitle
+
+\input{chapters/abstract}
+
+\input{chapters/ch01_introduction}
+\input{chapters/ch02_related_work}
+\input{chapters/ch03_dataset}
+\input{chapters/ch04_methodology}
+\input{chapters/ch05_experiments}
+\input{chapters/ch06_discussion}
+\input{chapters/ch07_limitations}
+\input{chapters/ch08_conclusion}
+
+\appendices
+\input{chapters/appendices}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

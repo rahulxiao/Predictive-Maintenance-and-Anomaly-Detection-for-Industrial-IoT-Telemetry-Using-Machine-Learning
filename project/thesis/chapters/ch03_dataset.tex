@@ -1,0 +1,68 @@
+\section{C-MAPSS Dataset and Benchmark Formulation}
+\label{sec:dataset}
+
+\subsection{C-MAPSS Turbofan Simulation Architecture}
+The NASA C-MAPSS (Commercial Modular Aero-Propulsion System Simulation) benchmark simulates the operation and degradation of a large commercial turbofan engine (nominally in the 90,000-lb thrust class) \cite{saxena2008damage}. Each record in the dataset corresponds to a discrete operational flight cycle and includes:
+\begin{itemize}
+    \item \textbf{Unit Identifier}: Integer index identifying the individual engine unit in the fleet.
+    \item \textbf{Time in Cycles}: Elapsed operational flight cycles from beginning of life until failure (in train sets) or until maintenance truncation (in test sets).
+    \item \textbf{Operational Settings}: Three operational flight parameters:
+    \begin{itemize}
+        \item \texttt{op1}: Flight altitude (0 to 42,000 ft).
+        \item \texttt{op2}: Mach number (0.0 to 0.84).
+        \item \texttt{op3}: Throttle resolver angle / Power Lever Angle (TRA, 20 to 100).
+    \end{itemize}
+    \item \textbf{Sensor Telemetry}: 21 sensor measurements capturing physical gas path variables including temperatures (LPC, HPC, LPT, exhaust), pressures (total and static pressures across compressor and turbine stages), rotational speeds (core and fan physical and corrected speeds), and flow ratios.
+\end{itemize}
+
+\subsection{Benchmark Subsets Overview}
+The C-MAPSS suite comprises four distinct subsets reflecting varying degrees of operational complexity, summarized in Table~\ref{tab:cmapss_subsets}.
+
+\begin{table}[htbp]
+\centering
+\caption{Characteristics of NASA C-MAPSS Dataset Subsets}
+\label{tab:cmapss_subsets}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Dataset} & \textbf{Op. Cond.} & \textbf{Fault Modes} & \textbf{Train Units} & \textbf{Test Units} \\
+\midrule
+\textbf{FD001} & 1 (Sea Level) & 1 (HPC Wear) & 100 & 100 \\
+\textbf{FD002} & 6 (Envelope) & 1 (HPC Wear) & 260 & 259 \\
+\textbf{FD003} & 1 (Sea Level) & 2 (HPC + Fan) & 100 & 100 \\
+\textbf{FD004} & 6 (Envelope) & 2 (HPC + Fan) & 249 & 248 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Sensor Selection and Variance Filtering}
+In single-regime datasets (FD001, FD003), several sensors exhibit near-zero variance across the entire engine lifetime due to constant ambient operating conditions. To prevent numerical instability and eliminate uninformative features, sensor selection is conducted strictly on training engines using a variance threshold $\sigma^2 > 0.001$:
+\begin{itemize}
+    \item In \textbf{FD001} and \textbf{FD003}, 7 sensors exhibit negligible variance (\texttt{s1, s5, s6, s10, s16, s18, s19}), yielding a 14-sensor feature space:
+    \begin{align*}
+    \mathcal{S}_{\text{common}} = \{&\texttt{s2, s3, s4, s7, s8, s9, s11}, \\
+    &\texttt{s12, s13, s14, s15, s17, s20, s21}\}.
+    \end{align*}
+    \item In \textbf{FD002} and \textbf{FD004}, operating condition fluctuations activate all sensors except sensor \texttt{s16}, yielding 20 informative sensor features.
+    \item For cross-condition transfer benchmarking, models are projected onto the 14 sensors shared across all subsets.
+\end{itemize}
+
+\subsection{Condition-Aware Operating Regime Normalization}
+In multi-condition datasets (FD002, FD004), raw sensor telemetry is dominated by operating setting variations rather than degradation. For example, high-pressure turbine temperature variations due to altitude changes exceed the temperature increases induced by component wear.
+
+To isolate degradation dynamics, we implement condition-aware regime normalization via the \texttt{OperatingRegimeNormalizer}:
+\begin{enumerate}
+    \item \textbf{Regime Clustering}: For multi-condition sets, the 3 operational settings (\texttt{op1, op2, op3}) are clustered into $K=6$ operating regimes using $k$-means clustering, fit strictly on training engines.
+    \item \textbf{Healthy Baseline Calibration}: In physical turbomachinery, initial operational cycles represent nominal healthy health states. The healthy operational phase is defined as the first $30\%$ of life of training engines:
+    $$\mathcal{T}_{\text{healthy}} = \{t \in [1, T_{\text{fail}}] : t \le \lfloor 0.30 \times T_{\text{fail}} \rfloor\}.$$
+    \item \textbf{Regime Standardization}: For each regime $r \in \{0, \dots, 5\}$ and sensor $s$, mean $\mu_{r, s}$ and standard deviation $\sigma_{r, s}$ are computed over $\mathcal{T}_{\text{healthy}}$:
+    $$z_{t, s} = \frac{x_{t, s} - \mu_{r(t), s}}{\sigma_{r(t), s}}.$$
+    For single-condition datasets (FD001, FD003), regime clustering is bypassed ($K=1$), standardizing against global healthy early-life statistics.
+\end{enumerate}
+
+\subsection{Temporal Sliding-Window Construction}
+To incorporate temporal degradation context, time series are sliced into overlapping sliding windows of length $W=30$ cycles with a unit stride ($S=1$). Each window at end-cycle $t$ produces a 3D tensor $X \in \mathbb{R}^{W \times D}$.
+\begin{itemize}
+    \item \textbf{Training Windows}: Sliding windows are extracted along each training engine trajectory. Targets $y \in [0, 125]$ are extracted at the window end-cycle $t$.
+    \item \textbf{Test Windows}: Official test engines terminate at an arbitrary flight cycle $T_{\text{end}}$. A single evaluation window is extracted over the final $W=30$ cycles ($[T_{\text{end}} - W + 1, T_{\text{end}}]$) and paired with the true RUL value from \texttt{RUL\_FD00X.txt}. Test engines shorter than $W$ are padded on the left by repeating the initial cycle reading.
+    \item \textbf{Identical Test Windows for Anomaly Classification}: For anomaly classification, test engines are segmented into all valid sliding windows up to $T_{\text{end}}$, producing matching ground-truth labels and identical class prevalence for both baseline and machine learning evaluation.
+\end{itemize}

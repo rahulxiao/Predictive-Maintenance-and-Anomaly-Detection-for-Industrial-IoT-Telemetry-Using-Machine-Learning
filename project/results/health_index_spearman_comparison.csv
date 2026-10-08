@@ -1,0 +1,5 @@
+Subset,Sensors_Count,Spearman_PCA_PC1,Spearman_Mahalanobis,Best_Index
+FD001,14,0.6369,0.7141,Mahalanobis
+FD002,20,0.5456,0.6901,Mahalanobis
+FD003,14,0.4354,0.6606,Mahalanobis
+FD004,20,0.6116,0.6897,Mahalanobis

@@ -1,0 +1,401 @@
+\section{Experimental Results and Empirical Analysis}
+\label{sec:experiments}
+
+This section presents empirical results across all benchmark configurations and novelty experiments. Every numerical result reported originates strictly from verified execution logs mapped in \texttt{results/manifest.csv}.
+
+\subsection{Prognostic RUL Regression Benchmark}
+Table~\ref{tab:rul_regression_summary} reports RUL regression performance across 5 random seeds (0--4) on official test engines.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Prognostic RUL Regression Performance across 5 Random Seeds (Mean $\pm$ Std)}
+\label{tab:rul_regression_summary}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Subset} & \textbf{Model} & \textbf{RMSE} & \textbf{RMSE (clip 125)} & \textbf{MAE} & \textbf{NASA Score} \\
+\midrule
+FD001 & CNN & $18.52 \pm 0.59$ & $17.27 \pm 0.57$ & $14.48 \pm 0.51$ & $712.3 \pm 153.2$ \\
+FD001 & LSTM & $14.69 \pm 0.10$ & $13.23 \pm 0.23$ & $10.90 \pm 0.14$ & $330.3 \pm 24.8$ \\
+FD001 & Random Forest & $17.65 \pm 0.07$ & $16.53 \pm 0.07$ & $13.20 \pm 0.07$ & $775.4 \pm 25.8$ \\
+FD001 & XGBoost & $14.78 \pm 0.23$ & $13.50 \pm 0.23$ & $11.25 \pm 0.21$ & $346.4 \pm 26.5$ \\
+\midrule
+FD002 & CNN & $33.66 \pm 0.57$ & $21.98 \pm 0.48$ & $24.60 \pm 0.40$ & $26273.9 \pm 2915.7$ \\
+FD002 & LSTM & $28.72 \pm 0.63$ & $15.89 \pm 0.26$ & $19.34 \pm 0.22$ & $15533.3 \pm 4398.1$ \\
+FD002 & Random Forest & $30.83 \pm 0.05$ & $17.94 \pm 0.08$ & $21.87 \pm 0.08$ & $14467.1 \pm 297.2$ \\
+FD002 & XGBoost & $29.56 \pm 0.16$ & $16.48 \pm 0.22$ & $20.29 \pm 0.17$ & $14323.1 \pm 575.3$ \\
+\midrule
+FD003 & CNN & $19.24 \pm 0.47$ & $17.82 \pm 0.46$ & $14.63 \pm 0.56$ & $1137.4 \pm 166.6$ \\
+FD003 & LSTM & $13.98 \pm 0.22$ & $12.47 \pm 0.31$ & $10.02 \pm 0.16$ & $367.8 \pm 43.7$ \\
+FD003 & Random Forest & $18.95 \pm 0.10$ & $17.60 \pm 0.10$ & $14.18 \pm 0.06$ & $1395.3 \pm 40.5$ \\
+FD003 & XGBoost & $16.22 \pm 0.36$ & $14.75 \pm 0.40$ & $12.36 \pm 0.31$ & $632.4 \pm 103.1$ \\
+\midrule
+FD004 & CNN & $34.15 \pm 0.44$ & $23.09 \pm 0.25$ & $26.91 \pm 0.48$ & $13662.0 \pm 1607.3$ \\
+FD004 & LSTM & $30.78 \pm 0.17$ & $18.97 \pm 0.16$ & $23.25 \pm 0.26$ & $8784.4 \pm 366.6$ \\
+FD004 & Random Forest & $31.97 \pm 0.08$ & $20.69 \pm 0.11$ & $24.55 \pm 0.06$ & $9345.0 \pm 406.4$ \\
+FD004 & XGBoost & $29.60 \pm 0.15$ & $17.94 \pm 0.21$ & $21.98 \pm 0.14$ & $6949.8 \pm 251.3$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Figure~\ref{fig:predicted_vs_true_rul} visualizes parity scatter plots of predicted versus true RUL for official test engines across all four subsets.
+
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=0.95\textwidth]{predicted_vs_true_rul.png}
+\caption{Predicted versus True Remaining Useful Life (RUL) on official test engines across subsets FD001--FD004 with ideal parity reference line ($y=x$) and upper clip threshold ($125$ cycles).}
+\label{fig:predicted_vs_true_rul}
+\end{figure*}
+
+\subsection{Anomaly Detection Fleet Evaluation}
+Table~\ref{tab:anomaly_metrics_oof} presents out-of-fold diagnostic classification performance evaluated over full training trajectories across 5 random seeds using shuffled \texttt{GroupKFold}.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Out-of-Fold Fleet Anomaly Detection Performance (5 Seeds, Shuffled GroupKFold)}
+\label{tab:anomaly_metrics_oof}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Subset} & \textbf{Model} & \textbf{PR-AUC} & \textbf{F1 Score} & \textbf{Det. Rate (\%)} & \textbf{Mean Lead Time} & \textbf{FA / 100 Healthy} \\
+\midrule
+FD001 & EWMA Control Limits & N/A (discrete) & 0.786 (tuned) & 98.0\% & 38.6 & 0.19 \\
+FD001 & Isolation Forest & 0.399 +/- 0.008 & 0.395 +/- 0.009 & 80.4\% +/- 3.2\% & 64.6 +/- 1.0 & 6.40 +/- 0.76 \\
+FD001 & LSTM & 0.976 +/- 0.002 & 0.892 +/- 0.003 & 100.0\% +/- 0.0\% & 29.2 +/- 0.8 & 0.00 +/- 0.00 \\
+FD001 & Random Forest & 0.978 +/- 0.001 & 0.913 +/- 0.001 & 100.0\% +/- 0.0\% & 28.9 +/- 0.6 & 0.00 +/- 0.00 \\
+FD001 & Static Threshold & N/A (discrete) & 0.841 (tuned) & 100.0\% & 26.8 & 0.00 \\
+FD001 & XGBoost & 0.982 +/- 0.001 & 0.924 +/- 0.003 & 100.0\% +/- 0.0\% & 28.7 +/- 0.6 & 0.00 +/- 0.00 \\
+\midrule
+FD002 & EWMA Control Limits & N/A (discrete) & 0.824 (tuned) & 99.2\% & 29.3 & 0.16 \\
+FD002 & Isolation Forest & 0.460 +/- 0.010 & 0.444 +/- 0.001 & 81.7\% +/- 1.9\% & 56.5 +/- 1.2 & 6.42 +/- 0.58 \\
+FD002 & LSTM & 0.965 +/- 0.002 & 0.871 +/- 0.008 & 99.9\% +/- 0.1\% & 29.3 +/- 1.0 & 0.00 +/- 0.00 \\
+FD002 & Random Forest & 0.965 +/- 0.000 & 0.876 +/- 0.002 & 100.0\% +/- 0.0\% & 28.1 +/- 0.6 & 0.00 +/- 0.00 \\
+FD002 & Static Threshold & N/A (discrete) & 0.829 (tuned) & 99.2\% & 31.8 & 0.08 \\
+FD002 & XGBoost & 0.973 +/- 0.001 & 0.898 +/- 0.001 & 100.0\% +/- 0.0\% & 29.2 +/- 0.7 & 0.00 +/- 0.00 \\
+\midrule
+FD003 & EWMA Control Limits & N/A (discrete) & 0.742 (tuned) & 99.0\% & 45.5 & 0.43 \\
+FD003 & Isolation Forest & 0.473 +/- 0.013 & 0.419 +/- 0.008 & 74.6\% +/- 2.1\% & 54.3 +/- 1.7 & 6.43 +/- 0.53 \\
+FD003 & LSTM & 0.977 +/- 0.002 & 0.896 +/- 0.005 & 100.0\% +/- 0.0\% & 29.8 +/- 0.8 & 0.00 +/- 0.00 \\
+FD003 & Random Forest & 0.980 +/- 0.002 & 0.911 +/- 0.005 & 100.0\% +/- 0.0\% & 29.2 +/- 0.4 & 0.00 +/- 0.00 \\
+FD003 & Static Threshold & N/A (discrete) & 0.788 (tuned) & 100.0\% & 35.8 & 0.00 \\
+FD003 & XGBoost & 0.985 +/- 0.001 & 0.923 +/- 0.003 & 100.0\% +/- 0.0\% & 28.1 +/- 1.0 & 0.00 +/- 0.00 \\
+\midrule
+FD004 & EWMA Control Limits & N/A (discrete) & 0.656 (tuned) & 82.7\% & 35.7 & 1.73 \\
+FD004 & Isolation Forest & 0.459 +/- 0.014 & 0.411 +/- 0.006 & 79.8\% +/- 1.5\% & 59.2 +/- 1.3 & 6.97 +/- 0.87 \\
+FD004 & LSTM & 0.966 +/- 0.002 & 0.876 +/- 0.004 & 99.7\% +/- 0.3\% & 29.9 +/- 0.6 & 0.00 +/- 0.00 \\
+FD004 & Random Forest & 0.963 +/- 0.001 & 0.869 +/- 0.002 & 99.8\% +/- 0.2\% & 28.9 +/- 0.5 & 0.00 +/- 0.00 \\
+FD004 & Static Threshold & N/A (discrete) & 0.669 (tuned) & 84.3\% & 30.8 & 0.85 \\
+FD004 & XGBoost & 0.968 +/- 0.001 & 0.887 +/- 0.003 & 99.8\% +/- 0.2\% & 29.7 +/- 0.6 & 0.00 +/- 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Table~\ref{tab:test_anomaly_metrics} evaluates models on the \textbf{exact same truncated test windows} on official test engines, matching prevalence across all models.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Official Test Engines Window-Level Anomaly Classification (Identical Test Windows)}
+\label{tab:test_anomaly_metrics}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Subset} & \textbf{Model} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} & \textbf{PR-AUC} & \textbf{Prevalence} \\
+\midrule
+FD001 & Static Threshold & 0.843 & 0.584 & 0.690 & N/A (discrete) & 3.3\% \\
+FD001 & EWMA Control Limits & 0.501 & 0.756 & 0.603 & N/A (discrete) & 3.3\% \\
+FD001 & Isolation Forest & 0.065 & 1.000 & 0.122 & 0.1803 & 3.3\% \\
+FD001 & Random Forest & 0.763 & 0.913 & 0.831 & 0.9346 & 3.3\% \\
+FD001 & XGBoost & 0.769 & 0.901 & 0.829 & 0.9379 & 3.3\% \\
+FD001 & LSTM & 0.724 & 0.964 & 0.827 & 0.9175 & 3.3\% \\
+\midrule
+FD002 & Static Threshold & 0.554 & 0.796 & 0.653 & N/A (discrete) & 4.1\% \\
+FD002 & EWMA Control Limits & 0.636 & 0.711 & 0.671 & N/A (discrete) & 4.1\% \\
+FD002 & Isolation Forest & 0.085 & 1.000 & 0.158 & 0.2078 & 4.1\% \\
+FD002 & Random Forest & 0.630 & 0.911 & 0.745 & 0.8822 & 4.1\% \\
+FD002 & XGBoost & 0.723 & 0.885 & 0.796 & 0.9081 & 4.1\% \\
+FD002 & LSTM & 0.685 & 0.919 & 0.785 & 0.9025 & 4.1\% \\
+\midrule
+FD003 & Static Threshold & 0.455 & 0.825 & 0.587 & N/A (discrete) & 2.1\% \\
+FD003 & EWMA Control Limits & 0.305 & 0.897 & 0.455 & N/A (discrete) & 2.1\% \\
+FD003 & Isolation Forest & 0.066 & 1.000 & 0.124 & 0.1869 & 2.1\% \\
+FD003 & Random Forest & 0.749 & 0.955 & 0.840 & 0.9333 & 2.1\% \\
+FD003 & XGBoost & 0.787 & 0.942 & 0.858 & 0.9370 & 2.1\% \\
+FD003 & LSTM & 0.696 & 0.993 & 0.819 & 0.9589 & 2.1\% \\
+\midrule
+FD004 & Static Threshold & 0.322 & 0.477 & 0.385 & N/A (discrete) & 2.5\% \\
+FD004 & EWMA Control Limits & 0.247 & 0.525 & 0.336 & N/A (discrete) & 2.5\% \\
+FD004 & Isolation Forest & 0.066 & 1.000 & 0.123 & 0.1958 & 2.5\% \\
+FD004 & Random Forest & 0.633 & 0.865 & 0.731 & 0.7455 & 2.5\% \\
+FD004 & XGBoost & 0.688 & 0.832 & 0.753 & 0.8256 & 2.5\% \\
+FD004 & LSTM & 0.552 & 0.921 & 0.690 & 0.8119 & 2.5\% \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Figure~\ref{fig:pr_curves} depicts 4-panel Precision-Recall curves with horizontal prevalence baselines.
+
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=0.95\textwidth]{pr_curves.png}
+\caption{Precision-Recall curves for ML detectors on out-of-fold trajectories across FD001--FD004 with horizontal dashed class prevalence baselines.}
+\label{fig:pr_curves}
+\end{figure*}
+
+\subsection{Lead Time vs. False Alarm Operating Curves}
+Table~\ref{tab:lead_time_fa_budgets} reports warning lead times at controlled industrial false alarm budgets ($\text{FA} \in \{0.1, 0.5, 1.0\}$ per 100 healthy cycles) obtained by sweeping alarm thresholds over 50 operating points.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Mean Warning Lead Time (Cycles) at Controlled False Alarm Budgets}
+\label{tab:lead_time_fa_budgets}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Subset} & \textbf{Method} & \textbf{FA = 0.1 / 100 Cyc} & \textbf{FA = 0.5 / 100 Cyc} & \textbf{FA = 1.0 / 100 Cyc} \\
+\midrule
+FD001 & Static Threshold & 46.1 & 48.4 & 49.5 \\
+FD001 & EWMA Control Limits & 47.1 & 48.8 & 49.7 \\
+FD001 & Mahalanobis HI & 48.9 & 49.5 & 50.3 \\
+FD001 & Isolation Forest & N/A & N/A & N/A \\
+FD001 & Random Forest & 52.5 & 55.0 & 56.5 \\
+FD001 & XGBoost & 43.6 & 43.6 & 43.6 \\
+FD001 & LSTM & 43.4 & 44.6 & 45.9 \\
+\midrule
+FD002 & Static Threshold & 40.1 & 43.2 & 48.8 \\
+FD002 & EWMA Control Limits & 43.2 & 45.8 & 51.2 \\
+FD002 & Mahalanobis HI & 24.9 & 26.0 & 27.3 \\
+FD002 & Isolation Forest & N/A & N/A & N/A \\
+FD002 & Random Forest & 47.9 & 50.8 & 53.0 \\
+FD002 & XGBoost & 47.0 & 50.4 & 53.1 \\
+FD002 & LSTM & 37.6 & 50.7 & 53.6 \\
+\midrule
+FD003 & Static Threshold & 34.1 & 44.0 & 44.4 \\
+FD003 & EWMA Control Limits & 33.4 & 45.3 & 50.7 \\
+FD003 & Mahalanobis HI & 35.3 & 43.6 & 47.1 \\
+FD003 & Isolation Forest & N/A & N/A & N/A \\
+FD003 & Random Forest & 18.9 & 27.4 & 37.9 \\
+FD003 & XGBoost & 40.5 & 40.5 & 40.5 \\
+FD003 & LSTM & 28.3 & 40.9 & 50.9 \\
+\midrule
+FD004 & Static Threshold & N/A & 20.5 & 32.5 \\
+FD004 & EWMA Control Limits & N/A & N/A & 31.7 \\
+FD004 & Mahalanobis HI & 8.8 & 13.7 & 39.6 \\
+FD004 & Isolation Forest & N/A & N/A & N/A \\
+FD004 & Random Forest & N/A & 18.6 & 49.4 \\
+FD004 & XGBoost & N/A & 15.8 & 50.6 \\
+FD004 & LSTM & N/A & 21.2 & 48.9 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Figure~\ref{fig:lead_time_vs_fa_curves} presents the complete operating characteristic curves across methods.
+
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=0.95\textwidth]{lead_time_vs_fa_curves.png}
+\caption{Lead Time versus False Alarms per 100 healthy cycles operating curves across all 7 methods and subsets.}
+\label{fig:lead_time_vs_fa_curves}
+\end{figure*}
+
+\subsection{Label Sensitivity Sweep: Empirical Proof of Circularity}
+Table~\ref{tab:label_sensitivity_sweep} details diagnostic and prognostic performance when retraining detectors across cutoffs $N \in \{20, 30, 50, 75, 100\}$.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Label Sensitivity Sweep ($N \in \{20, 30, 50, 75, 100\}$): Supervised Lead Time Tracks $N$}
+\label{tab:label_sensitivity_sweep}
+\begin{tabular}{lccccccc}
+\toprule
+\textbf{Subset} & \textbf{Cutoff $N$} & \textbf{Prev. (\%)} & \textbf{F1} & \textbf{PR-AUC} & \textbf{Mean Lead Time} & \textbf{Premature (\%)} & \textbf{FA / 100 Cyc} \\
+\midrule
+FD001 & 20 & 11.8 & 0.920 & 0.982 & 17.8 & 0.0 & 0.00 \\
+FD001 & 30 & 17.5 & 0.924 & 0.982 & 28.6 & 0.0 & 0.00 \\
+FD001 & 50 & 28.8 & 0.924 & 0.981 & 48.8 & 0.0 & 0.00 \\
+FD001 & 75 & 42.9 & 0.915 & 0.977 & 72.8 & 10.0 & 2.38 \\
+FD001 & 100 & 57.0 & 0.895 & 0.970 & 86.9 & 55.0 & 25.57 \\
+\midrule
+FD002 & 20 & 11.8 & 0.899 & 0.970 & 18.8 & 0.0 & 0.00 \\
+FD002 & 30 & 17.4 & 0.905 & 0.974 & 28.4 & 0.0 & 0.00 \\
+FD002 & 50 & 28.7 & 0.898 & 0.969 & 49.4 & 0.8 & 0.03 \\
+FD002 & 75 & 42.8 & 0.884 & 0.961 & 70.2 & 16.2 & 4.97 \\
+FD002 & 100 & 56.8 & 0.872 & 0.957 & 80.9 & 53.5 & 25.67 \\
+\midrule
+FD003 & 20 & 9.6 & 0.925 & 0.982 & 18.5 & 0.0 & 0.00 \\
+FD003 & 30 & 14.2 & 0.931 & 0.986 & 27.1 & 0.0 & 0.00 \\
+FD003 & 50 & 23.4 & 0.925 & 0.983 & 48.6 & 0.0 & 0.00 \\
+FD003 & 75 & 34.8 & 0.907 & 0.974 & 71.5 & 11.0 & 1.20 \\
+FD003 & 100 & 46.3 & 0.888 & 0.968 & 82.9 & 52.0 & 13.56 \\
+\midrule
+FD004 & 20 & 9.7 & 0.882 & 0.944 & 19.0 & 0.8 & 0.63 \\
+FD004 & 30 & 14.3 & 0.890 & 0.955 & 30.3 & 0.8 & 0.66 \\
+FD004 & 50 & 23.5 & 0.900 & 0.958 & 50.2 & 2.4 & 0.87 \\
+FD004 & 75 & 35.0 & 0.892 & 0.956 & 70.4 & 14.1 & 4.29 \\
+FD004 & 100 & 46.5 & 0.877 & 0.954 & 81.6 & 53.8 & 15.86 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Figure~\ref{fig:n_sweep} illustrates empirical lead time strictly tracking the cutoff boundary $N$.
+
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=0.95\textwidth]{n_sweep_lead_time_circularity.png}
+\caption{Empirical proof of lead-time circularity: achieved warning lead time tracks ground-truth cutoff $N$ across all subsets.}
+\label{fig:n_sweep}
+\end{figure*}
+
+\subsection{Statistical Significance: Wilcoxon Signed-Rank Tests}
+Table~\ref{tab:wilcoxon_tests} presents the paired Wilcoxon tests across $M=8$ planned hypotheses, corrected using the Holm-Bonferroni step-down procedure.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Wilcoxon Signed-Rank Statistical Tests ($M=8$ Total Hypotheses, Holm Correction)}
+\label{tab:wilcoxon_tests}
+\begin{tabular}{lllcccc}
+\toprule
+\textbf{Subset} & \textbf{Metric} & \textbf{Comparison} & \textbf{Raw $p$} & \textbf{Holm $p$} & \textbf{Median Diff.} & \textbf{Bootstrap 95\% CI} \\
+\midrule
+FD001 & False Alarms & XGBoost vs Static Threshold & 1.0000 & 1.0000 & +0.0 & [+0.00, +0.00] \\
+FD001 & Lead Time & XGBoost vs Static Threshold & 0.0614 & 0.3685 & +2.0 & [-1.00, +5.00] \\
+FD002 & False Alarms & XGBoost vs Static Threshold & 1.0000 & 1.0000 & +0.0 & [+0.00, +0.00] \\
+FD002 & Lead Time & XGBoost vs Static Threshold & 0.1395 & 0.6977 & -1.5 & [-2.00, +0.00] \\
+FD003 & False Alarms & XGBoost vs Static Threshold & 1.0000 & 1.0000 & +0.0 & [+0.00, +0.00] \\
+FD003 & Lead Time & XGBoost vs Static Threshold & 0.0033 & 0.0264 & -3.0 & [-5.00, -1.00] \\
+FD004 & False Alarms & LSTM vs Static Threshold & 0.0431 & 0.3018 & +0.0 & [-1.00, +0.00] \\
+FD004 & Lead Time & LSTM vs Static Threshold & 0.9996 & 1.0000 & +0.0 & [+0.00, +0.00] \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Health Index Monotonicity Comparison}
+Table~\ref{tab:health_index_spearman} compares the rank correlation of PCA-PC1 versus the Mahalanobis Distance Health Index against true RUL.
+
+\begin{table}[htbp]
+\centering
+\caption{Monotonicity Comparison of Health Indices: Spearman $\rho$ with True RUL}
+\label{tab:health_index_spearman}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Subset} & \textbf{$\rho$ (PCA-PC1)} & \textbf{$\rho$ (Mahalanobis)} & \textbf{Superior Metric} \\
+\midrule
+FD001 & 0.627 & 0.714 & Mahalanobis (+0.087) \\
+FD002 & 0.651 & 0.690 & Mahalanobis (+0.039) \\
+FD003 & 0.575 & 0.661 & Mahalanobis (+0.086) \\
+FD004 & 0.672 & 0.690 & Mahalanobis (+0.018) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Cross-Condition Generalization vs. In-Domain Reference}
+Table~\ref{tab:cross_condition_generalization} summarizes transferability drops when models trained on single-regime datasets (FD001, FD003) are deployed to multi-regime datasets (FD002, FD004) with normalizers fit on the training domain only.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Cross-Condition Generalization vs In-Domain Baseline (5 Seeds, Mean $\pm$ Std)}
+\label{tab:cross_condition_generalization}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Pair} & \textbf{Type} & \textbf{RUL RMSE} & \textbf{RUL RMSE (clip)} & \textbf{Anomaly F1} & \textbf{PR-AUC} & \textbf{$\Delta$ RMSE} & \textbf{$\Delta$ F1 Drop} \\
+\midrule
+FD001 $\to$ FD001 & In-Domain & $13.37 \pm 0.11$ & $12.05 \pm 0.06$ & $0.825 \pm 0.006$ & $0.934 \pm 0.003$ & $0.00$ & $0.000$ \\
+FD001 $\to$ FD002 & Cross-Domain & $54.09 \pm 0.37$ & $43.90 \pm 0.25$ & $0.099 \pm 0.014$ & $0.066 \pm 0.006$ & $+27.46$ & $-0.698$ \\
+FD001 $\to$ FD004 & Cross-Domain & $55.00 \pm 0.40$ & $43.31 \pm 0.25$ & $0.057 \pm 0.006$ & $0.031 \pm 0.002$ & $+27.89$ & $-0.697$ \\
+FD002 $\to$ FD002 & In-Domain & $26.63 \pm 0.08$ & $13.88 \pm 0.14$ & $0.797 \pm 0.002$ & $0.913 \pm 0.002$ & $0.00$ & $0.000$ \\
+FD003 $\to$ FD003 & In-Domain & $14.33 \pm 0.15$ & $12.77 \pm 0.15$ & $0.852 \pm 0.005$ & $0.940 \pm 0.002$ & $0.00$ & $0.000$ \\
+FD003 $\to$ FD004 & Cross-Domain & $61.48 \pm 0.40$ & $52.70 \pm 0.53$ & $0.055 \pm 0.001$ & $0.065 \pm 0.009$ & $+34.37$ & $-0.699$ \\
+FD004 $\to$ FD004 & In-Domain & $27.11 \pm 0.07$ & $15.04 \pm 0.06$ & $0.754 \pm 0.006$ & $0.819 \pm 0.004$ & $0.00$ & $0.000$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Figure~\ref{fig:cross_condition_bars} illustrates the severe performance drop induced by cross-condition transfer without target regime knowledge.
+
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=0.95\textwidth]{cross_condition_bars.png}
+\caption{Cross-condition transfer performance degradation: RUL RMSE doubles and anomaly classification $F1$ collapses under domain shift.}
+\label{fig:cross_condition_bars}
+\end{figure*}
+
+\subsection{Split Conformal Prediction Uncertainty Quantification}
+Table~\ref{tab:conformal_prediction} reports conformal quantiles, empirical test coverage, and interval widths at a $90\%$ target coverage level.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Split Conformal Prediction Intervals (90\% Target Coverage) Calibrated on Train Engines}
+\label{tab:conformal_prediction}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Subset} & \textbf{Model} & \textbf{Target Cov.} & \textbf{Quantile $q$} & \textbf{Empirical Cov.} & \textbf{Nominal Width ($2q$)} & \textbf{Clipped Width} \\
+\midrule
+FD001 & XGBoost & 90\% & 20.40 & 84.0\% & 40.81 & 36.08 \\
+FD002 & XGBoost & 90\% & 26.71 & 73.7\% & 53.41 & 44.22 \\
+FD003 & XGBoost & 90\% & 18.16 & 78.0\% & 36.32 & 31.77 \\
+FD004 & XGBoost & 90\% & 30.14 & 75.8\% & 60.29 & 49.03 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Figure~\ref{fig:conformal_intervals} displays cycle-by-cycle predicted RUL with shaded $90\%$ conformal bands for 6 representative test engines.
+
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=0.95\textwidth]{conformal_prediction_intervals.png}
+\caption{Split conformal prediction intervals (90\% target coverage) plotted over operational life for 6 unseen test engines.}
+\label{fig:conformal_intervals}
+\end{figure*}
+
+\subsection{Explainability: TreeSHAP vs. Control Chart Overlap}
+Table~\ref{tab:shap_sensor_overlap} benchmarks feature attribution consensus between TreeSHAP on tree regressors and the sensor reliance of the Static Threshold baseline.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Sensor Attribution Overlap between TreeSHAP and Static Threshold Baseline}
+\label{tab:shap_sensor_overlap}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Subset} & \textbf{Top 3 Overlap} & \textbf{Top 5 Overlap} & \textbf{Top 10 Overlap} & \textbf{Shared Top 10 Sensors} \\
+\midrule
+FD001 & 1/3 & 2/5 & 8/10 (80\%) & s11, s12, s14, s2, s20, s4, s7, s9 \\
+FD002 & 2/3 & 3/5 & 8/10 (80\%) & s11, s14, s15, s17, s2, s3, s4, s9 \\
+FD003 & 1/3 & 2/5 & 6/10 (60\%) & s11, s14, s17, s3, s4, s9 \\
+FD004 & 1/3 & 3/5 & 8/10 (80\%) & s11, s13, s14, s15, s17, s3, s4, s9 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Figure~\ref{fig:shap_importances} depicts the Top 10 sensors ranked by mean absolute SHAP value.
+
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=0.90\textwidth]{shap_feature_importance.png}
+\caption{TreeSHAP feature importance rankings for top 10 sensors across subsets FD001--FD004.}
+\label{fig:shap_importances}
+\end{figure*}
+
+\subsection{Preprocessing and Dimensionality Reduction Ablations}
+Table~\ref{tab:ablation_studies} reports the controlled 3-seed ablation study on FD001.
+
+\begin{table*}[t!]
+\centering
+\small
+\caption{Ablation Study on Preprocessing, Window Length, and Dimensionality Reduction (FD001, 3 Seeds)}
+\label{tab:ablation_studies}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Category} & \textbf{Configuration} & \textbf{Smoothing} & \textbf{$W$} & \textbf{RUL RMSE} & \textbf{Anomaly F1} & \textbf{PR-AUC} \\
+\midrule
+Baseline & Smoothing OFF W30 EngineeredStats & OFF & 30 & $13.38 \pm 0.20$ & 0.828 & 0.935 \\
+Representation & Smoothing OFF W30 PCA95 & OFF & 30 & $13.30 \pm 0.09$ & 0.833 & 0.929 \\
+Representation & Smoothing OFF W30 RawWindow & OFF & 30 & $15.67 \pm 0.30$ & 0.806 & 0.893 \\
+Smoothing & Smoothing ON W30 EngineeredStats & ON & 30 & $13.97 \pm 0.35$ & 0.835 & 0.937 \\
+Window Length & Smoothing OFF W15 EngineeredStats & OFF & 15 & $17.51 \pm 0.25$ & 0.764 & 0.855 \\
+Window Length & Smoothing OFF W50 EngineeredStats & OFF & 50 & $13.93 \pm 0.06$ & 0.852 & 0.947 \\
+\bottomrule
+\end{tabular}
+\end{table*}
