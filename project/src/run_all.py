@@ -112,6 +112,63 @@ def run_command(cmd: list[str] | str, cwd: Path, desc: str) -> bool:
         return False
 
 
+def check_environment(auto_install: bool = False) -> bool:
+    """Pre-flight check for Python version, packages, and dataset files."""
+    print("--> Checking Python environment and dependencies...")
+    if sys.version_info < (3, 9):
+        print(f"{Colors.RED}[FAIL] Python version {sys.version} is not supported. Please use Python 3.9+{Colors.END}")
+        return False
+
+    required_pkgs = {
+        "numpy": "numpy",
+        "pandas": "pandas",
+        "scipy": "scipy",
+        "sklearn": "scikit-learn",
+        "xgboost": "xgboost",
+        "torch": "torch",
+        "shap": "shap",
+        "optuna": "optuna",
+        "matplotlib": "matplotlib",
+        "seaborn": "seaborn",
+        "pytest": "pytest",
+    }
+    missing_pkgs = []
+    for mod_name, pip_name in required_pkgs.items():
+        try:
+            __import__(mod_name)
+        except ImportError:
+            missing_pkgs.append(pip_name)
+
+    if missing_pkgs:
+        print(f"{Colors.YELLOW}[WARN] Missing required Python packages: {', '.join(missing_pkgs)}{Colors.END}")
+        req_file = PROJECT_ROOT / "requirements.txt"
+        if not req_file.exists():
+            req_file = PROJECT_ROOT.parent / "requirements.txt"
+        if auto_install:
+            print(f"--> Auto-installing missing packages via 'pip install -r {req_file}'...")
+            subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(req_file)], check=True)
+            print(f"{Colors.GREEN}[OK] All dependencies successfully installed.{Colors.END}")
+        else:
+            print(f"{Colors.RED}[FAIL] Please install dependencies: pip install -r requirements.txt (or run with --install-deps){Colors.END}")
+            return False
+    else:
+        print(f"{Colors.GREEN}[OK] All required Python packages are installed.{Colors.END}")
+
+    # Check dataset files
+    try:
+        from download_data import verify_dataset, download_missing_files
+        is_complete, missing = verify_dataset(PROJECT_ROOT / "data" / "raw")
+        if not is_complete:
+            print(f"{Colors.YELLOW}[WARN] Missing {len(missing)} dataset files in data/raw/. Retrieving...{Colors.END}")
+            download_missing_files(PROJECT_ROOT / "data" / "raw")
+        else:
+            print(f"{Colors.GREEN}[OK] All 12 NASA C-MAPSS dataset files verified in data/raw/.{Colors.END}")
+    except Exception as e:
+        print(f"{Colors.YELLOW}[WARN] Could not verify dataset files: {e}{Colors.END}")
+
+    return True
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Master Automated Execution Pipeline for NASA C-MAPSS Research Project",
@@ -121,6 +178,11 @@ def parse_args() -> argparse.Namespace:
         "--quick",
         action="store_true",
         help="Run fast smoke test (Subset 1, Seed 0 only)",
+    )
+    parser.add_argument(
+        "--install-deps",
+        action="store_true",
+        help="Automatically install/update missing Python dependencies from requirements.txt",
     )
     parser.add_argument(
         "--skip-tests",
@@ -163,6 +225,11 @@ def main() -> int:
     print(f"Results Dir  : {RESULTS_DIR}")
     print(f"Thesis Dir   : {THESIS_DIR}")
     print(f"Execution Mode: {'QUICK SMOKE TEST' if args.quick else 'FULL RESEARCH PIPELINE'}\n")
+
+    # Pre-flight environment check
+    env_ok = check_environment(auto_install=args.install_deps)
+    if not env_ok:
+        return 1
 
     steps_total = 6
     step = 1
@@ -213,6 +280,8 @@ def main() -> int:
         print(f"{Colors.YELLOW}--> Skipped by user flag (using existing Stage 2 results).{Colors.END}")
     else:
         stage2_cmd = [sys.executable, str(SRC_DIR / "run_stage2.py")]
+        if args.quick:
+            stage2_cmd.append("--quick")
         success = run_command(stage2_cmd, cwd=PROJECT_ROOT, desc="Stage 2 Novelty Experiments")
         if not success:
             print(f"{Colors.RED}Stage 2 execution failed. Aborting pipeline.{Colors.END}")

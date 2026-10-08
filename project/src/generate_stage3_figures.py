@@ -220,24 +220,34 @@ def generate_cross_condition_bars(csv_path: Path, output_path: Path) -> None:
     plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
     fig, axes = plt.subplots(1, 2, figsize=(16, 6), dpi=300)
 
-    # Pairs to plot: target FD002 and target FD004
-    pairs_plot = [
-        ("FD002 In-Domain", df[df["Pair"] == "FD002->FD002"].iloc[0]),
-        ("FD001->FD002 Transfer", df[df["Pair"] == "FD001->FD002"].iloc[0]),
-        ("FD004 In-Domain", df[df["Pair"] == "FD004->FD004"].iloc[0]),
-        ("FD001->FD004 Transfer", df[df["Pair"] == "FD001->FD004"].iloc[0]),
-        ("FD003->FD004 Transfer", df[df["Pair"] == "FD003->FD004"].iloc[0]),
+    # Candidate pairs to plot
+    candidate_pairs = [
+        ("FD001 In-Domain", "FD001->FD001", "#2ca02c"),
+        ("FD002 In-Domain", "FD002->FD002", "#2ca02c"),
+        ("FD001->FD002 Transfer", "FD001->FD002", "#d62728"),
+        ("FD004 In-Domain", "FD004->FD004", "#2ca02c"),
+        ("FD001->FD004 Transfer", "FD001->FD004", "#d62728"),
+        ("FD003->FD004 Transfer", "FD003->FD004", "#d62728"),
     ]
+
+    pairs_plot = []
+    bar_colors = []
+    for label, pair_code, color in candidate_pairs:
+        matched = df[df["Pair"] == pair_code]
+        if not matched.empty:
+            pairs_plot.append((label, matched.iloc[0]))
+            bar_colors.append(color)
+
+    if not pairs_plot:
+        return
 
     labels = [p[0] for p in pairs_plot]
     rmse_means = [p[1]["RUL_RMSE_Mean"] for p in pairs_plot]
-    rmse_stds = [p[1]["RUL_RMSE_Std"] for p in pairs_plot]
+    rmse_stds = [float(np.nan_to_num(p[1]["RUL_RMSE_Std"], nan=0.0)) for p in pairs_plot]
     f1_means = [p[1]["Anomaly_F1_Mean"] for p in pairs_plot]
-    f1_stds = [p[1]["Anomaly_F1_Std"] for p in pairs_plot]
+    f1_stds = [float(np.nan_to_num(p[1]["Anomaly_F1_Std"], nan=0.0)) for p in pairs_plot]
     prauc_means = [p[1]["Anomaly_PRAUC_Mean"] for p in pairs_plot]
-    prauc_stds = [p[1]["Anomaly_PRAUC_Std"] for p in pairs_plot]
-
-    bar_colors = ["#2ca02c", "#d62728", "#2ca02c", "#d62728", "#d62728"]
+    prauc_stds = [float(np.nan_to_num(p[1]["Anomaly_PRAUC_Std"], nan=0.0)) for p in pairs_plot]
 
     # Subplot 1: RUL RMSE
     ax1 = axes[0]

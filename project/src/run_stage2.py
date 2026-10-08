@@ -35,6 +35,7 @@ logger = get_logger("run_stage2")
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Stage 2 Novelty Experiments Runner")
     p.add_argument("--config", default="configs/config.yaml", help="Path to config file")
+    p.add_argument("--quick", action="store_true", help="Fast smoke test (1 seed, subset 1, key pairs only)")
     p.add_argument("--skip-cross", action="store_true", help="Skip cross-condition experiments")
     p.add_argument("--skip-conformal", action="store_true", help="Skip conformal prediction experiments")
     p.add_argument("--skip-shap", action="store_true", help="Skip SHAP explainability experiments")
@@ -65,7 +66,7 @@ def main() -> None:
     figures_dir.mkdir(parents=True, exist_ok=True)
 
     print("\n" + "#" * 90)
-    print(" STAGE 2: NOVELTY EXPERIMENTS (NASA C-MAPSS FD001-FD004)")
+    print(f" STAGE 2: NOVELTY EXPERIMENTS {'(QUICK SMOKE TEST)' if args.quick else '(NASA C-MAPSS FD001-FD004)'}")
     print("#" * 90)
     log_environment(logger)
 
@@ -74,12 +75,23 @@ def main() -> None:
     # -----------------------------------------------------------------------
     if not args.skip_cross:
         with Timer("Cross-Condition Generalization", logger):
-            df_cross = run_cross_condition_experiments(
-                raw_dir=raw_dir,
-                results_dir=results_dir,
-                seeds=[0, 1, 2, 3, 4],
-            )
-        print_table_formatted("TABLE 1: Cross-Condition Generalization vs In-Domain (5 Seeds)", df_cross)
+            if args.quick:
+                df_cross = run_cross_condition_experiments(
+                    raw_dir=raw_dir,
+                    results_dir=results_dir,
+                    seeds=[0],
+                    pairs=[
+                        ("FD001", "FD001", 1, 1, "In_Domain"),
+                        ("FD001", "FD002", 1, 2, "Cross_Domain"),
+                    ],
+                )
+            else:
+                df_cross = run_cross_condition_experiments(
+                    raw_dir=raw_dir,
+                    results_dir=results_dir,
+                    seeds=[0, 1, 2, 3, 4],
+                )
+        print_table_formatted("TABLE 1: Cross-Condition Generalization vs In-Domain", df_cross)
     else:
         df_cross = pd.read_csv(results_dir / "cross_condition_transfer.csv") if (results_dir / "cross_condition_transfer.csv").exists() else pd.DataFrame()
 
@@ -92,6 +104,7 @@ def main() -> None:
                 raw_dir=raw_dir,
                 results_dir=results_dir,
                 figures_dir=figures_dir,
+                subsets=[1] if args.quick else [1, 2, 3, 4],
                 target_coverage=0.90,
                 seed=42,
             )
@@ -119,13 +132,24 @@ def main() -> None:
     # Part 4: Ablation Studies
     # -----------------------------------------------------------------------
     if not args.skip_ablations:
-        with Timer("Ablation Studies (3 Seeds)", logger):
-            df_ablations = run_ablation_experiments(
-                raw_dir=raw_dir,
-                results_dir=results_dir,
-                seeds=[0, 1, 2],
-            )
-        print_table_formatted("TABLE 4: Ablation Studies on Preprocessing & Representation (FD001, 3 Seeds)", df_ablations)
+        with Timer("Ablation Studies", logger):
+            if args.quick:
+                df_ablations = run_ablation_experiments(
+                    raw_dir=raw_dir,
+                    results_dir=results_dir,
+                    seeds=[0],
+                    configs=[
+                        ("Baseline", "Smoothing_OFF_W30_EngineeredStats", False, 30, "Engineered_Stats"),
+                        ("Smoothing", "Smoothing_ON_W30_EngineeredStats", True, 30, "Engineered_Stats"),
+                    ],
+                )
+            else:
+                df_ablations = run_ablation_experiments(
+                    raw_dir=raw_dir,
+                    results_dir=results_dir,
+                    seeds=[0, 1, 2],
+                )
+        print_table_formatted("TABLE 4: Ablation Studies on Preprocessing & Representation", df_ablations)
     else:
         df_ablations = pd.read_csv(results_dir / "ablations_summary.csv") if (results_dir / "ablations_summary.csv").exists() else pd.DataFrame()
 

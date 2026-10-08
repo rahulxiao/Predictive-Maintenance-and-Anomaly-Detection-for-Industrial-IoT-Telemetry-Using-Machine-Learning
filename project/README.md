@@ -10,7 +10,54 @@ A rigorous empirical benchmark and research codebase investigating anomaly detec
 
 ---
 
+## ⚡ Quick Start: Download & Run in 60 Seconds
+
+Anyone can download and run this entire research pipeline with zero configuration:
+
+### 1. Download or Clone
+- **Via Git Clone** (Recommended — includes all datasets):
+  ```bash
+  git clone https://github.com/rahulxiao/Predictive-Maintenance-and-Anomaly-Detection-for-Industrial-IoT-Telemetry-Using-Machine-Learning.git
+  cd Predictive-Maintenance-and-Anomaly-Detection-for-Industrial-IoT-Telemetry-Using-Machine-Learning
+  ```
+- **Via ZIP Download**:
+  Click **"Code" -> "Download ZIP"** on GitHub, extract the archive, and open the folder.
+
+> **Dataset Included**: All 12 canonical C-MAPSS raw data files (`train_FD00X.txt`, `test_FD00X.txt`, `RUL_FD00X.txt`) are pre-packaged and tracked directly in `project/data/raw/`. No external dataset downloads are needed. If you ever need the original raw source, it is also mirrored on [Kaggle NASA C-MAPSS](https://www.kaggle.com/datasets/behrad3d/nasa-cmaps).
+
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run with One Click (Interactive or CLI)
+- **On Windows (Double-Click or Command Prompt)**:
+  ```cmd
+  run.bat
+  ```
+  *(Double-clicking `run.bat` opens an interactive menu where you can choose a Fast Smoke Test, Full Benchmark, Demo Mode, or Test Suite).*
+
+- **On Linux / macOS**:
+  ```bash
+  ./run.sh
+  ```
+
+- **Cross-Platform Python CLI**:
+  ```bash
+  # Fast smoke test (subset 1, seed 0 only — completes in ~25 seconds):
+  python run_all.py --quick --skip-latex
+
+  # Instant demo (regenerates all 12 publication plots, tables & IEEE PDF from existing results in ~10s):
+  python run_all.py --only-artifacts --skip-latex
+
+  # Full research benchmark (all 4 subsets, all models, 5 seeds, conformal, SHAP, ablations):
+  python run_all.py
+  ```
+
+---
+
 ## Table of Contents
+0. [Quick Start: Clone & Run in 60 Seconds](#-quick-start-clone--run-in-60-seconds)
 1. [Executive Summary: What We Did](#1-executive-summary-what-we-did)
 2. [Methodology: How We Did It](#2-methodology-how-we-did-it)
 3. [The Four Project Phases](#3-the-four-project-phases)
@@ -350,15 +397,12 @@ pdflatex -interaction=nonstopmode main.tex
 ## License & Citation
 This work is released under the MIT License for research and academic benchmarking.
 
-# 1. Fast smoke test (subset 1, seed 0 only):
-python src/run_all.py --quick
-
-# 2. Only regenerate publication plots, tables, and IEEE PDF from existing CSV results:
-python src/run_all.py --only-artifacts
-
-# 3. Run full models and experiments without compiling LaTeX PDF:
-python src/run_all.py --skip-latex
-
-# 4. Skip tests and use existing Stage 1 results:
-python src/run_all.py --skip-tests --skip-stage1
+```bibtex
+@article{xiao2026predictive,
+  author  = {Xiao, Rahul},
+  title   = {Predictive Maintenance and Anomaly Detection for Industrial IoT Telemetry Using Machine Learning: A Rigorous Empirical Study on NASA C-MAPSS under Leakage-Free Protocols},
+  journal = {Research Monograph and Benchmark Suite},
+  year    = {2026}
+}
+```
 

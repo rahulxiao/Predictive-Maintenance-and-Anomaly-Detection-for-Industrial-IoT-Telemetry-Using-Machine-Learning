@@ -227,9 +227,10 @@ def run_cross_condition_experiments(
     raw_dir: Path,
     results_dir: Path,
     seeds: list[int] = [0, 1, 2, 3, 4],
+    pairs: list[tuple[str, str, int, int, str]] | None = None,
 ) -> pd.DataFrame:
     """
-    Executes Cross-Condition Generalization across 5 seeds:
+    Executes Cross-Condition Generalization across seeds:
       Pairs:
         - FD001 -> FD002
         - FD001 -> FD004
@@ -247,17 +248,18 @@ def run_cross_condition_experiments(
     logger.info("STAGE 2 - EXPERIMENT 1: Cross-Condition Generalization")
     logger.info("=" * 60)
 
-    pairs = [
-        # In-domain references
-        ("FD001", "FD001", 1, 1, "In_Domain"),
-        ("FD002", "FD002", 2, 2, "In_Domain"),
-        ("FD003", "FD003", 3, 3, "In_Domain"),
-        ("FD004", "FD004", 4, 4, "In_Domain"),
-        # Cross-condition transfers
-        ("FD001", "FD002", 1, 2, "Cross_Domain"),
-        ("FD001", "FD004", 1, 4, "Cross_Domain"),
-        ("FD003", "FD004", 3, 4, "Cross_Domain"),
-    ]
+    if pairs is None:
+        pairs = [
+            # In-domain references
+            ("FD001", "FD001", 1, 1, "In_Domain"),
+            ("FD002", "FD002", 2, 2, "In_Domain"),
+            ("FD003", "FD003", 3, 3, "In_Domain"),
+            ("FD004", "FD004", 4, 4, "In_Domain"),
+            # Cross-condition transfers
+            ("FD001", "FD002", 1, 2, "Cross_Domain"),
+            ("FD001", "FD004", 1, 4, "Cross_Domain"),
+            ("FD003", "FD004", 3, 4, "Cross_Domain"),
+        ]
 
     all_seed_results = []
 
@@ -406,13 +408,21 @@ def run_cross_condition_experiments(
     # Compute drop vs in-domain
     for r in summary_rows:
         tgt = r["Target_Domain"]
-        bench = in_domain_benchmarks[tgt]
-        r["Delta_RMSE_vs_InDomain"] = r["RUL_RMSE_Mean"] - bench["RUL_RMSE_Mean"]
-        r["Delta_RMSE_clip_vs_InDomain"] = r["RUL_RMSE_clip_Mean"] - bench["RUL_RMSE_clip_Mean"]
-        r["Delta_NASA_vs_InDomain"] = r["RUL_NASA_Mean"] - bench["RUL_NASA_Mean"]
-        r["Delta_F1_vs_InDomain"] = bench["Anomaly_F1_Mean"] - r["Anomaly_F1_Mean"]
-        r["Delta_PRAUC_vs_InDomain"] = bench["Anomaly_PRAUC_Mean"] - r["Anomaly_PRAUC_Mean"]
-        r["Delta_LeadTime_vs_InDomain"] = bench["Lead_Time_FA05_Mean"] - r["Lead_Time_FA05_Mean"]
+        bench = in_domain_benchmarks.get(tgt)
+        if bench is not None:
+            r["Delta_RMSE_vs_InDomain"] = r["RUL_RMSE_Mean"] - bench["RUL_RMSE_Mean"]
+            r["Delta_RMSE_clip_vs_InDomain"] = r["RUL_RMSE_clip_Mean"] - bench["RUL_RMSE_clip_Mean"]
+            r["Delta_NASA_vs_InDomain"] = r["RUL_NASA_Mean"] - bench["RUL_NASA_Mean"]
+            r["Delta_F1_vs_InDomain"] = bench["Anomaly_F1_Mean"] - r["Anomaly_F1_Mean"]
+            r["Delta_PRAUC_vs_InDomain"] = bench["Anomaly_PRAUC_Mean"] - r["Anomaly_PRAUC_Mean"]
+            r["Delta_LeadTime_vs_InDomain"] = bench["Lead_Time_FA05_Mean"] - r["Lead_Time_FA05_Mean"]
+        else:
+            r["Delta_RMSE_vs_InDomain"] = 0.0
+            r["Delta_RMSE_clip_vs_InDomain"] = 0.0
+            r["Delta_NASA_vs_InDomain"] = 0.0
+            r["Delta_F1_vs_InDomain"] = 0.0
+            r["Delta_PRAUC_vs_InDomain"] = 0.0
+            r["Delta_LeadTime_vs_InDomain"] = 0.0
 
     summary_df = pd.DataFrame(summary_rows)
     out_csv = results_dir / "cross_condition_transfer.csv"
@@ -429,6 +439,7 @@ def run_conformal_prediction_experiments(
     raw_dir: Path,
     results_dir: Path,
     figures_dir: Path,
+    subsets: list[int] | None = None,
     target_coverage: float = 0.90,
     seed: int = 42,
 ) -> pd.DataFrame:
@@ -443,7 +454,8 @@ def run_conformal_prediction_experiments(
     logger.info("STAGE 2 - EXPERIMENT 2: Split Conformal Prediction Intervals")
     logger.info("=" * 60)
 
-    subsets = [1, 2, 3, 4]
+    if subsets is None:
+        subsets = [1, 2, 3, 4]
     conformal_results = []
     models_dict = {}
     quantiles_dict = {}
@@ -576,6 +588,9 @@ def _plot_conformal_six_engines(
 
     for idx, (sub_id, unit_id) in enumerate(fig_engines):
         ax = axes[idx]
+        if sub_id not in subsets_dict:
+            ax.set_visible(False)
+            continue
         test_norm, features, test_rul = subsets_dict[sub_id]
         model = models_dict[sub_id]
         q = quantiles_dict[sub_id]
@@ -825,15 +840,16 @@ def run_ablation_experiments(
     raw_dir: Path,
     results_dir: Path,
     seeds: list[int] = [0, 1, 2],
+    configs: list[tuple[str, str, bool, int, str]] | None = None,
 ) -> pd.DataFrame:
     """
-    Ablations on FD001 over 3 seeds (0, 1, 2):
+    Ablations on FD001 over seeds:
       1. Temporal Smoothing: ON vs OFF
       2. Window Length: 15, 30, 50
       3. Feature Representation: Raw Window, PCA 95% Variance, Engineered Statistics
     """
     logger.info("=" * 60)
-    logger.info("STAGE 2 - EXPERIMENT 4: Ablation Studies (3 Seeds)")
+    logger.info("STAGE 2 - EXPERIMENT 4: Ablation Studies")
     logger.info("=" * 60)
 
     train_raw, test_raw, test_rul = load_raw(raw_dir, 1)
@@ -841,18 +857,19 @@ def run_ablation_experiments(
 
     ablation_runs = []
 
-    configs = [
-        # Baseline Reference
-        ("Baseline", "Smoothing_OFF_W30_EngineeredStats", False, 30, "Engineered_Stats"),
-        # Smoothing Ablation
-        ("Smoothing", "Smoothing_ON_W30_EngineeredStats", True, 30, "Engineered_Stats"),
-        # Window Length Ablation
-        ("Window_Length", "Smoothing_OFF_W15_EngineeredStats", False, 15, "Engineered_Stats"),
-        ("Window_Length", "Smoothing_OFF_W50_EngineeredStats", False, 50, "Engineered_Stats"),
-        # Feature Representation Ablation
-        ("Representation", "Smoothing_OFF_W30_RawWindow", False, 30, "Raw_Window"),
-        ("Representation", "Smoothing_OFF_W30_PCA95", False, 30, "PCA_95"),
-    ]
+    if configs is None:
+        configs = [
+            # Baseline Reference
+            ("Baseline", "Smoothing_OFF_W30_EngineeredStats", False, 30, "Engineered_Stats"),
+            # Smoothing Ablation
+            ("Smoothing", "Smoothing_ON_W30_EngineeredStats", True, 30, "Engineered_Stats"),
+            # Window Length Ablation
+            ("Window_Length", "Smoothing_OFF_W15_EngineeredStats", False, 15, "Engineered_Stats"),
+            ("Window_Length", "Smoothing_OFF_W50_EngineeredStats", False, 50, "Engineered_Stats"),
+            # Feature Representation Ablation
+            ("Representation", "Smoothing_OFF_W30_RawWindow", False, 30, "Raw_Window"),
+            ("Representation", "Smoothing_OFF_W30_PCA95", False, 30, "PCA_95"),
+        ]
 
     for cat, name, use_smoothing, win_len, rep in configs:
         logger.info(f"Running Configuration: {name} (Category: {cat})")

@@ -2,149 +2,27 @@ Metric_Category,Subset,Model,Metric_Name,Value,Source_File,Source_Column
 Anomaly_Detection_OOF,FD001,EWMA_Control_Limits,PR_AUC,N/A (discrete),results/anomaly_metrics_summary.csv,PR_AUC
 Anomaly_Detection_OOF,FD001,EWMA_Control_Limits,F1_Score,0.786 (tuned),results/anomaly_metrics_summary.csv,F1
 Anomaly_Detection_OOF,FD001,EWMA_Control_Limits,Mean_Lead_Time,38.6,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD001,IsolationForest,PR_AUC,0.399 +/- 0.008,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD001,IsolationForest,F1_Score,0.395 +/- 0.009,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD001,IsolationForest,Mean_Lead_Time,64.6 +/- 1.0,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD001,LSTM,PR_AUC,0.976 +/- 0.002,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD001,LSTM,F1_Score,0.892 +/- 0.003,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD001,LSTM,Mean_Lead_Time,29.2 +/- 0.8,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD001,RandomForest,PR_AUC,0.978 +/- 0.001,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD001,RandomForest,F1_Score,0.913 +/- 0.001,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD001,RandomForest,Mean_Lead_Time,28.9 +/- 0.6,results/anomaly_metrics_summary.csv,Mean_Lead_Time
+Anomaly_Detection_OOF,FD001,IsolationForest,PR_AUC,0.395 +/- nan,results/anomaly_metrics_summary.csv,PR_AUC
+Anomaly_Detection_OOF,FD001,IsolationForest,F1_Score,0.390 +/- nan,results/anomaly_metrics_summary.csv,F1
+Anomaly_Detection_OOF,FD001,IsolationForest,Mean_Lead_Time,63.8 +/- nan,results/anomaly_metrics_summary.csv,Mean_Lead_Time
+Anomaly_Detection_OOF,FD001,LSTM,PR_AUC,0.971 +/- nan,results/anomaly_metrics_summary.csv,PR_AUC
+Anomaly_Detection_OOF,FD001,LSTM,F1_Score,0.891 +/- nan,results/anomaly_metrics_summary.csv,F1
+Anomaly_Detection_OOF,FD001,LSTM,Mean_Lead_Time,29.5 +/- nan,results/anomaly_metrics_summary.csv,Mean_Lead_Time
+Anomaly_Detection_OOF,FD001,RandomForest,PR_AUC,0.977 +/- nan,results/anomaly_metrics_summary.csv,PR_AUC
+Anomaly_Detection_OOF,FD001,RandomForest,F1_Score,0.913 +/- nan,results/anomaly_metrics_summary.csv,F1
+Anomaly_Detection_OOF,FD001,RandomForest,Mean_Lead_Time,29.1 +/- nan,results/anomaly_metrics_summary.csv,Mean_Lead_Time
 Anomaly_Detection_OOF,FD001,Static_Threshold,PR_AUC,N/A (discrete),results/anomaly_metrics_summary.csv,PR_AUC
 Anomaly_Detection_OOF,FD001,Static_Threshold,F1_Score,0.841 (tuned),results/anomaly_metrics_summary.csv,F1
 Anomaly_Detection_OOF,FD001,Static_Threshold,Mean_Lead_Time,26.8,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD001,XGBoost,PR_AUC,0.982 +/- 0.001,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD001,XGBoost,F1_Score,0.924 +/- 0.003,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD001,XGBoost,Mean_Lead_Time,28.7 +/- 0.6,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD002,EWMA_Control_Limits,PR_AUC,N/A (discrete),results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD002,EWMA_Control_Limits,F1_Score,0.824 (tuned),results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD002,EWMA_Control_Limits,Mean_Lead_Time,29.3,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD002,IsolationForest,PR_AUC,0.460 +/- 0.010,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD002,IsolationForest,F1_Score,0.444 +/- 0.001,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD002,IsolationForest,Mean_Lead_Time,56.5 +/- 1.2,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD002,LSTM,PR_AUC,0.965 +/- 0.002,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD002,LSTM,F1_Score,0.871 +/- 0.008,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD002,LSTM,Mean_Lead_Time,29.3 +/- 1.0,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD002,RandomForest,PR_AUC,0.965 +/- 0.000,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD002,RandomForest,F1_Score,0.876 +/- 0.002,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD002,RandomForest,Mean_Lead_Time,28.1 +/- 0.6,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD002,Static_Threshold,PR_AUC,N/A (discrete),results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD002,Static_Threshold,F1_Score,0.829 (tuned),results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD002,Static_Threshold,Mean_Lead_Time,31.8,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD002,XGBoost,PR_AUC,0.973 +/- 0.001,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD002,XGBoost,F1_Score,0.898 +/- 0.001,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD002,XGBoost,Mean_Lead_Time,29.2 +/- 0.7,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD003,EWMA_Control_Limits,PR_AUC,N/A (discrete),results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD003,EWMA_Control_Limits,F1_Score,0.742 (tuned),results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD003,EWMA_Control_Limits,Mean_Lead_Time,45.5,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD003,IsolationForest,PR_AUC,0.473 +/- 0.013,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD003,IsolationForest,F1_Score,0.419 +/- 0.008,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD003,IsolationForest,Mean_Lead_Time,54.3 +/- 1.7,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD003,LSTM,PR_AUC,0.977 +/- 0.002,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD003,LSTM,F1_Score,0.896 +/- 0.005,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD003,LSTM,Mean_Lead_Time,29.8 +/- 0.8,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD003,RandomForest,PR_AUC,0.980 +/- 0.002,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD003,RandomForest,F1_Score,0.911 +/- 0.005,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD003,RandomForest,Mean_Lead_Time,29.2 +/- 0.4,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD003,Static_Threshold,PR_AUC,N/A (discrete),results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD003,Static_Threshold,F1_Score,0.788 (tuned),results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD003,Static_Threshold,Mean_Lead_Time,35.8,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD003,XGBoost,PR_AUC,0.985 +/- 0.001,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD003,XGBoost,F1_Score,0.923 +/- 0.003,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD003,XGBoost,Mean_Lead_Time,28.1 +/- 1.0,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD004,EWMA_Control_Limits,PR_AUC,N/A (discrete),results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD004,EWMA_Control_Limits,F1_Score,0.656 (tuned),results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD004,EWMA_Control_Limits,Mean_Lead_Time,35.7,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD004,IsolationForest,PR_AUC,0.459 +/- 0.014,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD004,IsolationForest,F1_Score,0.411 +/- 0.006,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD004,IsolationForest,Mean_Lead_Time,56.2 +/- 1.3,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD004,LSTM,PR_AUC,0.955 +/- 0.002,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD004,LSTM,F1_Score,0.862 +/- 0.005,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD004,LSTM,Mean_Lead_Time,30.4 +/- 0.6,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD004,RandomForest,PR_AUC,0.947 +/- 0.002,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD004,RandomForest,F1_Score,0.866 +/- 0.001,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD004,RandomForest,Mean_Lead_Time,30.2 +/- 1.0,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD004,Static_Threshold,PR_AUC,N/A (discrete),results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD004,Static_Threshold,F1_Score,0.723 (tuned),results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD004,Static_Threshold,Mean_Lead_Time,31.4,results/anomaly_metrics_summary.csv,Mean_Lead_Time
-Anomaly_Detection_OOF,FD004,XGBoost,PR_AUC,0.955 +/- 0.001,results/anomaly_metrics_summary.csv,PR_AUC
-Anomaly_Detection_OOF,FD004,XGBoost,F1_Score,0.883 +/- 0.001,results/anomaly_metrics_summary.csv,F1
-Anomaly_Detection_OOF,FD004,XGBoost,Mean_Lead_Time,29.6 +/- 0.5,results/anomaly_metrics_summary.csv,Mean_Lead_Time
+Anomaly_Detection_OOF,FD001,XGBoost,PR_AUC,0.982 +/- nan,results/anomaly_metrics_summary.csv,PR_AUC
+Anomaly_Detection_OOF,FD001,XGBoost,F1_Score,0.926 +/- nan,results/anomaly_metrics_summary.csv,F1
+Anomaly_Detection_OOF,FD001,XGBoost,Mean_Lead_Time,28.2 +/- nan,results/anomaly_metrics_summary.csv,Mean_Lead_Time
 Health_Index_Spearman,FD001,PCA-PC1,Spearman_Rho,0.6369,results/health_index_spearman_comparison.csv,Spearman_PCA_PC1
 Health_Index_Spearman,FD001,Mahalanobis_Distance,Spearman_Rho,0.7141,results/health_index_spearman_comparison.csv,Spearman_Mahalanobis
-Health_Index_Spearman,FD002,PCA-PC1,Spearman_Rho,0.5456,results/health_index_spearman_comparison.csv,Spearman_PCA_PC1
-Health_Index_Spearman,FD002,Mahalanobis_Distance,Spearman_Rho,0.6901,results/health_index_spearman_comparison.csv,Spearman_Mahalanobis
-Health_Index_Spearman,FD003,PCA-PC1,Spearman_Rho,0.4354,results/health_index_spearman_comparison.csv,Spearman_PCA_PC1
-Health_Index_Spearman,FD003,Mahalanobis_Distance,Spearman_Rho,0.6606,results/health_index_spearman_comparison.csv,Spearman_Mahalanobis
-Health_Index_Spearman,FD004,PCA-PC1,Spearman_Rho,0.6116,results/health_index_spearman_comparison.csv,Spearman_PCA_PC1
-Health_Index_Spearman,FD004,Mahalanobis_Distance,Spearman_Rho,0.6897,results/health_index_spearman_comparison.csv,Spearman_Mahalanobis
 Lead_Time_at_FA_Budget,FD001,Static_Threshold,Lead_Time_at_FA_0.5,48.4,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
 Lead_Time_at_FA_Budget,FD001,EWMA_Control_Limits,Lead_Time_at_FA_0.5,48.8,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
 Lead_Time_at_FA_Budget,FD001,Mahalanobis_HI,Lead_Time_at_FA_0.5,49.5,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD001,IsolationForest,Lead_Time_at_FA_0.5,,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
+Lead_Time_at_FA_Budget,FD001,IsolationForest,Lead_Time_at_FA_0.5,nan,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
 Lead_Time_at_FA_Budget,FD001,RandomForest,Lead_Time_at_FA_0.5,55.0,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
 Lead_Time_at_FA_Budget,FD001,XGBoost,Lead_Time_at_FA_0.5,43.6,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
 Lead_Time_at_FA_Budget,FD001,LSTM,Lead_Time_at_FA_0.5,44.6,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD002,Static_Threshold,Lead_Time_at_FA_0.5,43.2,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD002,EWMA_Control_Limits,Lead_Time_at_FA_0.5,45.8,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD002,Mahalanobis_HI,Lead_Time_at_FA_0.5,26.0,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD002,IsolationForest,Lead_Time_at_FA_0.5,,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD002,RandomForest,Lead_Time_at_FA_0.5,50.8,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD002,XGBoost,Lead_Time_at_FA_0.5,50.4,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD002,LSTM,Lead_Time_at_FA_0.5,50.7,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD003,Static_Threshold,Lead_Time_at_FA_0.5,44.0,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD003,EWMA_Control_Limits,Lead_Time_at_FA_0.5,45.3,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD003,Mahalanobis_HI,Lead_Time_at_FA_0.5,43.6,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD003,IsolationForest,Lead_Time_at_FA_0.5,,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD003,RandomForest,Lead_Time_at_FA_0.5,27.4,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD003,XGBoost,Lead_Time_at_FA_0.5,40.5,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD003,LSTM,Lead_Time_at_FA_0.5,40.9,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD004,Static_Threshold,Lead_Time_at_FA_0.5,20.5,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD004,EWMA_Control_Limits,Lead_Time_at_FA_0.5,,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD004,Mahalanobis_HI,Lead_Time_at_FA_0.5,13.7,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD004,IsolationForest,Lead_Time_at_FA_0.5,,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD004,RandomForest,Lead_Time_at_FA_0.5,18.6,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD004,XGBoost,Lead_Time_at_FA_0.5,15.8,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Lead_Time_at_FA_Budget,FD004,LSTM,Lead_Time_at_FA_0.5,21.2,results/lead_time_at_fa_budgets.csv,LeadTime_at_FA_0.5
-Cross_Condition_Generalization,FD001->FD001,XGBoost,RUL_RMSE_Mean,13.37 +/- 0.11,results/cross_condition_transfer.csv,RUL_RMSE_Mean
-Cross_Condition_Generalization,FD001->FD001,XGBoost,Anomaly_F1_Mean,0.825 +/- 0.006,results/cross_condition_transfer.csv,Anomaly_F1_Mean
-Cross_Condition_Generalization,FD001->FD001,XGBoost,Delta_RMSE_vs_InDomain,0.00,results/cross_condition_transfer.csv,Delta_RMSE_vs_InDomain
-Cross_Condition_Generalization,FD001->FD002,XGBoost,RUL_RMSE_Mean,54.09 +/- 0.37,results/cross_condition_transfer.csv,RUL_RMSE_Mean
-Cross_Condition_Generalization,FD001->FD002,XGBoost,Anomaly_F1_Mean,0.099 +/- 0.014,results/cross_condition_transfer.csv,Anomaly_F1_Mean
-Cross_Condition_Generalization,FD001->FD002,XGBoost,Delta_RMSE_vs_InDomain,27.46,results/cross_condition_transfer.csv,Delta_RMSE_vs_InDomain
-Cross_Condition_Generalization,FD001->FD004,XGBoost,RUL_RMSE_Mean,55.00 +/- 0.40,results/cross_condition_transfer.csv,RUL_RMSE_Mean
-Cross_Condition_Generalization,FD001->FD004,XGBoost,Anomaly_F1_Mean,0.057 +/- 0.006,results/cross_condition_transfer.csv,Anomaly_F1_Mean
-Cross_Condition_Generalization,FD001->FD004,XGBoost,Delta_RMSE_vs_InDomain,27.89,results/cross_condition_transfer.csv,Delta_RMSE_vs_InDomain
-Cross_Condition_Generalization,FD002->FD002,XGBoost,RUL_RMSE_Mean,26.63 +/- 0.08,results/cross_condition_transfer.csv,RUL_RMSE_Mean
-Cross_Condition_Generalization,FD002->FD002,XGBoost,Anomaly_F1_Mean,0.797 +/- 0.002,results/cross_condition_transfer.csv,Anomaly_F1_Mean
-Cross_Condition_Generalization,FD002->FD002,XGBoost,Delta_RMSE_vs_InDomain,0.00,results/cross_condition_transfer.csv,Delta_RMSE_vs_InDomain
-Cross_Condition_Generalization,FD003->FD003,XGBoost,RUL_RMSE_Mean,14.33 +/- 0.15,results/cross_condition_transfer.csv,RUL_RMSE_Mean
-Cross_Condition_Generalization,FD003->FD003,XGBoost,Anomaly_F1_Mean,0.852 +/- 0.005,results/cross_condition_transfer.csv,Anomaly_F1_Mean
-Cross_Condition_Generalization,FD003->FD003,XGBoost,Delta_RMSE_vs_InDomain,0.00,results/cross_condition_transfer.csv,Delta_RMSE_vs_InDomain
-Cross_Condition_Generalization,FD003->FD004,XGBoost,RUL_RMSE_Mean,61.48 +/- 0.40,results/cross_condition_transfer.csv,RUL_RMSE_Mean
-Cross_Condition_Generalization,FD003->FD004,XGBoost,Anomaly_F1_Mean,0.055 +/- 0.001,results/cross_condition_transfer.csv,Anomaly_F1_Mean
-Cross_Condition_Generalization,FD003->FD004,XGBoost,Delta_RMSE_vs_InDomain,34.37,results/cross_condition_transfer.csv,Delta_RMSE_vs_InDomain
-Cross_Condition_Generalization,FD004->FD004,XGBoost,RUL_RMSE_Mean,27.11 +/- 0.07,results/cross_condition_transfer.csv,RUL_RMSE_Mean
-Cross_Condition_Generalization,FD004->FD004,XGBoost,Anomaly_F1_Mean,0.754 +/- 0.006,results/cross_condition_transfer.csv,Anomaly_F1_Mean
-Cross_Condition_Generalization,FD004->FD004,XGBoost,Delta_RMSE_vs_InDomain,0.00,results/cross_condition_transfer.csv,Delta_RMSE_vs_InDomain
-Conformal_Prediction_90,FD001,XGBoost,Empirical_Coverage_Test,84.0%,results/conformal_prediction_results.csv,Empirical_Coverage_Test
-Conformal_Prediction_90,FD001,XGBoost,Mean_Interval_Width_Nominal,40.81,results/conformal_prediction_results.csv,Mean_Interval_Width_Nominal
-Conformal_Prediction_90,FD002,XGBoost,Empirical_Coverage_Test,73.7%,results/conformal_prediction_results.csv,Empirical_Coverage_Test
-Conformal_Prediction_90,FD002,XGBoost,Mean_Interval_Width_Nominal,53.41,results/conformal_prediction_results.csv,Mean_Interval_Width_Nominal
-Conformal_Prediction_90,FD003,XGBoost,Empirical_Coverage_Test,78.0%,results/conformal_prediction_results.csv,Empirical_Coverage_Test
-Conformal_Prediction_90,FD003,XGBoost,Mean_Interval_Width_Nominal,36.32,results/conformal_prediction_results.csv,Mean_Interval_Width_Nominal
-Conformal_Prediction_90,FD004,XGBoost,Empirical_Coverage_Test,75.8%,results/conformal_prediction_results.csv,Empirical_Coverage_Test
-Conformal_Prediction_90,FD004,XGBoost,Mean_Interval_Width_Nominal,60.29,results/conformal_prediction_results.csv,Mean_Interval_Width_Nominal
-Ablation_Study,FD001,Smoothing_OFF_W30_EngineeredStats,RUL_RMSE_Mean,13.38 +/- 0.20,results/ablations_summary.csv,RUL_RMSE_Mean
-Ablation_Study,FD001,Smoothing_OFF_W30_EngineeredStats,Anomaly_F1_Mean,0.828 +/- 0.002,results/ablations_summary.csv,Anomaly_F1_Mean
-Ablation_Study,FD001,Smoothing_OFF_W30_PCA95,RUL_RMSE_Mean,13.30 +/- 0.09,results/ablations_summary.csv,RUL_RMSE_Mean
-Ablation_Study,FD001,Smoothing_OFF_W30_PCA95,Anomaly_F1_Mean,0.833 +/- 0.003,results/ablations_summary.csv,Anomaly_F1_Mean
-Ablation_Study,FD001,Smoothing_OFF_W30_RawWindow,RUL_RMSE_Mean,15.67 +/- 0.30,results/ablations_summary.csv,RUL_RMSE_Mean
-Ablation_Study,FD001,Smoothing_OFF_W30_RawWindow,Anomaly_F1_Mean,0.806 +/- 0.006,results/ablations_summary.csv,Anomaly_F1_Mean
-Ablation_Study,FD001,Smoothing_ON_W30_EngineeredStats,RUL_RMSE_Mean,13.97 +/- 0.35,results/ablations_summary.csv,RUL_RMSE_Mean
-Ablation_Study,FD001,Smoothing_ON_W30_EngineeredStats,Anomaly_F1_Mean,0.835 +/- 0.002,results/ablations_summary.csv,Anomaly_F1_Mean
-Ablation_Study,FD001,Smoothing_OFF_W15_EngineeredStats,RUL_RMSE_Mean,17.51 +/- 0.25,results/ablations_summary.csv,RUL_RMSE_Mean
-Ablation_Study,FD001,Smoothing_OFF_W15_EngineeredStats,Anomaly_F1_Mean,0.764 +/- 0.004,results/ablations_summary.csv,Anomaly_F1_Mean
-Ablation_Study,FD001,Smoothing_OFF_W50_EngineeredStats,RUL_RMSE_Mean,13.93 +/- 0.06,results/ablations_summary.csv,RUL_RMSE_Mean
-Ablation_Study,FD001,Smoothing_OFF_W50_EngineeredStats,Anomaly_F1_Mean,0.852 +/- 0.004,results/ablations_summary.csv,Anomaly_F1_Mean
