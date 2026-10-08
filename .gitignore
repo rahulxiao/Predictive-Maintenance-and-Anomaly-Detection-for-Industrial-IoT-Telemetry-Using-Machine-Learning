@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.pytest_cache/
+
+# Processed and large data cache (reproducible from raw data)
+project/data/processed/
+data/processed/
+*.npy
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE and OS
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# LaTeX temporary files (keep .tex, .bib, .pdf)
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
